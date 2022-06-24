@@ -1,3 +1,28 @@
+.megamenu {
+  position: static;
+}
+
+.megamenu .dropdown-menu {
+  background: none;
+  border: none;
+  width: 100%;
+}
+
+code {
+  color: #745eb1;
+  background: #fff;
+  padding: 0.1rem 0.2rem;
+  border-radius: 0.2rem;
+}
+
+.text-uppercase {
+  letter-spacing: 0.08em;
+}
+.megaimaga
+{
+  background: center center url("https://therichpost.com/wp-content/uploads/2021/11/mega.png")no-repeat; background-size: cover;
+}
+
 .App {
   text-align: center;
 }
