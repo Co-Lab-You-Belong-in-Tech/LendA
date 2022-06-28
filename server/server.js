@@ -1,5 +1,5 @@
 // config import
-import "./config/config.js"
+import { PORT } from "./config/config.js"
 
 // package imports
 import express from "express"
@@ -19,7 +19,6 @@ app.use("/item", itemRouter)
 app.use("/user", userRouter)
 
 // port listening
-const PORT = process.env.PORT || 8000
 app.listen(PORT, () => {
   console.log(`Server listening on port : ${PORT}`)
 })
