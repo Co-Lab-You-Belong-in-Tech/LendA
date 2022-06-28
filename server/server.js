@@ -6,6 +6,7 @@ import express from "express"
 
 // route imports
 import itemRouter from "./routes/itemRoutes.js"
+import userRouter from "./routes/userRoutes.js"
 
 const app = express()
 
@@ -13,8 +14,9 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
-//routes
+// routes
 app.use("/item", itemRouter)
+app.use("/user", userRouter)
 
 // port listening
 const PORT = process.env.PORT || 8000
