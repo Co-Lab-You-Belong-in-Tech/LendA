@@ -1,6 +1,8 @@
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import './App.css';
+import '../src/styles/NavBarNew.css';
 import NavBar from './components/NavBar';
+import NavBarNew from './components/NavBarNew';
 import Home from './pages/Home';
 import ItemDetails from './pages/ItemDetails';
 import LenderProfile from './pages/LenderProfile';
@@ -13,7 +15,7 @@ function App() {
     <>
     <Router>
     <div className="container">
-      <NavBar />
+      <NavBarNew />
       <Routes>
         <Route path="/" element={ <Home />} />
         <Route path="/login" element={ <Login /> } />
