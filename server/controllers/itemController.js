@@ -1,3 +1,5 @@
+import Item from "../models/itemModel.js"
+
 export const getItems = async (req, res) => {
   try {
     res.status(200).json("items")
