@@ -1,5 +1,6 @@
 // config import
 import { PORT } from "./config/config.js"
+import { connectMongo } from "./config/db.js"
 
 // package imports
 import express from "express"
@@ -8,10 +9,10 @@ import express from "express"
 import itemRouter from "./routes/itemRoutes.js"
 import userRouter from "./routes/userRoutes.js"
 
-import { connectMongo } from "./config/db.js"
-
+// init app
 const app = express()
 
+//init db
 connectMongo()
 
 // parse data
