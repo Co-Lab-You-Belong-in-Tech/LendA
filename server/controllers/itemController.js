@@ -1,8 +1,8 @@
 import Item from "../models/itemModel.js"
 
+// get all items in db
 export const getItems = async (req, res) => {
   try {
-    // use find method to get all data
     const items = await Item.find()
     res.status(200).json(items)
   } catch (error) {
@@ -10,6 +10,7 @@ export const getItems = async (req, res) => {
   }
 }
 
+// create an item post
 export const createItem = async (req, res) => {
   try {
     const item = req.body
@@ -30,15 +31,21 @@ export const createItem = async (req, res) => {
 
 export const getItem = async (req, res) => {
   try {
-    res.status(200).json(`got item ${req.params.id}`)
+    const item = await Item.findById(req.params.id)
+    res.status(200).json(item)
   } catch (error) {
     res.status(400).json({ message: error.message })
   }
 }
 
+// update an item post
 export const updateItem = async (req, res) => {
   try {
-    res.status(200).json(`updated item ${req.params.id}`)
+    const item = await Item.findById(req.params.id)
+    const updateItem = await Item.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    })
+    res.status(200).json(updateItem)
   } catch (error) {
     res.status(400).json({ message: error.message })
   }
