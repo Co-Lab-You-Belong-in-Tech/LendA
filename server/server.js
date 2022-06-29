@@ -8,7 +8,11 @@ import express from "express"
 import itemRouter from "./routes/itemRoutes.js"
 import userRouter from "./routes/userRoutes.js"
 
+import { connectMongo } from "./config/db.js"
+
 const app = express()
+
+connectMongo()
 
 // parse data
 app.use(express.json())
