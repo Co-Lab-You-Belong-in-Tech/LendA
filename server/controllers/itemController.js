@@ -29,6 +29,7 @@ export const createItem = async (req, res) => {
   }
 }
 
+// gets a single item via id
 export const getItem = async (req, res) => {
   try {
     const item = await Item.findById(req.params.id)
@@ -41,7 +42,6 @@ export const getItem = async (req, res) => {
 // update an item post
 export const updateItem = async (req, res) => {
   try {
-    const item = await Item.findById(req.params.id)
     const updateItem = await Item.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
     })
@@ -51,9 +51,11 @@ export const updateItem = async (req, res) => {
   }
 }
 
+// delete an item post
 export const deleteItem = async (req, res) => {
   try {
-    res.status(200).json(`deleted item ${req.params.id}`)
+    await Item.findByIdAndDelete(req.params.id)
+    res.status(200).json(`Item successfully deleted`)
   } catch (error) {
     res.status(400).json({ message: error.message })
   }
