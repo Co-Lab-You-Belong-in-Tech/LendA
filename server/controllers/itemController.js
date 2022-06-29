@@ -2,7 +2,8 @@ import Item from "../models/itemModel.js"
 
 export const getItems = async (req, res) => {
   try {
-    res.status(200).json("items")
+    const items = await Item.find()
+    res.status(200).json(items)
   } catch (error) {
     res.status(400).json({ message: error.message })
   }
