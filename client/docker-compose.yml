@@ -1,10 +1,7 @@
 version: "3.8"
 services:
-  client:
-    build:
-      context: .
+  web:
+    build: .
+    container_name: lenda_client_c
     ports:
       - "3000:3000"
-    volumes:
-      - .:/client
-    container_name: lenda_client
