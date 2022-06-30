@@ -3,7 +3,7 @@
 
 .navbar {
 	background-color: #404040;
-	width: 100vw;
+	max-width: 100vw;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
