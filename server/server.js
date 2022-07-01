@@ -1,5 +1,6 @@
 // config import
-import "./config/config.js"
+import { PORT } from "./config/config.js"
+import { connectMongo } from "./config/db.js"
 
 // package imports
 import express from "express"
@@ -8,7 +9,11 @@ import express from "express"
 import itemRouter from "./routes/itemRoutes.js"
 import userRouter from "./routes/userRoutes.js"
 
+// init app
 const app = express()
+
+//init db
+connectMongo()
 
 // parse data
 app.use(express.json())
@@ -19,7 +24,6 @@ app.use("/item", itemRouter)
 app.use("/user", userRouter)
 
 // port listening
-const PORT = process.env.PORT || 8000
 app.listen(PORT, () => {
   console.log(`Server listening on port : ${PORT}`)
 })
