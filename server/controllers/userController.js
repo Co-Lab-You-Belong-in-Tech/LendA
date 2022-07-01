@@ -1,16 +1,16 @@
 import User from "../models/userModel.js"
 
-export const login = async (req, res) => {
+export const register = async (req, res) => {
   try {
-    res.status(200).json("login")
+    res.status(200).json("registered!")
   } catch (error) {
     res.status(400).json({ message: error.message })
   }
 }
 
-export const register = async (req, res) => {
+export const login = async (req, res) => {
   try {
-    res.status(200).json("registered!")
+    res.status(200).json("login")
   } catch (error) {
     res.status(400).json({ message: error.message })
   }
