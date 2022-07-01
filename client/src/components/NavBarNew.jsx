@@ -19,22 +19,21 @@ function NavBarNew() {
     <div className='navbar'>
         <a className="navlogo" href="/">LendA</a>
         <ul className="menu" id= "nav">
-            <li><a className="navlogo-responsive" href="/">LendA</a></li>
-            <li className="menu-items"><a href="/#">Home</a></li>
+            
             <li className="dropdown">
-                <a className="drop" href="/#" onClick={toggleDrop}>Dropdown
+                <a className="drop" href="/#" onClick={toggleDrop}>Browse Categories
                 <i className="fa fa-angle-double-down"></i>
                 <i className="fa fa-angle-double-up"></i>
                 </a>
                     <ul className={isDropped ? "drop-content-responsive": "drop-content"}>
-                        <li><a href="/#">Drop 1</a></li>
-                        <li><a href="/#">Drop 1</a></li>
-                        <li><a href="/#">Drop 1</a></li>
+                        <li><a href="/#">Outdoor</a></li>
+                        <li><a href="/#">Tools</a></li>
+                        <li><a href="/#">Transportation</a></li>
                     </ul>
             </li>
-            <li><a href="/#">News</a></li>
-            <li><a href="/#">Blog</a></li>
-            <li><a href="/#">Contact</a></li>
+            <li><a href="/#">New Post</a></li>
+            <li><a href="/#">My Account</a></li>
+            <li><a href="/#">Log Out</a></li>
            
         </ul>
   </div>

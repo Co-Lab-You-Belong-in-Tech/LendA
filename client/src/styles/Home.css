@@ -1,0 +1,116 @@
+.container {
+    max-width: 100vw;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    margin: 2rem auto;
+    text-align: center;
+}
+
+.search {
+    display: flex;
+    flex-direction: row;
+    margin: 0 auto;
+}
+
+.searchField {
+    width: 30vw;
+    height: 2rem;
+    border: 3px solid #404040;
+    border-radius: 5px 0 0 5px;
+    padding-left: 10px;
+    font-size: 1rem;
+}
+
+.searchButton {
+    width: 3rem;
+    border: 3px solid #404040;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+}
+
+.sLendsHeader {
+    display: flex;
+    flex-direction: row;
+    margin-left: 360px;
+    margin-top: 20px;
+}
+
+.successfulLends {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 0 300px;
+}
+
+.sLendCard {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid #404040;
+    background-color: whitesmoke;
+    max-width: 40rem;
+    max-height: 14rem;
+    border-radius: 5px;
+    margin: 20px auto;
+}
+
+.itemPic {
+    margin: auto 1rem;
+}
+
+.sLendDetails {
+    display: flex;
+    width: 75%;
+    flex-direction: column;
+    line-height: .1rem;
+    padding: 0;
+    margin: 1rem;
+}
+
+.availItemsHeader {
+    display: flex;
+    flex-direction: row;
+    margin-left: 140px;
+    margin-top: 20px;
+}
+
+.itemsAvailable {
+    display: flex;
+    width: 90vw;
+    margin: 20px auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.availItemCard {
+    display: flex;
+    flex-direction: column;
+    width: 16rem;
+    border: 1px solid #404040;
+    border-radius: 5px;
+    margin: 10px 20px;
+}
+
+.availItemPic img {
+    height: 160px;
+    width: 160px;
+    margin: 0 auto;
+}
+
+.availItemPic {
+    border: 1px solid #404040;
+    border-radius: 2px;
+    margin: 10px;
+    display: flex;
+    flex-direction: row;
+    background-color: whitesmoke;
+    
+}
+
