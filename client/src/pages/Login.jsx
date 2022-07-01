@@ -1,38 +1,58 @@
 import React from 'react'
+import { useEffect } from 'react';
 import { useState } from 'react';
 import '../styles/Login.css';
 
 function Login() {
 
-  const eSignUpBox = document.querySelector(".eSignUpBox");
+  const [formState, changeFormState] = useState({
+    activeState: {button: "LOGIN", id: 1},
+    forms: [{ id: 1, button: "LOGIN" }, { id: 2, button: "SIGN UP"}]
+  });
+  
 
-  const eLoginBox = document.querySelector(".eLoginBox");
-  // const [active, setActive] = useState(false);
+  const toggleActive = (index) => {
+    changeFormState({...formState, activeState: formState.forms[index] })
+  }
 
-  // const toggleClass = () => {
-  //   setActive(true);
-  // }
+  const toggleActiveStyles = (index) => {
+    if(formState.forms[index] === formState.activeState) {
+      return "tab-active"
+    } else {
+      return "tab-inactive"
+    }
+  }
+
+  const toggleLogin = (index) => {
+    if(formState.forms[0] === formState.activeState) {
+      return "loginForm"
+    } else {
+      return "loginForm-inactive"
+    }
+  }
+
+  const toggleSignup = (index) => {
+    if(formState.forms[1] === formState.activeState) {
+      return "signupForm"
+    } else {
+      return "signupForm-inactive"
+    }
+  }
 
   return (
     <div className="loginContainer">
 
       <div className="loginBox">
         <div className="lbHeader">
-          <div className="tab">
-            <a href="" onClick={() => {
-              eSignUpBox.classList.add("logMode")
-            }}>Login</a>
+        {formState.forms.map((elements, index) => (
+          <div key={index} className={toggleActiveStyles(index)} onClick={() => {toggleActive(index)}}>
+            <button>{elements.button}</button>
           </div>
-          <div className="tab">
-            <a href="" onClick={() => {
-              eLoginBox.classList.add("regMode")
-            }}>Sign Up</a>
-          </div>   
+          ))}
         </div>
 
-        <div className="formFields">
-          <div className="eLoginBox">
-          <form className="emailLogin">
+        <div className={toggleLogin(0)}>
+        <form className="emailLogin">
             <div className="formGroup">
               <input type="email" placeholder="Email"></input>
             </div>
@@ -46,10 +66,10 @@ function Login() {
               <a href="/#" className="forgotPW">Forgot Password?</a>
             </div>
           </form>
-          </div>
+        </div>
 
-          <div className="eSignUpBox">
-          <form className="emailSignUp">
+        <div className={toggleSignup(1)}>
+        <form className="emailSignUp">
             <div className="formGroup">
               <input type="text" placeholder="First Name"></input>
             </div>
@@ -69,11 +89,9 @@ function Login() {
               <button classsName="signUpButton">Sign Up</button>
             </div>
           </form>
-          </div>
-
         </div>
+       
       </div>
-
 
     </div>
   );
