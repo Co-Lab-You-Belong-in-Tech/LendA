@@ -1,3 +1,5 @@
+import User from "../models/userModel.js"
+
 export const login = async (req, res) => {
   try {
     res.status(200).json("login")
