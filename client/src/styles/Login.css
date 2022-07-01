@@ -11,11 +11,11 @@
   display: flex;
   flex-direction: column;
   width: 35vw;
-  height: 40vh;
   border: 2px solid #404040;
   margin: 3rem auto;
   border-radius: 5px;
   background-color: #404040;
+  padding: 1rem;
 }
 
 .lbHeader {
@@ -24,21 +24,17 @@
   justify-content: space-evenly;
 }
 
-.tab {
+.tab-active {
   display: flex;
   flex-direction: column;
   width: 50%;
   padding: 2rem 2rem;
   text-align: center;
-  background-color: #dcdcdc;
+  background-color: #404040;
+  border-bottom: 2px solid teal;
 }
 
-.tab a {
-  text-decoration: none;
-  color: #404040;
-}
-
-.tabActive {
+.tab-inactive {
   display: flex;
   flex-direction: column;
   width: 50%;
@@ -47,33 +43,50 @@
   background-color: #404040;
 }
 
-.tabActive a {
-  text-decoration: none;
-  color: white;
+.lbHeader button {
+  border: none;
   font-weight: bold;
+  color: #dcdcdc;
+  background-color: transparent;
+  font-size: 1.5rem;  
 }
 
-.formFields {
+.loginForm {
   display: flex;
   flex-direction: column;
-  margin: 0 auto;
+  justify-content: center;
 }
 
-.eLoginBox.regMode {
+.emailLogin {
+  display: flex;
+  flex-direction: column;
+  background-color: #404040;
+}
+
+
+
+.emailSignUp {
+  display: flex;
+  flex-direction: column;
+  background-color: #404040;
+}
+
+.loginForm-inactive {
   display: none;
 }
 
-.eSignUpBox.logMode {
+.signupForm-inactive {
   display: none;
 }
 
 .formGroup {
-  margin: 1rem 0;
+  margin: 1rem 1rem;
+  width: 90%;
 }
 
 .formGroup input {
   height: 2rem;
-  width: 20rem;
+  width: 100%;
 }
 
 .formGroup a {
@@ -87,32 +100,16 @@
   margin: 0 auto;
 }
 
-.eSignUpBox-hidden {
-  display: none;
-}
-
-.eLoginBox {
-  display: flex;
-  flex-direction: column;
-  background-color: #404040;
-}
-
-.loginButton {
+/* .loginButton {
   height: 2rem;
   width: 100%;
-}
+} */
 
-.eLoginBox-hidden {
-  display: none;
-}
-
-.eSignUpBox {
-  display: flex;
-  flex-direction: column;
-  background-color: #404040
-}
-
-button {
-  height: 2rem;
+.formGroup button {
+  height: 3rem;
   width: 100%;
+  font-weight: bold;
+  font-size: 1.2rem;
+  border-radius: 10px;
+  margin: 0 auto;
 }
