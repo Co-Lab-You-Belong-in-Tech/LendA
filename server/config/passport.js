@@ -1,6 +1,6 @@
 import passport from "passport"
 import { Strategy as JWTStrategy, ExtractJwt } from "passport-jwt"
-import { JWT_SECRET } from "./config/js"
+import { JWT_SECRET } from "./config.js"
 import User from "../models/userModel.js"
 
 const options = {
