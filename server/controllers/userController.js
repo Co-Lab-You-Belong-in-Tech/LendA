@@ -78,7 +78,13 @@ export const getUser = async (req, res) => {
 
 export const updateUser = async (req, res) => {
   try {
-    res.status(200).json(req.user)
+    if (req.params.id !== req.user.id) {
+      res.status(400).json("Not Authorized")
+    }
+    const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    })
+    res.status(200).json(updatedUser)
   } catch (error) {
     res.status(400).json({ message: error.message })
   }
