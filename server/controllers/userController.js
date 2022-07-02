@@ -1,19 +1,29 @@
 import bcrypt from "bcrypt"
-import jwt from "jsonwebtoken"
 import User from "../models/userModel.js"
-import { JWT_SECRET } from "../config/config.js"
+import { signJWT } from "../utils.js"
 
 export const register = async (req, res) => {
   try {
     const user = req.body
+
     const hash = await bcrypt.hash(user.password, 10)
     const newUser = await User.create({
       name: user.name,
       email: user.email,
       password: hash,
     })
-    // NOTE FOR LATER !!!! dont send password back to user
-    res.status(200).json(newUser)
+
+    const signedToken = await signJWT(newUser.id)
+    res.status(200).json({
+      success: true,
+      message: "registerd",
+      user: {
+        id: newUser.id,
+        name: newUser.name,
+        email: newUser.email,
+      },
+      token: signedToken.token,
+    })
   } catch (error) {
     res.status(400).json({ message: error.message })
   }
@@ -31,17 +41,18 @@ export const login = async (req, res) => {
       res.status(401).json("Incorrect Password")
     }
 
-    const token = await jwt.sign({ sub: user.id }, JWT_SECRET, {
-      expiresIn: "1d",
+    const signedToken = await signJWT(user.id)
+
+    res.status(200).json({
+      success: true,
+      message: "logged in",
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+      },
+      token: signedToken.token,
     })
-    res
-      .status(200)
-      .json({
-        success: true,
-        user: user,
-        message: "Logged In",
-        token: "Bearer " + token,
-      })
   } catch (error) {
     res.status(400).json({ message: error.message })
   }
@@ -57,7 +68,7 @@ export const getUser = async (req, res) => {
 
 export const updateUser = async (req, res) => {
   try {
-    res.status(200).json(`updated user ${req.params.id}`)
+    res.status(200).json(req.user)
   } catch (error) {
     res.status(400).json({ message: error.message })
   }
