@@ -10,7 +10,7 @@ const options = {
 
 const strategy = new JWTStrategy(options, async (payload, done) => {
   try {
-    const user = await User.findById(payload._id)
+    const user = await User.findById(payload.sub)
     // if there is no user return false
     if (!user) {
       return done(null, false)
