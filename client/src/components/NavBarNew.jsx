@@ -31,8 +31,8 @@ function NavBarNew() {
                         <li><a href="/#">Transportation</a></li>
                     </ul>
             </li>
-            <li><a href="/#">New Post</a></li>
-            <li><a href="/#">My Account</a></li>
+            <li><a href="/Newpost">New Post</a></li>
+            <li><a href="/account">My Account</a></li>
             <li><a href="/#">Log Out</a></li>
            
         </ul>

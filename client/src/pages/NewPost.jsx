@@ -66,7 +66,7 @@ function NewPost() {
             <div className="itemAvail">
               <label>Availability:</label>
               <input type="text"></input>
-              <label>Available On:</label>
+              <label className="availLabel">Available On:</label>
               <input type="text"></input>
               
             </div>
