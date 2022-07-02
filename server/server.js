@@ -1,7 +1,6 @@
 // config import
 import { PORT } from "./config/config.js"
 import { connectMongo } from "./config/db.js"
-import "./config/passport.js"
 
 // package imports
 import express from "express"
