@@ -1,5 +1,4 @@
 import express from "express"
-
 import {
   getItems,
   createItem,
@@ -7,14 +6,15 @@ import {
   updateItem,
   deleteItem,
 } from "../controllers/itemController.js"
+import { authJWT } from "../config/passport.js"
 
 const router = express.Router()
 
 router.get("/", getItems)
-router.post("/", createItem)
+router.post("/", authJWT, createItem)
 
 router.get("/:id", getItem)
-router.put("/:id", updateItem)
-router.delete("/:id", deleteItem)
+router.put("/:id", authJWT, updateItem)
+router.delete("/:id", authJWT, deleteItem)
 
 export default router

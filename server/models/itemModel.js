@@ -3,7 +3,11 @@ import mongoose from "mongoose"
 const itemSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
-    owner: { type: String, required: true },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "User",
+    },
     price: { type: String, required: true },
     deposit: { type: String },
     description: { type: String },
