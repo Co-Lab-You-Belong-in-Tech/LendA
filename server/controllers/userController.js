@@ -92,7 +92,11 @@ export const updateUser = async (req, res) => {
 
 export const deleteUser = async (req, res) => {
   try {
-    res.status(200).json(`deleted user ${req.params.id}`)
+    if (req.params.id !== req.user.id) {
+      res.status(400).json("Not Authorized")
+    }
+    await User.findByIdAndDelete(req.user.id)
+    res.status(200).json(`deleted user ${req.user.id}`)
   } catch (error) {
     res.status(400).json({ message: error.message })
   }
