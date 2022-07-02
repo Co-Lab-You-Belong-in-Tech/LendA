@@ -16,7 +16,7 @@ export const createItem = async (req, res) => {
     const item = req.body
     const newItem = await Item.create({
       name: item.name,
-      owner: item.owner,
+      user: req.user.id,
       price: item.price,
       deposit: item.deposit,
       description: item.description,
