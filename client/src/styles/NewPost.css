@@ -6,6 +6,7 @@
     height: 100vh;
     background-color: #404040;
     font-family: 'Montserrat', sans-serif;
+    box-sizing: border-box;
 }
 
 .postContainer h2 {
@@ -21,7 +22,6 @@
     background-color: whitesmoke;
     padding: 1rem;
     margin: 0 auto;
-    width: 50rem;
     border-radius: 5px;
 }
 
@@ -56,10 +56,11 @@
     display: none;
 }
 
-.lendPost-active {
+.lendPostForm {
     display: flex;
     flex-direction: column;
-    margin: .5rem 2rem;
+    justify-content: space-evenly;
+    margin: 1rem;
 }
 
 .lendPostForm label {
@@ -70,30 +71,39 @@
 }
 
 .lendPostForm input {
-    width: 70%;
+    width: 75%;
     margin-left: .5rem;
     border-radius: 5px;
     border: 1px solid #404040
 }
 
+.lendItem, .lendItemDeets, .lendItemDeets, .itemAvail {
+    display: flex;
+    flex-direction: row;
+    margin-top: .5rem;
+}
+
+.itemAvail input {
+    width: 30%;
+}
+
+.availLabel {
+    margin-left: .5rem;
+}
+
 .lendItemDeets input {
-    height: 5rem;
-    margin-bottom: 1rem;
-   
+    height: 5rem;   
 }
 
 .post {
     display: flex;
     flex-direction: row;
     justify-content: end;
-    margin: 1rem auto;
-
+    margin: 1rem 0;
 }
 
-.postBtn {
-    width: 70%;
-    margin-top: .5rem;
-    margin-right: 1.5rem;
+.post button {
+    width: 30rem;
     font-size: 1.3rem;
     font-weight: bold;
     border-radius: 10px;
@@ -105,6 +115,13 @@
     margin: .5rem 2rem;
 }
 
+.borrowPostForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin: 1rem;
+}
+
 .borrowPostForm label {
     font-size: 1.3rem;
     width: 25%;
@@ -113,7 +130,7 @@
 }
 
 .borrowPostForm input {
-    width: 70%;
+    width: 75%;
     margin-left: .5rem;
     border-radius: 5px;
     border: 1px solid #404040
@@ -123,13 +140,11 @@
     display: flex;
     flex-direction: row;
     justify-content: end;
-    margin: 1rem auto;
+    margin: 1rem 0;
 }
 
-.borrowReqBtn {
-    width: 70%;
-    margin-top: .5rem;
-    margin-right: 1.5rem;
+.borrowReq button {
+    width: 30rem;
     font-size: 1.3rem;
     font-weight: bold;
     border-radius: 10px;
