@@ -5,6 +5,7 @@ import { connectMongo } from "./config/db.js"
 // package imports
 import express from "express"
 import passport from "passport"
+import cors from "cors"
 
 // route imports
 import itemRouter from "./routes/itemRoutes.js"
@@ -15,6 +16,9 @@ const app = express()
 
 // init db
 connectMongo()
+
+// cors
+app.use(cors({ origin: "http://localhost:3000" }))
 
 // init passport
 app.use(passport.initialize())
