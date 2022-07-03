@@ -5,6 +5,7 @@ import { connectMongo } from "./config/db.js"
 // package imports
 import express from "express"
 import passport from "passport"
+import cors from "cors"
 
 // route imports
 import itemRouter from "./routes/itemRoutes.js"
@@ -13,8 +14,11 @@ import userRouter from "./routes/userRoutes.js"
 // init app
 const app = express()
 
-// init db
+// connect to db
 connectMongo()
+
+// cors - only allow front end
+app.use(cors({ origin: "http://localhost:3000" }))
 
 // init passport
 app.use(passport.initialize())

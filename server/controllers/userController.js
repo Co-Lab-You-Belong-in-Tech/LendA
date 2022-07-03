@@ -2,6 +2,7 @@ import bcrypt from "bcrypt"
 import User from "../models/userModel.js"
 import { signJWT } from "../utils.js"
 
+// create a user and issue a JWT token
 export const register = async (req, res) => {
   try {
     const user = req.body
@@ -29,6 +30,7 @@ export const register = async (req, res) => {
   }
 }
 
+// check body and compare password, then issue JWT token
 export const login = async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email })
@@ -58,6 +60,7 @@ export const login = async (req, res) => {
   }
 }
 
+// gets a single user via a param id
 export const getUser = async (req, res) => {
   try {
     const user = await User.findById(req.params.id)
@@ -76,6 +79,7 @@ export const getUser = async (req, res) => {
   }
 }
 
+// updates a user by checking if param id matches token user id
 export const updateUser = async (req, res) => {
   try {
     if (req.params.id !== req.user.id) {
@@ -90,6 +94,7 @@ export const updateUser = async (req, res) => {
   }
 }
 
+// deletes a user only if params id matches and token user id
 export const deleteUser = async (req, res) => {
   try {
     if (req.params.id !== req.user.id) {
