@@ -9,6 +9,7 @@ import LenderProfile from './pages/LenderProfile';
 import Login from './pages/Login';
 import NewPost from './pages/NewPost';
 import UserDash from './pages/UserDash';
+import SignUp from './pages/SignUp';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
       <Routes>
         <Route path="/" element={ <Home />} />
         <Route path="/login" element={ <Login /> } />
+        <Route path="/signup" element={ <SignUp /> } />
         <Route path="/itemdetails" element={ <ItemDetails /> } />
         <Route path="/profile" element={ <LenderProfile /> } />
         <Route path="/newpost" element={ <NewPost /> } />

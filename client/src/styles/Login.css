@@ -1,115 +1,160 @@
+
 .loginContainer {
-  max-width: 100vw;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  background: #dcdcdc;
-  /* background-color: #c1bdba; */
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: 100vw;
 }
 
 .loginBox {
-  display: flex;
-  flex-direction: column;
-  width: 35vw;
-  border: 2px solid #404040;
-  margin: 3rem auto;
-  border-radius: 5px;
-  background-color: #404040;
-  padding: 1rem;
+    width: 25%;
+    margin: 3rem auto;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
 }
 
-.lbHeader {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-}
-
-.tab-active {
-  display: flex;
-  flex-direction: column;
-  width: 50%;
-  padding: 2rem 2rem;
-  text-align: center;
-  background-color: #404040;
-  border-bottom: 2px solid teal;
-}
-
-.tab-inactive {
-  display: flex;
-  flex-direction: column;
-  width: 50%;
-  padding: 2rem 2rem;
-  text-align: center;
-  background-color: #404040;
-}
-
-.lbHeader button {
-  border: none;
-  font-weight: bold;
-  color: #dcdcdc;
-  background-color: transparent;
-  font-size: 1.5rem;  
+.loginBox h3 {
+    font-size: 2rem;
 }
 
 .loginForm {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+    display: flex;
+    flex-direction: column;
 }
 
-.emailLogin {
-  display: flex;
-  flex-direction: column;
-  background-color: #404040;
+.loginForm label {
+    color: gray;
+    margin-left: 10px;
+    margin-top: 1.5rem;
 }
 
-
-
-.emailSignUp {
-  display: flex;
-  flex-direction: column;
-  background-color: #404040;
+.loginForm input {
+    background-color: rgb(238, 236, 236);
+    border: none;
+    border-radius: 20px;
+    font-size: 1rem;
+    padding:.6rem 1rem;
+    margin-top: 10px;
 }
 
-.loginForm-inactive {
-  display: none;
+.loginForm button {
+    background-color: #FF7F00;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: .6rem;
+    margin-top: 40px;
+    cursor: pointer;
 }
 
-.signupForm-inactive {
-  display: none;
+.loginForm button:hover {
+    background-color: #ed7802;
+    border: 2px solid #FF7F00;
 }
 
-.formGroup {
-  margin: 1rem 1rem;
-  width: 90%;
+.forgotpw {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 20px;
 }
 
-.formGroup input {
-  height: 2rem;
-  width: 100%;
+.forgotpw a {
+    color: gray;
 }
 
-.formGroup a {
-  text-align: center;
-  text-decoration: none;
-  color: #404040;
+.orSection {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 20px;
 }
 
-.forgotPW {
-  text-align: center;
-  margin: 0 auto;
+.orLines {
+    display: flex;
+    align-items: center;
 }
 
-/* .loginButton {
-  height: 2rem;
-  width: 100%;
+.orLines::before {
+    content: '';
+    flex-grow: 1;
+    height: 2px;
+    background: rgb(238, 236, 236);
+    min-width: 140px;
+    margin: auto;
+    margin-right: 1rem;
+}
+
+.orLines::after {
+    content: '';
+    flex-grow: 2;
+    height: 2px;
+    background: rgb(238, 236, 236);
+    width: 140px;
+    margin: auto;
+    margin-left: 1rem;
+}
+
+/* .lines {
+    background-color: rgb(238, 236, 236);
+    width: 40%;
+    max-height: 20%;
 } */
 
-.formGroup button {
-  height: 3rem;
-  width: 100%;
-  font-weight: bold;
-  font-size: 1.2rem;
-  border-radius: 10px;
-  margin: 0 auto;
+/* .orLines {
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    z-index: 0;
+}
+
+.orLines::before {
+    content: '';
+    height: 101%;
+    display: block;
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    position: absolute;
+    width: 10%;
+    z-index: -1;
+}
+.orLines::after {
+    content: '';
+    display: block;
+    height: 20%;
+    background: lightseagreen;
+    position: absolute;
+    width: 100%;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+    
+    z-index: -2;
+} */
+
+.createAcct {
+    display: flex;
+    flex-direction: row;
+}
+
+.createAcctBtn {
+    border: 2px solid #00898E;
+    background-color: white;
+    color: #00898E;
+    border-radius: 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: .6rem;
+    margin-top: 30px;
+    width: 100%;
+    cursor: pointer;
+}
+
+.createAcctBtn:hover {
+    background-color: #00898E;
+    color: white;
 }
