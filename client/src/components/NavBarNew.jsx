@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState } from 'react';
 import '../styles/NavBarNew.css';
+import logoa from '../lenda-logoa.png'; 
 
 function NavBarNew() {
     const [isClicked, setIsClicked] = useState(false);
@@ -17,11 +18,14 @@ function NavBarNew() {
   return ( 
     <>
     <div className='navbar'>
-        <a className="navlogo" href="/">LendA</a>
+        <div className="navlogo">
+            <img src={logoa}></img>
+            <a className="navlogo" href="/">LendA</a>
+        </div>
         <ul className="menu" id= "nav">
             
             <li className="dropdown">
-                <a className="drop" href="/#" onClick={toggleDrop}>Browse Categories
+                <a className="drop" href="/#" onClick={toggleDrop}>Explore
                 <i className="fa fa-angle-double-down"></i>
                 <i className="fa fa-angle-double-up"></i>
                 </a>
@@ -32,8 +36,7 @@ function NavBarNew() {
                     </ul>
             </li>
             <li><a href="/Newpost">New Post</a></li>
-            <li><a href="/account">My Account</a></li>
-            <li><a href="/#">Log Out</a></li>
+            <li><button id="account">Account</button></li>
            
         </ul>
   </div>
