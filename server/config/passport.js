@@ -8,7 +8,7 @@ const options = {
   secretOrKey: JWT_SECRET,
 }
 
-const strategy = new JWTStrategy(options, async (payload, done) => {
+const jwtStrategy = new JWTStrategy(options, async (payload, done) => {
   try {
     const user = await User.findById(payload.sub)
     // if there is no user return false
@@ -23,5 +23,5 @@ const strategy = new JWTStrategy(options, async (payload, done) => {
   }
 })
 
-passport.use(strategy)
+passport.use(jwtStrategy)
 export const authJWT = passport.authenticate("jwt", { session: false })

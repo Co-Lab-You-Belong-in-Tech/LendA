@@ -14,10 +14,10 @@ import userRouter from "./routes/userRoutes.js"
 // init app
 const app = express()
 
-// init db
+// connect to db
 connectMongo()
 
-// cors
+// cors - only allow front end
 app.use(cors({ origin: "http://localhost:3000" }))
 
 // init passport
