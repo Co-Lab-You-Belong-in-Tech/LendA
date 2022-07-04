@@ -4,9 +4,10 @@ import Item from "../models/itemModel.js"
 export const getItems = async (req, res) => {
   try {
     const items = await Item.find()
-    res.status(200).json(items)
+    res.status(200).json({ status: "success", data: { items: items } })
   } catch (error) {
-    res.status(400).json({ message: error.message })
+    console.log(error)
+    res.status(400).json({ status: "error", message: error.message })
   }
 }
 
@@ -23,9 +24,9 @@ export const createItem = async (req, res) => {
       category: item.category,
       condition: item.condition,
     })
-    res.status(200).json(newItem)
+    res.status(200).json({ status: "success", data: { item: newItem } })
   } catch (error) {
-    res.status(400).json({ message: error.message })
+    res.status(400).json({ status: "error", message: error.message })
   }
 }
 
@@ -33,9 +34,9 @@ export const createItem = async (req, res) => {
 export const getItem = async (req, res) => {
   try {
     const item = await Item.findById(req.params.id)
-    res.status(200).json(item)
+    res.status(200).json({ status: "success", data: { item: item } })
   } catch (error) {
-    res.status(400).json({ message: error.message })
+    res.status(400).json({ status: "error", message: error.message })
   }
 }
 
@@ -57,9 +58,9 @@ export const updateItem = async (req, res) => {
     const updatedItem = await Item.findByIdAndUpdate(item.id, req.body, {
       new: true,
     })
-    res.status(200).json(updatedItem)
+    res.status(200).json({ status: "success", data: { item: updatedItem } })
   } catch (error) {
-    res.status(400).json({ message: error.message })
+    res.status(400).json({ status: "error", message: error.message })
   }
 }
 
@@ -79,8 +80,8 @@ export const deleteItem = async (req, res) => {
 
     // find and delete item
     await Item.findByIdAndDelete(req.params.id)
-    res.status(200).json(`Item successfully deleted`)
+    res.status(200).json({ status: "success", data: null })
   } catch (error) {
-    res.status(400).json({ message: error.message })
+    res.status(400).json({ status: "error", message: error.message })
   }
 }
