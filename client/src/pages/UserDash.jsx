@@ -1,8 +1,21 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import '../styles/UserDash.css'
 
 function UserDash() {
+
+  const navigate = useNavigate()
+
+  const {user} = useSelector((state) => state.auth)
+
+  useEffect(() => {
+    if(!user) {
+      navigate('/login')
+    }
+
+  }, [user, navigate])
 
 const [appState, changeState] = useState({
   activeObject: null,
@@ -21,8 +34,9 @@ const toggleActiveStyles = (index) => {
   }
 }
 
-  return (
+  return (<>
     <div className="dashContainer">
+      <button>LOG OUT</button>
       <div className="dashNav">
         <ul>
           {appState.objects.map((elements, index) => (
@@ -33,11 +47,13 @@ const toggleActiveStyles = (index) => {
       </div>
       
       <div className="activeList">
+        <h2>My Active Items</h2>
         <div className="itemCard"></div>
       </div>
 
 
     </div>
+    </>
   )
 }
 

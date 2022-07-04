@@ -1,11 +1,24 @@
 import React from 'react'
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { logout, reset } from '../features/auth/authSlice';
 import '../styles/NavBarNew.css';
 import logoa from '../lenda-logoa.png'; 
 
 function NavBarNew() {
     const [isClicked, setIsClicked] = useState(false);
     const [isDropped, setIsDropped] = useState(false);
+
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+    const {user} = useSelector((state) => state.auth)
+
+    const onLogout = () => {
+        dispatch(logout())
+        dispatch(reset())
+        navigate('/')
+    }
 
     const toggleClass = () => {
         setIsClicked(!isClicked)
@@ -23,7 +36,11 @@ function NavBarNew() {
             <a className="navlogo" href="/">LendA</a>
         </div>
         <ul className="menu" id= "nav">
-            
+            {user ? (
+                <li><button id="logout" onClick={onLogout}>LOG OUT</button></li>
+            ): (<>
+                <li><button id="login" onClick={() => {navigate('/login')}}>LOG IN</button></li>
+            </>)}
             <li className="dropdown">
                 <a className="drop" href="/#" onClick={toggleDrop}>Explore
                 <i className="fa fa-angle-double-down"></i>
@@ -36,7 +53,8 @@ function NavBarNew() {
                     </ul>
             </li>
             <li><a href="/Newpost">New Post</a></li>
-            <li><button id="account">Account</button></li>
+            
+            
            
         </ul>
   </div>
