@@ -1,9 +1,25 @@
 import React from 'react'
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { createItem } from '../features/items/itemSlice';
 import '../styles/NewPost.css';
 
 function NewPost() {
+
+  const [formData, setFormData] = useState({
+    name: '',
+    price: '',
+    deposit: '',
+    description: '',
+    category: '',
+    condition: ''
+  })
+
+  const {name, price, deposit, description, category, condition} = formData
+
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const [formState, changeFormState] = useState({
     activeObject: {id: 1},
@@ -37,6 +53,23 @@ function NewPost() {
       return "borrowPostForm-inactive"
     }
   }
+
+  const onChange = (e) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  }
+
+  const onSubmit = e => {
+    e.preventDefault()
+
+    const itemData = {
+      name, price, deposit, description, category, condition,
+    }
+
+    dispatch(createItem(itemData))
+  }
   
 
   return (
@@ -54,13 +87,30 @@ function NewPost() {
 
         
         <div className={toggleActiveLend(0)}>
-          <form className="lendPostForm">
+          <form className="lendPostForm" onSubmit={onSubmit}>
             <div className="lendItem">
-              <label>Item:</label>
-              <input type="text"></input>
+              <label htmlFor="name">Item:</label>
+              <input 
+                type="text" 
+                name="name" 
+                id="name" 
+                value={name} 
+                onChange={onChange}
+                >
+                </input>
             </div>
             <div className="lendItemDeets">
               <label>Item Details:</label>
+              <input type="text"></input>
+              <label>Category</label>
+              <input type="text"></input>
+              <label>Condition</label>
+              <input type="text"></input>
+            </div>
+            <div className="itemPrice">
+              <label>Deposit</label>
+              <input type="text"></input>
+              <label>Price</label>
               <input type="text"></input>
             </div>
             <div className="itemAvail">
@@ -71,7 +121,7 @@ function NewPost() {
               
             </div>
             <div className="post">
-              <button className="postBtn">Post Item</button>
+              <button type='submit' className="postBtn">Post Item</button>
             </div>
           </form>
         </div>

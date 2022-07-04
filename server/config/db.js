@@ -7,7 +7,8 @@ export const connectMongo = async () => {
       const connection = await mongoose.connect(CONNECTION_STRING)
       console.log(`MongoDB connected: ${connection.connection.host}`)
     } else {
-      const connection = await mongoose.connect("mongodb://localhost/lenda")
+      // change back to local host here
+      const connection = await mongoose.connect("mongodb://127.0.0.1/lenda")
       console.log(`MongoDB connected: ${connection.connection.host}`)
     }
   } catch (error) {

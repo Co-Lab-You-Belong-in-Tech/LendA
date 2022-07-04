@@ -1,5 +1,11 @@
-import React from 'react'
-import { useState } from 'react';
+import React from 'react';
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { register, reset } from '../features/auth/authSlice';
+import authService from '../features/auth/authService';
+import BarLoader from 'react-spinners/ClipLoader';
 import '../styles/SignUp.css';
 
 function SignUp() {
@@ -13,6 +19,24 @@ function SignUp() {
 
     const {name, email, password, password2} = formData
 
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+
+    const {user, isLoading, isError, isSuccess, message} = useSelector((state) => state.auth)
+
+    useEffect(() => {
+        if(isError) {
+            toast.error(message)
+        }
+
+        if(isSuccess || user) {
+            navigate('/UserDash')
+        }
+
+        dispatch(reset)
+
+    }, [user, isError, isSuccess, message, navigate, dispatch])
+
     const onChange = (e) => {
         setFormData((prevState) => ({
             ...prevState,
@@ -22,7 +46,31 @@ function SignUp() {
 
     const onSubmit = (e) => {
         e.preventDefault()
+
+        if(password !== password2) {
+            toast.error("Passwords do not match")
+        } else {
+            const userData = {
+                name, email, password,
+            }
+
+            dispatch(register(userData))
+        }
     }
+
+    if(isLoading) {
+        return <BarLoader />
+    }
+
+    // const response = await toast.promise(
+    //     post("/register"),
+    //     {
+    //         pending: 'Creating account',
+    //         success: 'Account created! 👍',
+    //         error: 'Problem creating account'
+    //     } 
+    // );
+    // console.log(response)
 
   return (
     <>
