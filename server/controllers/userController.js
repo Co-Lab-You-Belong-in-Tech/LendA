@@ -16,17 +16,20 @@ export const register = async (req, res) => {
 
     const signedToken = await signJWT(newUser.id)
     res.status(200).json({
-      success: true,
-      message: "registerd",
-      user: {
-        id: newUser.id,
-        name: newUser.name,
-        email: newUser.email,
+      status: "success",
+      data: {
+        user: {
+          id: newUser.id,
+          name: newUser.name,
+          email: newUser.email,
+          createdAt: newUser.createdAt,
+          updatedAt: newUser.updatedAt,
+        },
+        token: signedToken.token,
       },
-      token: signedToken.token,
     })
   } catch (error) {
-    res.status(400).json({ message: error.message })
+    res.status(400).json({ status: "error", message: error.message })
   }
 }
 
@@ -46,17 +49,20 @@ export const login = async (req, res) => {
     const signedToken = await signJWT(user.id)
 
     res.status(200).json({
-      success: true,
-      message: "logged in",
-      user: {
-        id: user.id,
-        name: user.name,
-        email: user.email,
+      status: "success",
+      data: {
+        user: {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          createdAt: user.createdAt,
+          updatedAt: user.updatedAt,
+        },
+        token: signedToken.token,
       },
-      token: signedToken.token,
     })
   } catch (error) {
-    res.status(400).json({ message: error.message })
+    res.status(400).json({ status: "error", message: error.message })
   }
 }
 
@@ -64,18 +70,20 @@ export const login = async (req, res) => {
 export const getUser = async (req, res) => {
   try {
     const user = await User.findById(req.params.id)
-
     res.status(200).json({
-      success: true,
-      user: {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        createdAt: user.createdAt,
+      status: "success",
+      data: {
+        user: {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          createdAt: user.createdAt,
+          updatedAt: user.updatedAt,
+        },
       },
     })
   } catch (error) {
-    res.status(400).json({ message: error.message })
+    res.status(400).json({ status: "error", message: error.message })
   }
 }
 
@@ -88,21 +96,34 @@ export const updateUser = async (req, res) => {
     const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
     })
-    res.status(200).json(updatedUser)
+    res.status(200).json({
+      status: "success",
+      data: {
+        user: {
+          id: updatedUser.id,
+          name: updatedUser.name,
+          email: updatedUser.email,
+          createdAt: updatedUser.createdAt,
+          updatedAt: updatedUser.updatedAt,
+        },
+      },
+    })
   } catch (error) {
-    res.status(400).json({ message: error.message })
+    res.status(400).json({ status: "error", message: error.message })
   }
 }
 
 // deletes a user only if params id matches and token user id
 export const deleteUser = async (req, res) => {
   try {
+    // check if params id = token user id
     if (req.params.id !== req.user.id) {
-      res.status(400).json("Not Authorized")
+      res.status(401).json("Unauthorized")
     }
+    // find and delete the user
     await User.findByIdAndDelete(req.user.id)
-    res.status(200).json(`deleted user ${req.user.id}`)
+    res.status(200).json({ status: "success", data: null })
   } catch (error) {
-    res.status(400).json({ message: error.message })
+    res.status(400).json({ status: "error", message: error.message })
   }
 }
