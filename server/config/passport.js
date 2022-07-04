@@ -10,7 +10,7 @@ const options = {
 
 const jwtStrategy = new JWTStrategy(options, async (payload, done) => {
   try {
-    const user = await User.findById(payload.sub)
+    const user = await User.findById(payload.sub).select("-password")
     // if there is no user return false
     if (!user) {
       return done(null, false)
