@@ -14,7 +14,7 @@ const initialState = {
 // Create new item
 export const createItem = createAsyncThunk('items/create', async (itemData, thunkAPI) => {
     try {
-        const token = thunkAPI.getState().auth.user.token
+        const token = thunkAPI.getState().auth.user.data.token
         return await itemService.createItem(itemData, token)
     } catch (error) {
         const message = 
@@ -27,8 +27,24 @@ export const createItem = createAsyncThunk('items/create', async (itemData, thun
     }
 })
 
+// Get all items
+export const getItems = createAsyncThunk('items/getAll', async (itemData, thunkAPI) => {
+    try {
+        // const token = thunkAPI.getState().auth.user.data.token
+        return await itemService.getItems(itemData)
+    } catch (error) {
+        const message = 
+        (error.response && 
+            error.response.data && 
+            error.response.data.message) || 
+            error.message || 
+            error.toString()
+        return thunkAPI.rejectWithValue(message)
+    }
+})
+
 export const itemSlice = createSlice({
-    name: 'item',
+    name: 'items',
     initialState,
     reducers: {
         reset: (state) => initialState
@@ -48,9 +64,22 @@ export const itemSlice = createSlice({
                 state.isError = true
                 state.message = action.payload
             })
+            .addCase(getItems.pending, (state) => {
+                state.isLoading = true
+            })
+            .addCase(getItems.fulfilled, (state, action) => {
+                state.isLoading = false
+                state.isSuccess = true
+                state.items = action.payload
+            })
+            .addCase(getItems.rejected, (state, action) => {
+                state.isLoading = false
+                state.isError = true
+                state.message = action.payload
+            })
 
     }
 })
 
-export const {reset} = itemSlice.actions
+export const { reset } = itemSlice.actions
 export default itemSlice.reducer

@@ -69,6 +69,7 @@ function NewPost() {
     }
 
     dispatch(createItem(itemData))
+
   }
   
 
@@ -101,23 +102,61 @@ function NewPost() {
             </div>
             <div className="lendItemDeets">
               <label>Item Details:</label>
-              <input type="text"></input>
+              <input 
+                type="text"
+                name="description" 
+                id="description" 
+                value={description} 
+                onChange={onChange}
+                ></input>
               <label>Category</label>
-              <input type="text"></input>
+              <input 
+                type="text"
+                name="category" 
+                id="category" 
+                value={category} 
+                onChange={onChange}
+                ></input>
               <label>Condition</label>
               <input type="text"></input>
             </div>
             <div className="itemPrice">
               <label>Deposit</label>
-              <input type="text"></input>
+              <input 
+                type="text"
+                name="deposit" 
+                id="deposit" 
+                value={deposit} 
+                onChange={onChange}
+                ></input>
               <label>Price</label>
-              <input type="text"></input>
+              <input 
+                type="text"
+                name="price" 
+                id="price" 
+                value={price} 
+                onChange={onChange}
+                ></input>
+              <label>Condition</label>
+              <input 
+                type="text"
+                name="condition" 
+                id="condition" 
+                value={condition} 
+                onChange={onChange}
+                ></input>
             </div>
             <div className="itemAvail">
               <label>Availability:</label>
-              <input type="text"></input>
-              <label className="availLabel">Available On:</label>
-              <input type="text"></input>
+              {/* <input 
+                type="text"
+                name="price" 
+                id="price" 
+                value={price} 
+                onChange={onChange}
+                ></input> */}
+              {/* <label className="availLabel">Available On:</label>
+              <input type="text"></input> */}
               
             </div>
             <div className="post">
