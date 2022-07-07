@@ -53,6 +53,14 @@ function NavBarNew() {
                     </ul>
             </li>
             <li><a href="/Newpost">New Post</a></li>
+            <li className="dropdown">
+                <a className="drop" href="/account">Account</a>
+                <ul className={isDropped ? "drop-content-responsive": "drop-content"}>
+                    <li><a href="/newpost">New Post</a></li>
+                    <li><a href="/newpost">Account</a></li>
+                    <li><a href="/newpost">Log Out</a></li>
+                </ul>
+            </li>
             
             
            

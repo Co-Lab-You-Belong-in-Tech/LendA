@@ -2,7 +2,7 @@
 .dashContainer {
     display: flex;
     flex-direction: column;
-    background-color: #404040;
+    background-color: white;
     height: 100vh;
     width: 100vw;
     box-sizing: border-box;
@@ -50,28 +50,4 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-evenly;
-}
-
-.activeItemCard {
-    display: flex;
-    flex-direction: column;
-    width: 16rem;
-    border: 1px solid #404040;
-    border-radius: 5px;
-    margin: 10px 20px;
-}
-
-.activeItemPic img {
-    height: 160px;
-    width: 160px;
-    margin: 0 auto;
-}
-
-.activeItemPic {
-    border: 1px solid #404040;
-    border-radius: 2px;
-    margin: 10px;
-    display: flex;
-    flex-direction: row;
-    background-color: whitesmoke;
 }

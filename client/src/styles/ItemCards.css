@@ -1,0 +1,67 @@
+
+.activeItemCard {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 16rem;
+    border: none;
+    border-radius: 13px;
+    margin: 10px 20px;
+    padding: 1.2rem;
+    box-sizing: border-box;
+    box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1);
+}
+
+.activeItemPic img {
+    height: 160px;
+    width: 160px;
+    margin: 0 auto;
+}
+
+.activeItemPic {
+    border: 1px solid #404040;
+    border-radius: 2px;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    background-color: whitesmoke;
+}
+
+.activeItemDetails {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.rowOne {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; 
+}
+
+.rowTwo {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; 
+}
+
+.rowThree, .rowFour {
+    display: flex;
+    flex-direction: row;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.buttons button {
+    background-color: #FF7F00;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 65px;
+    padding: .5rem;
+    text-align: center;
+}
