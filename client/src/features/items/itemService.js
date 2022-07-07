@@ -16,12 +16,12 @@ const createItem = async (itemData, token) => {
 }
 
 // Get all items in db
-const getItems = async (itemData) => {
-    const response = await axios.get(API_URL, itemData)
+const getItems = async () => {
+    const response = await axios.get(API_URL)
 
-    // if(response.data) {
-    //     localStorage.setItem('items', JSON.stringify(response.data))
-    // }
+    if(response.data) {
+        localStorage.setItem('items', JSON.stringify(response.data))
+    }
 
     return response.data
 }

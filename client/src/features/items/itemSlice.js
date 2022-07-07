@@ -28,10 +28,10 @@ export const createItem = createAsyncThunk('items/create', async (itemData, thun
 })
 
 // Get all items
-export const getItems = createAsyncThunk('items/getAll', async (itemData, thunkAPI) => {
+export const getItems = createAsyncThunk('items/getAll', async (items, thunkAPI) => {
     try {
         // const token = thunkAPI.getState().auth.user.data.token
-        return await itemService.getItems(itemData)
+        return await itemService.getItems(items)
     } catch (error) {
         const message = 
         (error.response && 
