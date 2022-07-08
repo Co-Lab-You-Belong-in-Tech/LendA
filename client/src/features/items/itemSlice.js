@@ -43,6 +43,23 @@ export const getItems = createAsyncThunk('items/getAll', async (items, thunkAPI)
     }
 })
 
+// Get a single item via id
+export const getItem = createAsyncThunk('items/getItem', 
+async (id, thunkAPI) => {
+    try {
+        
+        return await itemService.getItem(id)
+    } catch (error) {
+        const message = 
+        (error.response && 
+            error.response.data && 
+            error.response.data.message) || 
+            error.message || 
+            error.toString()
+        return thunkAPI.rejectWithValue(message)
+    }
+})
+
 export const itemSlice = createSlice({
     name: 'items',
     initialState,
@@ -73,6 +90,19 @@ export const itemSlice = createSlice({
                 state.items = action.payload
             })
             .addCase(getItems.rejected, (state, action) => {
+                state.isLoading = false
+                state.isError = true
+                state.message = action.payload
+            })
+            .addCase(getItem.pending, (state) => {
+                state.isLoading = true
+            })
+            .addCase(getItem.fulfilled, (state, action) => {
+                state.isLoading = false
+                state.isSuccess = true
+                state.items = action.payload
+            })
+            .addCase(getItem.rejected, (state, action) => {
                 state.isLoading = false
                 state.isError = true
                 state.message = action.payload
