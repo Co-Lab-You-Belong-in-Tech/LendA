@@ -80,7 +80,7 @@ if (isLoading) {
         {items && items.data.items.map((item, index)=> (
           <div key={index}>
             {item._id}{item.name}
-          <ItemCards key={item._id} item={item}/>
+         
           </div>
         )
         )}

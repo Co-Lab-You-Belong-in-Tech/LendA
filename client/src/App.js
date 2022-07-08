@@ -20,10 +20,10 @@ function App() {
     <div className="container">
       <NavBarNew />
       <Routes>
-        <Route path="/" element={ <Home />} />
+        <Route exact path="/" element={ <Home />} />
         <Route path="/login" element={ <Login /> } />
         <Route path="/signup" element={ <SignUp /> } />
-        <Route path="/itemdetails" element={ <ItemDetails /> } />
+        <Route exact path="/itemdetails/:itemId" element={ <ItemDetails /> } />
         <Route path="/profile" element={ <LenderProfile /> } />
         <Route path="/newpost" element={ <NewPost /> } />
         <Route path="/account" element={ <UserDash /> } />

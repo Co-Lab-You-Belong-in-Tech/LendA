@@ -26,10 +26,22 @@ const getItems = async () => {
     return response.data
 }
 
+// Get a single item via id
+const getItem = async (itemId) => {
+    const response = await axios.get(API_URL+itemId)
+
+    // if(response.data) {
+    //     localStorage.setItem('item', JSON.stringify(response.data))
+    // }
+
+    return response.data
+}
+
 
 const itemService = {
     createItem,
     getItems,
+    getItem,
 }
 export default itemService
 
