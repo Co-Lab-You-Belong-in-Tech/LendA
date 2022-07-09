@@ -31,9 +31,9 @@ function NewPost() {
       toast.error(message)
     }
 
-    if (isSuccess || currentUser) {
-      navigate("/")
-    }
+    // if (isSuccess || currentUser) {
+    //   navigate("/")
+    // }
 
     dispatch(reset)
   }, [currentUser, isError, isSuccess, message, navigate, dispatch])
@@ -94,6 +94,7 @@ function NewPost() {
     }
 
     dispatch(createItem(itemData))
+    navigate('/')
   }
 
   return (
@@ -117,7 +118,7 @@ function NewPost() {
         <div className={toggleActiveLend(0)}>
           <form className="lendPostForm" onSubmit={onSubmit}>
             <div className="lendItem">
-              <div className="itemRowOne">
+              <div className="itemRow">
                 <label htmlFor="name">Item:</label>
                 <input
                   type="text"
@@ -128,7 +129,7 @@ function NewPost() {
                 ></input>
               </div>
 
-              <div className="itemRowTwo">
+              <div className="itemRow">
                 <label>Item Details:</label>
                 <input
                   type="text"
@@ -138,7 +139,7 @@ function NewPost() {
                   onChange={onChange}
                 ></input>
               </div>
-              <div className="itemRowThree">
+              <div className="itemRow">
                 <label>Category</label>
                 <input
                   type="text"
@@ -147,8 +148,9 @@ function NewPost() {
                   value={category}
                   onChange={onChange}
                 ></input>
-                <div className="itemRowFour"></div>
-                <div className="itemRowFive">
+                </div>
+                <div className="itemRow"></div>
+                <div className="itemRow">
                   <label>Deposit</label>
                   <input
                     type="text"
@@ -158,7 +160,7 @@ function NewPost() {
                     onChange={onChange}
                   ></input>
                 </div>
-                <div className="itemRowSix">
+                <div className="itemRow">
                   <label>Price</label>
                   <input
                     type="text"
@@ -168,17 +170,18 @@ function NewPost() {
                     onChange={onChange}
                   ></input>
                 </div>
-                <label>Condition</label>
-                <input
-                  type="text"
-                  name="condition"
-                  id="condition"
-                  value={condition}
-                  onChange={onChange}
-                ></input>
-              </div>
-
-              <div className="post">
+                <div className="itemRow">
+                  <label>Condition</label>
+                  <input
+                    type="text"
+                    name="condition"
+                    id="condition"
+                    value={condition}
+                    onChange={onChange}
+                    ></input>
+                </div>
+        
+              <div className="itemRowPost">
                 <button type="submit" className="postBtn">
                   Post Item
                 </button>
@@ -190,21 +193,26 @@ function NewPost() {
         <div className={toggleActiveBorrow(1)}>
           <form className="borrowPostForm">
             <div className="borrowItem">
-              <label>Item:</label>
-              <input type="text"></input>
-            </div>
-            <div className="borrowItemDeets">
-              <label>Reason/Project:</label>
-              <input type="text"></input>
-            </div>
-            <div className="borrowTimeFrame">
-              <label>When:</label>
-              <input type="text"></input>
-              <label>For:</label>
-              <input type="text"></input>
-            </div>
-            <div className="borrowReq">
-              <button className="borrowReqBtn">Request to Borrow</button>
+              <div className="itemRow">
+                <label>Item:</label>
+                <input type="text"></input>
+              </div>
+              <div className="itemRow">
+                <label>Reason/Project:</label>
+                <input type="text"></input>
+              </div>
+              <div className="itemRow">
+                <label>When:</label>
+                <input type="text"></input>
+              </div>
+              <div className="itemRow">
+                
+                <label>For:</label>
+                <input type="text"></input>
+              </div>
+              <div className="itemRowPost">
+                <button className="borrowReqBtn">Request to Borrow</button>
+              </div>
             </div>
           </form>
         </div>
