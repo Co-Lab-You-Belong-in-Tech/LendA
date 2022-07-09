@@ -7,7 +7,6 @@ import '../styles/ItemDetails.css';
 
 function ItemDetails() {
 
-  // const [selectedItem, setSelectedItem] = useState({})
   const params = useParams()
   const id = params.itemId
 

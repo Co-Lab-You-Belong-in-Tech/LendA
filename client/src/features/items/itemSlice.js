@@ -88,7 +88,7 @@ export const itemSlice = createSlice({
             .addCase(getItems.fulfilled, (state, action) => {
                 state.isLoading = false
                 state.isSuccess = true
-                state.items = action.payload
+                state.items = action.payload.data.items
             })
             .addCase(getItems.rejected, (state, action) => {
                 state.isLoading = false

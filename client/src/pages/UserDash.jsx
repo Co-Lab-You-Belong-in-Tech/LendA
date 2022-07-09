@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getItems, reset } from '../features/items/itemSlice';
 import BarLoader from 'react-spinners/ClipLoader';
-import ItemCards from '../components/ItemCards';
 import '../styles/UserDash.css'
 
 function UserDash() {
@@ -28,14 +27,14 @@ function UserDash() {
     }
 
     dispatch(getItems())
-    // console.log("items:", items.data.items)
-    // console.log(items.data.items.length)
+    console.log("items:", items)
+    console.log(items.length)
     // console.log(user.data.user.id)
     
     // console.log(items.data.items.user)
 
   
-    let itemArray = items.data.items
+    let itemArray = items
     // let itemArrayTwo = items.data
 
     let currentUser = user.data.user.id
@@ -45,7 +44,7 @@ function UserDash() {
     //   let itemArray 
     // }
 
-    const itemList = itemArray.filter(function(itemUser) {
+    const itemList = itemArray.filter(function(items) {
       if(itemArray[0].user === currentUser) {
         return true;
       }
@@ -88,7 +87,7 @@ if (isLoading) {
     <div className="dashContainer">
 
     <div>
-    {items.data ? (
+    {items ? (
       <div>
       {items && itemList.map((item, index) => (
       <div key={index}>

@@ -21,8 +21,8 @@ function Home() {
     }
 
     dispatch(getItems())
-    console.log("items:", items)
-    console.log(items.length)
+    console.log("items:", items.data)
+    console.log("#items",items.length)
 
     return () => {
       dispatch(reset())
@@ -34,14 +34,14 @@ function Home() {
     <div className="container">
       <div className="header">
         <div className="logo">
-          <img src={logoa}></img>
+          <img src={logoa} alt="teal L-shaped object with an orange trangular object"></img>
         </div>
         <h4>LendA is your local lending platform</h4>
       </div>
-      {/* search bar start */}
+  
       <div className="search">
         <input
-          value=""
+          value=''
           type="text"
           className="searchField"
           placeholder="What do you need to borrow?"
@@ -51,8 +51,7 @@ function Home() {
           <i className="fa fa-search fa-xl"></i>
         </button>
       </div>
-      {/* search bar end */}
-      {/* successful lend cards start */}
+      
       <div className="sLendsHeader">
         <h2>Successful Lends</h2>
       </div>
@@ -84,15 +83,13 @@ function Home() {
          
           </div>
       </div>
-      {/* successful lends cards end */}
-
-      {/* items available start */}
+     
       <div className="availItemsHeader">
         <h2>Items ready to be borrowed</h2>
       </div>
-      {items.data ? (
+      {items ? (
         <div className="itemsAvailable">
-          {items && items.data.items.map((item, index)=> (
+          {items && items.map((item, index)=> (
           <div className="availItemCard" key={index} id={item._id} 
           onClick={() => {navigate(`/itemdetails/${item._id}`, {replace:true})}}
           >
@@ -118,10 +115,6 @@ function Home() {
         </div>))}
         </div>
         ) : (<h3>No items available</h3>)}
-
-
-      
-      {/* items available end */}
 
 
       </div>
