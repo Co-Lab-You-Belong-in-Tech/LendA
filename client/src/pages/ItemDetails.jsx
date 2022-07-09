@@ -25,7 +25,7 @@ function ItemDetails() {
 
     dispatch(getItems())
     console.log("items", items)
-
+    console.log("items", items.length)
     // let itemArray = items.data.items
 
     // const selectedItem = itemArray.filter(function(id) {
@@ -58,10 +58,7 @@ function ItemDetails() {
           <h2>Back to Searched Results</h2>
         </a>
       </div>
-
-
-          </div>
-
+        {item ? (
           <div className="itemDetails">
             <div className="mainDetails">
               <h2>{item.name}</h2>
@@ -87,14 +84,11 @@ function ItemDetails() {
               </div>
             </div>
           </div>
-        </div>
+        
       ) : (
         <h3>Item not found</h3>
       )}
 
-      {/* End Detail Card */}
-
-      {/* Related Items */}
       <div className="relatedHeader">
         <h2>RELATED ITEMS</h2>
       </div>
@@ -104,7 +98,7 @@ function ItemDetails() {
         <div className="relItemCard"></div>
       </div>
 
-      {/* Other Items by Lender */}
+     
       <div className="otherItemsHeader">
         <h2>OTHER ITEMS BY LENDER</h2>
         <div className="otherItems">
