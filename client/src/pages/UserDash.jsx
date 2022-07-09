@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import { getItems, reset } from "../features/items/itemSlice"
 import BarLoader from "react-spinners/ClipLoader"
-import ItemCards from "../components/ItemCards"
 import "../styles/UserDash.css"
 
 function UserDash() {
@@ -28,6 +27,7 @@ function UserDash() {
     }
 
     dispatch(getItems())
+    console.log("items",items)
     // console.log("items:", items.data.items)
     // console.log(items.data.items.length)
     // console.log(user.data.user.id)
@@ -38,17 +38,13 @@ function UserDash() {
 
     let userId = currentUser.id
 
-    // if (itemArray === 'undefined') {
-    //   let itemArray
-    // }
-
-
+    const itemList = items.filter((userId)=> {
+      if(userId === items.user) {
+        return true;
       }
     })
 
     setItemList(itemList)
-
-
 
     console.log("new itemList", itemList)
     console.log("current user", userId)
@@ -67,7 +63,7 @@ function UserDash() {
     <>
       <div className="dashContainer">
         <div>
-          {items.data ? (
+          {items ? (
             <div>
               {items &&
                 itemList.map((item, index) => (

@@ -93,7 +93,7 @@ function Home() {
         <div className="itemsAvailable">
 
           {items &&
-            items.data.items.map((item, index) => (
+            items.map((item, index) => (
               <div
                 className="availItemCard"
                 key={index}
