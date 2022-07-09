@@ -34,7 +34,6 @@ function UserDash() {
 
     // console.log(items.data.items.user)
 
-    let itemArray = items.data.items
     // let itemArrayTwo = items.data
 
     let userId = currentUser.id
@@ -43,22 +42,13 @@ function UserDash() {
     //   let itemArray
     // }
 
-    const itemList = itemArray.filter(function (itemUser) {
-      if (itemArray[0].currentUser === userId) {
-        return true
+
       }
     })
 
     setItemList(itemList)
 
-    const users = []
-    itemArray.forEach(function (obj) {
-      users.push(obj.currentUser)
-    })
 
-    console.log("itemArray", itemArray)
-    console.log(itemArray.currentUser)
-    console.log("users", users)
 
     console.log("new itemList", itemList)
     console.log("current user", userId)
@@ -66,6 +56,7 @@ function UserDash() {
     return () => {
       dispatch(reset())
     }
+
   }, [currentUser, navigate, isError, message, dispatch, items])
 
   if (isLoading) {
@@ -88,6 +79,7 @@ function UserDash() {
           )}
         </div>
       </div>
+
     </>
   )
 }

@@ -89,8 +89,9 @@ function Home() {
       <div className="availItemsHeader">
         <h2>Items ready to be borrowed</h2>
       </div>
-      {items.data ? (
+      {items ? (
         <div className="itemsAvailable">
+
           {items &&
             items.data.items.map((item, index) => (
               <div
@@ -120,6 +121,7 @@ function Home() {
                   </div>
                   <div className="itemCardRowFour">{item.price}</div>
                 </div>
+
               </div>
             ))}
         </div>

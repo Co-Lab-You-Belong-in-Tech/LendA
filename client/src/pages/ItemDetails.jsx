@@ -58,18 +58,8 @@ function ItemDetails() {
           <h2>Back to Searched Results</h2>
         </a>
       </div>
-      {items ? (
-        <div className="deetsCard">
-          {/* <p>{items.data.item.name}</p> */}
-          <div className="itemPics">
-            <div className="mainPic">
-              {/* <img src="https://media.istockphoto.com/vectors/thumbnail-image-vector-graphic-vector-id1147544807?k=20&m=1147544807&s=612x612&w=0&h=pBhz1dkwsCMq37Udtp9sfxbjaMl27JUapoyYpQm0anc=" /> */}
-            </div>
-            <div className="otherPics">
-              <div className="otherPic"></div>
-              <div className="otherPic"></div>
-              <div className="otherPic"></div>
-            </div>
+
+
           </div>
 
           <div className="itemDetails">
