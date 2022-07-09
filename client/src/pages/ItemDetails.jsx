@@ -7,27 +7,14 @@ import '../styles/ItemDetails.css';
 
 function ItemDetails() {
 
+  // const [selectedItem, setSelectedItem] = useState({})
   const params = useParams()
-  // console.log("id:", params)
-  // console.log(params.itemId)
-
   const id = params.itemId
-
-  // const mapStateToProps = (state, ownProps) => {
-  //   const { visibilityFilter } = state
-  //   const { id } = ownProps
-  //   const item = getItemById(state, id)
-
-  //   return {item, visibilityFilter}
-  // }
-  // const { itemId } = useParams(match)
-
-  // const item = useSelector(state => state.items.find(item => item._id === itemId))
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
-  // const [item, setItem] = useState()
+  
 
   const { user } = useSelector((state) => state.auth)
   const { items, item, isLoading, isError, message } = useSelector((state) => state.items)
@@ -40,11 +27,24 @@ function ItemDetails() {
 
     dispatch(getItems())
     console.log("items", items)
+
+    // let itemArray = items.data.items
+
+    // const selectedItem = itemArray.filter(function(id) {
+    //   if(itemArray[0]._id === id) {
+    //     return true;
+    //   }
+    // })
+
+    // setSelectedItem(...selectedItem)
     
    
     dispatch(getItem(id))
-    console.log("item:", id)
-    console.log(item.data.item)
+    console.log("item id:", id)
+    console.log("item",item)
+    // console.log(selectedItem)
+    // console.log(itemArray)
+    // console.log(itemArray[0])
   
 
     return () => {
@@ -58,41 +58,48 @@ function ItemDetails() {
     // Item Detail Card
     
     <div className="deetsContainer">
+      <div className="deetsHeader">
+        <a href="/#">
+        <i className="fa-solid fa-arrow-left fa-lg"></i>
+        <h2>Back to Searched Results</h2>
+        </a>
+      </div>
       {items  ? (
-        <div className="deetsCard">
+      <div className="deetsCard">
         {/* <p>{items.data.item.name}</p> */}
         <div className="itemPics">
           <div className="mainPic">
-          <img src="https://www.clipartmax.com/png/small/5-53879_free-clipart-of-a-step-ladder-ladder-clipart.png" alt="cartoon style drawing of a ladder" />
-          <i className="fa-solid fa-angle-right"></i>
+            {/* <img src="https://media.istockphoto.com/vectors/thumbnail-image-vector-graphic-vector-id1147544807?k=20&m=1147544807&s=612x612&w=0&h=pBhz1dkwsCMq37Udtp9sfxbjaMl27JUapoyYpQm0anc=" /> */}
           </div>
-        <div className="otherPics">
-          <div className="otherPic"></div>
-          <div className="otherPic"></div>
-          <div className="otherPic"></div>
+          <div className="otherPics">
+            <div className="otherPic"></div>
+            <div className="otherPic"></div>
+            <div className="otherPic"></div>
+          </div>
         </div>
-      </div>
     
       <div className="itemDetails">
         <div className="mainDetails">
-          {/* <h2>{items.data.item.name}</h2> */}
-          <p>This is a great ladder. It will support your weight while making you taller. Nice & sturdy.</p>
+          <h2>{item.name}</h2>
           <p>Rate/day</p>
-          <p><strong>Available:</strong> Anytime</p>
+          <p>Condition: Great</p>
+          <p>Category: Tools</p>
+          <p>This is a great ladder. It will support your weight while making you taller. Nice & sturdy.</p>
+          <button>Contact User</button>
+        </div>
         <div className="lenderDeets">
-          <h5>Lender</h5>
-          <p>{"(14)"}</p>
-          <div className="rating">
-            <i className="fa-solid fa-star"></i>
-            <i className="fa-solid fa-star"></i>
-            <i className="fa-solid fa-star"></i>
-            <i className="fa-solid fa-star"></i>
-            <i className="fa-solid fa-star"></i>
+          <div className="lenderPic">
+            <img></img>
+          </div>
+          <div className="lenderInfo">
+            <h4>Lender</h4>
+            <p>{"(14)"}</p>
+            <div className="rating">
+              <i className="fa-solid fa-star"></i>
+            </div>
           </div>
         </div>
-        <button className="borrowBtn">Borrow It!</button>
       </div>
-    </div>
     </div>
 
       ) : (<h3>Item not found</h3>)}

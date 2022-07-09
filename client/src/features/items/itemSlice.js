@@ -4,6 +4,7 @@ import itemService from './itemService'
 
 const initialState = {
     items: [],
+    item: {},
     isError: false,
     isSuccess: false,
     isLoading: false,
@@ -100,7 +101,7 @@ export const itemSlice = createSlice({
             .addCase(getItem.fulfilled, (state, action) => {
                 state.isLoading = false
                 state.isSuccess = true
-                state.items = action.payload
+                state.item = action.payload.data.item
             })
             .addCase(getItem.rejected, (state, action) => {
                 state.isLoading = false

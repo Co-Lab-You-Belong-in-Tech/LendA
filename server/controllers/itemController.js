@@ -34,6 +34,7 @@ export const getItem = async (req, res) => {
   try {
     const item = await Item.findById(req.params.id)
     res.status(200).json({ status: "success", data: item })
+
   } catch (error) {
     res.status(400).json({ status: "error", message: error.message })
   }
