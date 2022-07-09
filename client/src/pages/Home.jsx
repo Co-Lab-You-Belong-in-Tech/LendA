@@ -1,23 +1,23 @@
-import React from 'react';
-import { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { getItems, reset } from '../features/items/itemSlice';
-import '../styles/Home.css';
-import logoa from '../lenda-logoa.png'; 
+import React from "react"
+import { useEffect } from "react"
+import { useNavigate } from "react-router-dom"
+import { useSelector, useDispatch } from "react-redux"
+import { getItems, reset } from "../features/items/itemSlice"
+import "../styles/Home.css"
+import logoa from "../lenda-logoa.png"
 
 function Home() {
-
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
-  const { user } = useSelector((state) => state.auth)
-  const { items, isLoading, isError, message } = useSelector((state) => state.items)
-
+  const { currentUser } = useSelector((state) => state.auth)
+  const { items, isLoading, isError, message } = useSelector(
+    (state) => state.items
+  )
 
   useEffect(() => {
-    if(isError) {
-      console.log(message);
+    if (isError) {
+      console.log(message)
     }
 
     dispatch(getItems())
@@ -27,8 +27,7 @@ function Home() {
     return () => {
       dispatch(reset())
     }
-  
-  }, [user, navigate, isError, message, dispatch])
+  }, [currentUser, navigate, isError, message, dispatch])
 
   return (
     <div className="container">
@@ -45,8 +44,7 @@ function Home() {
           type="text"
           className="searchField"
           placeholder="What do you need to borrow?"
-        >
-        </input>
+        ></input>
         <button type="submit" className="searchButton">
           <i className="fa fa-search fa-xl"></i>
         </button>
@@ -59,30 +57,31 @@ function Home() {
 
       <div className="successfulLends">
         <div className="sLendCard">
-            <div className="itemPic">
-              <img src="https://media.istockphoto.com/vectors/thumbnail-image-vector-graphic-vector-id1147544807?k=20&m=1147544807&s=612x612&w=0&h=pBhz1dkwsCMq37Udtp9sfxbjaMl27JUapoyYpQm0anc=" alt="random placeholder"></img>
-            </div>
-            <div className="sLendDetails">
-              <p><strong>Nirmal super thanks Henry</strong></p>
-              <p>for lending a</p>
-              <p><strong>Laptop</strong></p>
-              <div className="timeLocation">
+          <div className="itemPic">
+            <img
+              src="https://media.istockphoto.com/vectors/thumbnail-image-vector-graphic-vector-id1147544807?k=20&m=1147544807&s=612x612&w=0&h=pBhz1dkwsCMq37Udtp9sfxbjaMl27JUapoyYpQm0anc="
+              alt="random placeholder"
+            ></img>
+          </div>
+          <div className="sLendDetails">
+            <p>
+              <strong>Nirmal super thanks Henry</strong>
+            </p>
+            <p>for lending a</p>
+            <p>
+              <strong>Laptop</strong>
+            </p>
+            <div className="timeLocation">
               <p>10 minutes ago</p> <p>Seattle, WA</p>
-              </div>
             </div>
           </div>
+        </div>
 
-          <div className="sLendCard">
-           
-          </div>
+        <div className="sLendCard"></div>
 
-          <div className="sLendCard">
-           
-          </div>
+        <div className="sLendCard"></div>
 
-          <div className="sLendCard">
-         
-          </div>
+        <div className="sLendCard"></div>
       </div>
       {/* successful lends cards end */}
 
@@ -92,39 +91,44 @@ function Home() {
       </div>
       {items.data ? (
         <div className="itemsAvailable">
-          {items && items.data.items.map((item, index)=> (
-          <div className="availItemCard" key={index} id={item._id} 
-          onClick={() => {navigate(`/itemdetails/${item._id}`, {replace:true})}}
-          >
-          <div className="availItemPic">
-            <img src="https://media.istockphoto.com/vectors/thumbnail-image-vector-graphic-vector-id1147544807?k=20&m=1147544807&s=612x612&w=0&h=pBhz1dkwsCMq37Udtp9sfxbjaMl27JUapoyYpQm0anc=" alt="random placeholder"></img>
-          </div>
-          <div className="itemCardDetails">
-            <div className="itemCardRowOne">
-              <h3>{item.name}</h3>
-              <p>4.96 <i className="fa-solid fa-star"></i></p>
-            </div>
-            <div className="itemCardRowTwo">
-              Location
-            </div>
-            <div className="itemCardRowThree">
-              <p>{item.description}</p>
+          {items &&
+            items.data.items.map((item, index) => (
+              <div
+                className="availItemCard"
+                key={index}
+                id={item._id}
+                onClick={() => {
+                  navigate(`/itemdetails/${item._id}`, { replace: true })
+                }}
+              >
+                <div className="availItemPic">
+                  <img
+                    src="https://media.istockphoto.com/vectors/thumbnail-image-vector-graphic-vector-id1147544807?k=20&m=1147544807&s=612x612&w=0&h=pBhz1dkwsCMq37Udtp9sfxbjaMl27JUapoyYpQm0anc="
+                    alt="random placeholder"
+                  ></img>
+                </div>
+                <div className="itemCardDetails">
+                  <div className="itemCardRowOne">
+                    <h3>{item.name}</h3>
+                    <p>
+                      4.96 <i className="fa-solid fa-star"></i>
+                    </p>
+                  </div>
+                  <div className="itemCardRowTwo">Location</div>
+                  <div className="itemCardRowThree">
+                    <p>{item.description}</p>
+                  </div>
+                  <div className="itemCardRowFour">{item.price}</div>
+                </div>
               </div>
-            <div className="itemCardRowFour">
-              {item.price}
-            </div>
-            
-          </div>
-        </div>))}
+            ))}
         </div>
-        ) : (<h3>No items available</h3>)}
+      ) : (
+        <h3>No items available</h3>
+      )}
 
-
-      
       {/* items available end */}
-
-
-      </div>
+    </div>
   )
 }
 

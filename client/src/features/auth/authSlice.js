@@ -2,11 +2,11 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 import authService from "./authService"
 
 // Get user from localStorage
-const user = JSON.parse(localStorage.getItem("user"))
+const currentUser = JSON.parse(localStorage.getItem("currentUser"))
 
 const initialState = {
-  currentUser: null,
-  user: user ? user : null,
+  currentUser: currentUser ? currentUser : null,
+  user: null,
   isError: false,
   isSuccess: false,
   isLoading: false,
@@ -55,7 +55,7 @@ export const authSlice = createSlice({
     },
     logout: (state) => {
       localStorage.removeItem("user")
-      state.user = null
+      state.currentUser = null
     },
   },
   extraReducers: (builder) => {
@@ -67,13 +67,13 @@ export const authSlice = createSlice({
       .addCase(register.fulfilled, (state, action) => {
         state.isLoading = false
         state.isSuccess = true
-        state.user = action.payload.data
+        state.currentUser = action.payload.data
       })
       .addCase(register.rejected, (state, action) => {
         state.isLoading = false
         state.isError = true
         state.message = action.payload.message
-        state.user = null
+        state.currentUser = null
       })
       // Login User
       .addCase(login.pending, (state) => {
@@ -82,13 +82,13 @@ export const authSlice = createSlice({
       .addCase(login.fulfilled, (state, action) => {
         state.isLoading = false
         state.isSuccess = true
-        state.user = action.payload
+        state.currentUser = action.payload
       })
       .addCase(login.rejected, (state, action) => {
         state.isLoading = false
         state.isError = true
         state.message = action.payload
-        state.user = null
+        state.currentUser = null
       })
   },
 })
