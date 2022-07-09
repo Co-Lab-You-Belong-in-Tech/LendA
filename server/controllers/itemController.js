@@ -4,7 +4,35 @@ import User from "../models/userModel.js"
 // get all items in db
 export const getItems = async (req, res) => {
   try {
-    res.status(200).json({ status: "success", ...res.paginate })
+    const page = parseInt(req.query.page)
+    const limit = parseInt(req.query.limit)
+
+    const startIndex = (page - 1) * limit
+    const endIndex = page * limit
+
+    const data = {}
+
+    if (endIndex < (await Item.countDocuments().exec())) {
+      data.next = {
+        page: page + 1,
+        limit: limit,
+      }
+    }
+
+    if (startIndex > 0) {
+      data.previous = {
+        page: page - 1,
+        limit: limit,
+      }
+    }
+
+    data.data = await Item.find()
+      .limit(limit)
+      .skip(startIndex)
+      .populate("owner", "-password")
+      .exec()
+
+    res.status(200).json({ status: "success", ...data })
   } catch (error) {
     console.log(error)
     res.status(400).json({ status: "error", message: error.message })
