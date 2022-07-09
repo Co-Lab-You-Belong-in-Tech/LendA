@@ -2,19 +2,20 @@ import bcrypt from "bcrypt"
 import User from "../models/userModel.js"
 import { signJWT } from "../utils.js"
 
-// create a user and issue a JWT token
+// REGISTER
 export const register = async (req, res) => {
   try {
-    const user = req.body
-
-    const hash = await bcrypt.hash(user.password, 10)
+    // hash password and create new user
+    const hash = await bcrypt.hash(req.body.password, 10)
     const newUser = await User.create({
-      name: user.name,
-      email: user.email,
+      name: req.body.name,
+      email: req.body.email,
       password: hash,
     })
 
+    // sign token
     const signedToken = await signJWT(newUser.id)
+
     res.status(200).json({
       status: "success",
       data: {
@@ -31,19 +32,22 @@ export const register = async (req, res) => {
   }
 }
 
-// check body and compare password, then issue JWT token
+// LOGIN
 export const login = async (req, res) => {
   try {
-    const user = await User.findOne({ email: req.body.email })
+    // find user by the email
+    const user = await User.findOne({ email: req.body.email }).populate("items")
     if (!user) {
       res.status(404).json("error")
     }
 
+    // compare the password
     const match = await bcrypt.compare(req.body.password, user.password)
     if (!match) {
       res.status(401).json("Incorrect Password")
     }
 
+    // sign token
     const signedToken = await signJWT(user.id)
 
     res.status(200).json({
@@ -52,6 +56,7 @@ export const login = async (req, res) => {
         id: user.id,
         name: user.name,
         email: user.email,
+        items: user.items,
         createdAt: user.createdAt,
         updatedAt: user.updatedAt,
         token: signedToken.token,
