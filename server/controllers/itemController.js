@@ -3,8 +3,7 @@ import Item from "../models/itemModel.js"
 // get all items in db
 export const getItems = async (req, res) => {
   try {
-    const items = await Item.find()
-    res.status(200).json({ status: "success", data: { items: items }})
+    res.status(200).json({ status: "success", ...res.paginate })
   } catch (error) {
     console.log(error)
     res.status(400).json({ status: "error", message: error.message })
@@ -24,7 +23,7 @@ export const createItem = async (req, res) => {
       category: item.category,
       condition: item.condition,
     })
-    res.status(200).json({ status: "success", data: { item: newItem } })
+    res.status(200).json({ status: "success", data: newItem })
   } catch (error) {
     res.status(400).json({ status: "error", message: error.message })
   }
@@ -34,7 +33,8 @@ export const createItem = async (req, res) => {
 export const getItem = async (req, res) => {
   try {
     const item = await Item.findById(req.params.id)
-    res.status(200).json({ status: "success", data: { item: item } })
+    res.status(200).json({ status: "success", data: item })
+
   } catch (error) {
     res.status(400).json({ status: "error", message: error.message })
   }
@@ -58,7 +58,7 @@ export const updateItem = async (req, res) => {
     const updatedItem = await Item.findByIdAndUpdate(item.id, req.body, {
       new: true,
     })
-    res.status(200).json({ status: "success", data: { item: updatedItem } })
+    res.status(200).json({ status: "success", data: updatedItem })
   } catch (error) {
     res.status(400).json({ status: "error", message: error.message })
   }

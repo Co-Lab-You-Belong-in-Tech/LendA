@@ -18,13 +18,11 @@ export const register = async (req, res) => {
     res.status(200).json({
       status: "success",
       data: {
-        user: {
-          id: newUser.id,
-          name: newUser.name,
-          email: newUser.email,
-          createdAt: newUser.createdAt,
-          updatedAt: newUser.updatedAt,
-        },
+        id: newUser.id,
+        name: newUser.name,
+        email: newUser.email,
+        createdAt: newUser.createdAt,
+        updatedAt: newUser.updatedAt,
         token: signedToken.token,
       },
     })
@@ -51,13 +49,11 @@ export const login = async (req, res) => {
     res.status(200).json({
       status: "success",
       data: {
-        user: {
-          id: user.id,
-          name: user.name,
-          email: user.email,
-          createdAt: user.createdAt,
-          updatedAt: user.updatedAt,
-        },
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        createdAt: user.createdAt,
+        updatedAt: user.updatedAt,
         token: signedToken.token,
       },
     })
@@ -73,13 +69,11 @@ export const getUser = async (req, res) => {
     res.status(200).json({
       status: "success",
       data: {
-        user: {
-          id: user.id,
-          name: user.name,
-          email: user.email,
-          createdAt: user.createdAt,
-          updatedAt: user.updatedAt,
-        },
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        createdAt: user.createdAt,
+        updatedAt: user.updatedAt,
       },
     })
   } catch (error) {
@@ -99,13 +93,11 @@ export const updateUser = async (req, res) => {
     res.status(200).json({
       status: "success",
       data: {
-        user: {
-          id: updatedUser.id,
-          name: updatedUser.name,
-          email: updatedUser.email,
-          createdAt: updatedUser.createdAt,
-          updatedAt: updatedUser.updatedAt,
-        },
+        id: updatedUser.id,
+        name: updatedUser.name,
+        email: updatedUser.email,
+        createdAt: updatedUser.createdAt,
+        updatedAt: updatedUser.updatedAt,
       },
     })
   } catch (error) {
