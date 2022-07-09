@@ -35,7 +35,7 @@ function UserDash() {
     // console.log(items.data.items.user)
 
   
-    let itemArray = items.data.items
+    // let itemArray = items.data.items
     // let itemArrayTwo = items.data
 
     let currentUser = user.data.user.id
@@ -45,8 +45,8 @@ function UserDash() {
     //   let itemArray 
     // }
 
-    const itemList = itemArray.filter(function(itemUser) {
-      if(itemArray[0].user === currentUser) {
+    const itemList = items.filter(function(itemUser) {
+      if(items[0].user === currentUser) {
         return true;
       }
     })
@@ -54,12 +54,12 @@ function UserDash() {
     setItemList(itemList)
 
     const users = [];
-    itemArray.forEach(function(obj){
+    items.forEach(function(obj){
       users.push(obj.user)
     })
 
-    console.log("itemArray",itemArray)
-    console.log(itemArray.user)
+    // console.log("itemArray",itemArray)
+    // console.log(itemArray.user)
     console.log("users",users)
 
     console.log("new itemList",itemList)
@@ -88,7 +88,7 @@ if (isLoading) {
     <div className="dashContainer">
 
     <div>
-    {items.data ? (
+    {items ? (
       <div>
       {items && itemList.map((item, index) => (
       <div key={index}>

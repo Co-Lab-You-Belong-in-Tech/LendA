@@ -41,7 +41,7 @@ function ItemDetails() {
    
     dispatch(getItem(id))
     console.log("item id:", id)
-    console.log("item",item)
+    console.log("item", item)
     // console.log(selectedItem)
     // console.log(itemArray)
     // console.log(itemArray[0])
@@ -64,7 +64,7 @@ function ItemDetails() {
         <h2>Back to Searched Results</h2>
         </a>
       </div>
-      {items  ? (
+      {item  ? (
       <div className="deetsCard">
         {/* <p>{items.data.item.name}</p> */}
         <div className="itemPics">

@@ -90,9 +90,9 @@ function Home() {
       <div className="availItemsHeader">
         <h2>Items ready to be borrowed</h2>
       </div>
-      {items.data ? (
+      {items ? (
         <div className="itemsAvailable">
-          {items && items.data.items.map((item, index)=> (
+          {items && items.map((item, index)=> (
           <div className="availItemCard" key={index} id={item._id} 
           onClick={() => {navigate(`/itemdetails/${item._id}`, {replace:true})}}
           >
