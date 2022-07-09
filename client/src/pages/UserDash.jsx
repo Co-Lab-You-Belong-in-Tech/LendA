@@ -1,5 +1,5 @@
 import React from 'react'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getItems, reset } from '../features/items/itemSlice';
@@ -12,16 +12,11 @@ function UserDash() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
+  const [itemList, setItemList] = useState([])
+
   const { user } = useSelector((state) => state.auth)
   const { items, isLoading, isError, message } = useSelector((state) => state.items)
 
-  // const mapStateToProps = state => {
-  //   return {
-  //     name: getItemName(state),
-  //     id: getItemId(state),
-  //     user: getItemUser(state)
-  //   };
-  // };
 
   useEffect(() => {
     if(isError) {
@@ -33,8 +28,46 @@ function UserDash() {
     }
 
     dispatch(getItems())
-    console.log("items:", items)
-    console.log(items.length)
+    // console.log("items:", items.data.items)
+    // console.log(items.data.items.length)
+    // console.log(user.data.user.id)
+    
+    // console.log(items.data.items.user)
+
+  
+    let itemArray = items.data.items
+    // let itemArrayTwo = items.data
+
+    let currentUser = user.data.user.id
+
+
+    // if (itemArray === 'undefined') {
+    //   let itemArray 
+    // }
+
+    const itemList = itemArray.filter(function(itemUser) {
+      if(itemArray[0].user === currentUser) {
+        return true;
+      }
+    })
+
+    setItemList(itemList)
+
+    const users = [];
+    itemArray.forEach(function(obj){
+      users.push(obj.user)
+    })
+
+    console.log("itemArray",itemArray)
+    console.log(itemArray.user)
+    console.log("users",users)
+
+    console.log("new itemList",itemList)
+    console.log("current user",currentUser)
+
+
+    
+
 
     return () => {
       dispatch(reset())
@@ -42,22 +75,10 @@ function UserDash() {
   
   }, [user, navigate, isError, message, dispatch])
 
-// const [appState, changeState] = useState({
-//   activeObject: null,
-//   objects: [{ id: 1, button: "LENDING" }, { id: 2, button: "BORROWING" }, { id: 3, button: "HISTORY" }, { id: 4, button: "SAVED ITEMS" }]
-// });
 
-// const toggleActive = (index) => {
-//   changeState({ ...appState, activeObject: appState.objects[index]});
-// }
 
-// const toggleActiveStyles = (index) => {
-//   if (appState.objects[index] === appState.activeObject) {
-//     return "activeCards"
-//   } else {
-//     return "inactiveCards"
-//   }
-// }
+
+
 
 if (isLoading) {
   return <BarLoader />
@@ -65,45 +86,24 @@ if (isLoading) {
 
   return (<>
     <div className="dashContainer">
-      {/* <div className="dashNav">
-        <ul>
-          {appState.objects.map((elements, index) => (
-            <li key={index} className={toggleActiveStyles(index)} onClick={() => {toggleActive(index)}}><button>{elements.button}</button></li>
-          ))}
-          
-        </ul>
-      </div> */}
-      <div className="myItemsHeader">
-        <h2>My Active Items</h2>
-      </div>
-      {items.data ? ( <div>
-        {items && items.data.items.map((item, index)=> (
-          <div key={index}>
-            {item._id}{item.name}
-         
-          </div>
-        )
-        )}
 
-      </div>
-      
-       ) : (<h3>No active items</h3>)}
+    <div>
+    {items.data ? (
+      <div>
+      {items && itemList.map((item, index) => (
+      <div key={index}>
+        {item.name}
 
-        {/* <div className="activeList">
-          <ItemCards />
+      </div>))}
     
-      </div> */}
-      
+    </div>
+    ) : (<h3>No items</h3>)}
 
-      {/* // ) : (<h3>You do not have any active items</h3>)}   */}
-          
-        
-      
-
+    </div>
 
     </div>
     </>
-  )
-}
+  )}
+  
 
 export default UserDash
