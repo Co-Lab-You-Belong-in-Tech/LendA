@@ -47,7 +47,10 @@ export const createItem = async (req, res) => {
 // gets a single item via id
 export const getItem = async (req, res) => {
   try {
-    const item = await Item.findById(req.params.id)
+    const item = await Item.findById(req.params.id).populate(
+      "owner",
+      "-password"
+    )
     res.status(200).json({ status: "success", data: item })
   } catch (error) {
     res.status(400).json({ status: "error", message: error.message })
