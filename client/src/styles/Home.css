@@ -60,9 +60,10 @@
 
 .successfulLends {
     display: flex;
+    width: 70vw;
     flex-direction: row;
-    justify-content: center;
-    width: 70%;
+    justify-content: space-evenly;
+    
     flex-wrap: wrap;
     margin: 0 auto; 
 }
@@ -72,14 +73,15 @@
     flex-direction: row;
     border: 1px solid lightgray;
     background-color: white;
-    width: 40rem;
-    max-width: 40%;
+    width: 30rem;
+    min-width: 30vw;
     max-height: 14rem;
     margin: 1rem;
     border-radius: 70px;
     box-sizing: border-box;
     
 }
+
 
 .itemPic {
     display: flex;
@@ -165,7 +167,7 @@
     width: 16rem;
     border: none;
     border-radius: 13px;
-    margin: 10px 20px;
+    margin: 10px 20px 30px 20px;
     padding: 1.2rem;
     box-sizing: border-box;
     box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1);

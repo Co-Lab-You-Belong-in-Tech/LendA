@@ -59,17 +59,17 @@ function ItemDetails() {
         </a>
       </div>
         {item ? (
+          <div className="deetsCard">
           <div className="itemDetails">
             <div className="mainDetails">
               <h2>{item.name}</h2>
-              <p>Rate/day</p>
-              <p>Condition: Great</p>
-              <p>Category: Tools</p>
+              <p>{item.price}</p>
+              <p>{item.condition}</p>
+              <p>Category: {item.category}</p>
               <p>
-                This is a great ladder. It will support your weight while making
-                you taller. Nice & sturdy.
+               {item.description}
               </p>
-              <button>Contact User</button>
+              <button id="contactUser">Contact User</button>
             </div>
             <div className="lenderDeets">
               <div className="lenderPic">
@@ -83,6 +83,7 @@ function ItemDetails() {
                 </div>
               </div>
             </div>
+          </div>
           </div>
         
       ) : (
