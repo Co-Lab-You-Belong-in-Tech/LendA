@@ -74,7 +74,9 @@ export const updateItem = async (req, res) => {
     // find and update item
     const updatedItem = await Item.findByIdAndUpdate(item.id, req.body, {
       new: true,
-    })
+      runValidators: true,
+    }).populate("owner", "-password")
+
     res.status(200).json({ status: "success", data: updatedItem })
   } catch (error) {
     res.status(400).json({ status: "error", message: error.message })
