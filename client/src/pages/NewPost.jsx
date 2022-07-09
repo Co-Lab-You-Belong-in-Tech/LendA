@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { createItem } from '../features/items/itemSlice';
+import { toast } from 'react-toastify';
+import { register, reset } from '../features/auth/authSlice';
 import '../styles/NewPost.css';
 
 function NewPost() {
@@ -20,6 +22,22 @@ function NewPost() {
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
+
+
+  const {user, isLoading, isError, isSuccess, message} = useSelector((state) => state.auth)
+
+  useEffect(() => {
+      if(isError) {
+          toast.error(message)
+      }
+
+      if(isSuccess || user) {
+          navigate('/')
+      }
+
+      dispatch(reset)
+
+  }, [user, isError, isSuccess, message, navigate, dispatch])
 
   const [formState, changeFormState] = useState({
     activeObject: {id: 1},
@@ -89,18 +107,20 @@ function NewPost() {
         
         <div className={toggleActiveLend(0)}>
           <form className="lendPostForm" onSubmit={onSubmit}>
-            <div className="lendItem">
+          <div className="lendItem">
+            <div className="itemRowOne">
               <label htmlFor="name">Item:</label>
               <input 
-                type="text" 
-                name="name" 
-                id="name" 
-                value={name} 
-                onChange={onChange}
-                >
-                </input>
+              type="text" 
+              name="name" 
+              id="name" 
+              value={name} 
+              onChange={onChange}
+              >
+              </input>
             </div>
-            <div className="lendItemDeets">
+            
+            <div className="itemRowTwo">
               <label>Item Details:</label>
               <input 
                 type="text"
@@ -109,34 +129,39 @@ function NewPost() {
                 value={description} 
                 onChange={onChange}
                 ></input>
-              <label>Category</label>
-              <input 
-                type="text"
-                name="category" 
-                id="category" 
-                value={category} 
-                onChange={onChange}
-                ></input>
-              <label>Condition</label>
-              <input type="text"></input>
-            </div>
-            <div className="itemPrice">
-              <label>Deposit</label>
-              <input 
-                type="text"
-                name="deposit" 
-                id="deposit" 
-                value={deposit} 
-                onChange={onChange}
-                ></input>
-              <label>Price</label>
-              <input 
-                type="text"
-                name="price" 
-                id="price" 
-                value={price} 
-                onChange={onChange}
-                ></input>
+              </div>
+              <div className="itemRowThree">
+                <label>Category</label>
+                <input 
+                  type="text"
+                  name="category" 
+                  id="category" 
+                  value={category} 
+                  onChange={onChange}
+                  ></input>
+              <div className="itemRowFour">
+                
+              </div>
+              <div className="itemRowFive">
+                <label>Deposit</label>
+                <input 
+                  type="text"
+                  name="deposit" 
+                  id="deposit" 
+                  value={deposit} 
+                  onChange={onChange}
+                  ></input>
+              </div>
+              <div className="itemRowSix">
+                <label>Price</label>
+                <input 
+                  type="text"
+                  name="price" 
+                  id="price" 
+                  value={price} 
+                  onChange={onChange}
+                  ></input>
+              </div>
               <label>Condition</label>
               <input 
                 type="text"
@@ -146,22 +171,11 @@ function NewPost() {
                 onChange={onChange}
                 ></input>
             </div>
-            <div className="itemAvail">
-              <label>Availability:</label>
-              {/* <input 
-                type="text"
-                name="price" 
-                id="price" 
-                value={price} 
-                onChange={onChange}
-                ></input> */}
-              {/* <label className="availLabel">Available On:</label>
-              <input type="text"></input> */}
-              
-            </div>
+            
             <div className="post">
               <button type='submit' className="postBtn">Post Item</button>
             </div>
+          </div>
           </form>
         </div>
 

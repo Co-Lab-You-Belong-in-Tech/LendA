@@ -27,14 +27,16 @@ const getItems = async () => {
 }
 
 // Get a single item via id
-const getItem = async (itemId) => {
-    const response = await axios.get(API_URL+itemId)
+const getItem = async (_id) => {
+    const response = await axios.get(API_URL+_id)
 
-    // if(response.data) {
-    //     localStorage.setItem('item', JSON.stringify(response.data))
-    // }
-
+    if(response.data) {
+        localStorage.setItem('item', JSON.stringify(response.data))
+    }
+    
+    console.log(response)
     return response.data
+    
 }
 
 

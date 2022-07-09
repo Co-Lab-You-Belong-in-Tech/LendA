@@ -4,22 +4,37 @@
     display: flex;
     flex-direction: column;
     width: 100vw;
-    /* height: 100vh; */
-    background-color: #404040;
+    background-color: white;
     font-family: 'Montserrat', sans-serif;
-    
+}
+
+.deetsHeader {
+    display: flex;
+    margin-left: 3rem;
+    flex-direction: row;
+    width: 100%;
+}
+
+.deetsHeader a {
+    text-decoration: none;
+    color: #00898E;
+    display: flex;
+}
+
+.deetsHeader i {
+    margin: auto 1rem;
 }
 
 .deetsCard {
     display: flex;
+    flex-direction: row;
     max-width: 70vw;
     height: 50vh;
-    margin: 3rem auto;
-    background-color: whitesmoke;
-    border-radius: 10px;
-    padding: 2rem;
-    /* flex-wrap: wrap; */
-    
+    margin: 1rem auto;
+    background-color: white;
+    border-radius: 13px;
+    box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
 }
 
 .deetsCard h2 {
@@ -27,17 +42,36 @@
     color:#404040;
 }
 
+.mainDetails {
+    display: flex;
+    flex-direction: column;
+    margin: 0 1rem;
+    height: 50%;
+    line-height: 0;
+    flex-wrap: wrap;
+}
+
+.mainDetails p {
+    font-size: .8rem;
+}
+
+.mainDetails button {
+    background-color: #FF7F00;
+    color: white;
+    border: none;
+    border-radius: 65px;
+    font-weight: bold;
+    padding: .5rem 1.5rem;
+    width: 10rem;
+}
+
 .mainPic {
     display: flex;
     flex-direction: row;
     background-color: gray;
-    height: 13rem;
-    width: 12rem;
-    padding: 1rem;
-}
-
-.mainPic img {
-    height: 11rem;
+    height: 80%;
+    width: 100%;
+    border-radius: 5px;
 }
 
 .mainPic i {
@@ -47,25 +81,30 @@
 .itemPics {
     display: flex;
     flex-direction: column;
+    width: 70%;
+    padding: 2rem;
 }
 
 .otherPics {
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content:flex-start;
     margin-top: 1rem;
+    
 }
 
 .otherPic {
-    height: 3rem;
-    width: 3rem;
-    background-color: gray;
+    height: 4rem;
+    width: 4rem;
+    background-color: rgb(179, 176, 176);
+    border-radius: 5px;
+    margin-right: 1rem;
 }
 
 .itemDetails {
     display: flex;
     flex-direction: column;
-    margin-left: 3rem;
+    margin: 1.5rem 1rem;
 }
 
 .itemDetails h5 {
@@ -74,26 +113,17 @@
 
 .lenderDeets {
     display: flex;
+    height: 50%;
     flex-direction: row;
-}
-
-.lenderDeets h5 {
-    margin-right: 1rem;
-}
-
-.lenderDeets p {
-    margin-right: 1rem;
-}
+}   
 
 .lenderDeets i {
     color: gray;
 }
 
-.borrowBtn {
-    border-radius: 5px;
-    color: whitesmoke;
-    background-color: #404040;
-    font-weight: bold;
+.lenderInfo {
+    display: flex;
+    flex-direction: column;
 }
 
 .relatedHeader {
@@ -101,7 +131,7 @@
 }
 
 .relatedHeader h2 {
-    color: whitesmoke;
+    color: black;
 }
 
 .relatedItems {
@@ -116,14 +146,15 @@
     display: flex;
     height: 20rem;
     width: 14rem;
-    background-color: whitesmoke;
+    background-color: white;
     border-radius: 5px;
     margin: 1rem 0;
+    box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1);
 }
 
 .otherItemsHeader h2 {
     margin: 1rem 5rem;
-    color: whitesmoke;
+    color: black;
 }
 
 .otherItems {
@@ -142,4 +173,5 @@
     background-color: whitesmoke;
     border-radius: 5px;
     margin: 1rem 0;
+    box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1);
 }

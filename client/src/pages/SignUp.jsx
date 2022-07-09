@@ -30,7 +30,7 @@ function SignUp() {
         }
 
         if(isSuccess || user) {
-            navigate('/UserDash')
+            navigate('/')
         }
 
         dispatch(reset)
