@@ -67,8 +67,8 @@ export const updateItem = async (req, res) => {
     }
 
     //check if item owner id === token user id
-    if (!item.user === req.user.id) {
-      res.status(400).json("Error")
+    if (item.user !== req.user.id) {
+      res.status(400).json("Not Authorized")
     }
 
     // find and update item
@@ -93,8 +93,8 @@ export const deleteItem = async (req, res) => {
     }
 
     // check if item user id = token user id
-    if (!item.user === req.user.id) {
-      res.status(400).json("Error")
+    if (item.user !== req.user.id) {
+      res.status(400).json("Not Authorized")
     }
 
     // find and delete item

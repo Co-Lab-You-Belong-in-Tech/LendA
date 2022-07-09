@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt"
 import User from "../models/userModel.js"
+import Item from "../models/itemModel.js"
 import { signJWT } from "../utils.js"
 
 // REGISTER
@@ -67,58 +68,54 @@ export const login = async (req, res) => {
   }
 }
 
-// gets a single user via a param id
+// GET USER
 export const getUser = async (req, res) => {
   try {
     const user = await User.findById(req.params.id)
-    res.status(200).json({
-      status: "success",
-      data: {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        createdAt: user.createdAt,
-        updatedAt: user.updatedAt,
-      },
-    })
+      .populate("items")
+      .select("-password")
+
+    res.status(200).json({ status: "success", data: user })
   } catch (error) {
     res.status(400).json({ status: "error", message: error.message })
   }
 }
 
-// updates a user by checking if param id matches token user id
+// UPDATE USER
 export const updateUser = async (req, res) => {
   try {
+    // check to see if param id = jwt id
     if (req.params.id !== req.user.id) {
       res.status(400).json("Not Authorized")
     }
+
+    // update user
     const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
+      runValidators: true,
     })
-    res.status(200).json({
-      status: "success",
-      data: {
-        id: updatedUser.id,
-        name: updatedUser.name,
-        email: updatedUser.email,
-        createdAt: updatedUser.createdAt,
-        updatedAt: updatedUser.updatedAt,
-      },
-    })
+      .populate("items")
+      .select("-password")
+
+    res.status(200).json({ status: "success", data: updatedUser })
   } catch (error) {
     res.status(400).json({ status: "error", message: error.message })
   }
 }
 
-// deletes a user only if params id matches and token user id
+// DELETE USER
 export const deleteUser = async (req, res) => {
   try {
     // check if params id = token user id
     if (req.params.id !== req.user.id) {
       res.status(401).json("Unauthorized")
     }
-    // find and delete the user
+    // delete all user items
+    await Item.deleteMany({ owner: req.user.id })
+
+    // delete the user
     await User.findByIdAndDelete(req.user.id)
+
     res.status(200).json({ status: "success", data: null })
   } catch (error) {
     res.status(400).json({ status: "error", message: error.message })
