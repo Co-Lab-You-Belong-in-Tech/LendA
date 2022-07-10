@@ -1,51 +1,51 @@
-import Item from "../models/itemModel.js"
-import User from "../models/userModel.js"
+import Item from '../models/itemModel';
+import User from '../models/userModel';
 
 // get all items in db
 export const getItems = async (req, res) => {
   try {
-    const page = parseInt(req.query.page)
-    const limit = parseInt(req.query.limit)
+    const page = parseInt(req.query.page, 10);
+    const limit = parseInt(req.query.limit, 10);
 
-    const startIndex = (page - 1) * limit
-    const endIndex = page * limit
+    const startIndex = (page - 1) * limit;
+    const endIndex = page * limit;
 
-    const data = {}
+    const data = {};
 
     if (endIndex < (await Item.countDocuments().exec())) {
       data.next = {
         page: page + 1,
-        limit: limit,
-      }
+        limit,
+      };
     }
 
     if (startIndex > 0) {
       data.previous = {
         page: page - 1,
-        limit: limit,
-      }
+        limit,
+      };
     }
 
     data.data = await Item.find()
       .limit(limit)
       .skip(startIndex)
-      .populate("owner", "-password")
-      .exec()
+      .populate('owner', '-password')
+      .exec();
 
-    res.status(200).json({ status: "success", ...data })
+    res.status(200).json({ status: 'success', ...data });
   } catch (error) {
-    console.log(error)
-    res.status(400).json({ status: "error", message: error.message })
+    console.log(error);
+    res.status(400).json({ status: 'error', message: error.message });
   }
-}
+};
 
 // create an item post
 export const createItem = async (req, res) => {
   try {
     // find user object and check to see if exists
-    const user = await User.findById(req.user.id)
+    const user = await User.findById(req.user.id);
     if (!user) {
-      res.status(404).json("Not Found")
+      res.status(404).json('Not Found');
     }
 
     // create item
@@ -57,78 +57,78 @@ export const createItem = async (req, res) => {
       category: req.body.category,
       condition: req.body.condition,
       owner: user.id,
-    })
+    });
 
     // add item id to array on user object
-    user.items.push(newItem.id)
-    await user.save()
+    user.items.push(newItem.id);
+    await user.save();
 
     // find item newly created item and populate the user info
-    const item = await Item.findById(newItem.id).populate("owner", "-password")
+    const item = await Item.findById(newItem.id).populate('owner', '-password');
 
-    res.status(200).json({ status: "success", data: item })
+    res.status(200).json({ status: 'success', data: item });
   } catch (error) {
-    res.status(400).json({ status: "error", message: error.message })
+    res.status(400).json({ status: 'error', message: error.message });
   }
-}
+};
 
 // gets a single item via id
 export const getItem = async (req, res) => {
   try {
     const item = await Item.findById(req.params.id).populate(
-      "owner",
-      "-password"
-    )
-    res.status(200).json({ status: "success", data: item })
+      'owner',
+      '-password'
+    );
+    res.status(200).json({ status: 'success', data: item });
   } catch (error) {
-    res.status(400).json({ status: "error", message: error.message })
+    res.status(400).json({ status: 'error', message: error.message });
   }
-}
+};
 
 // update an item post
 export const updateItem = async (req, res) => {
   try {
     // check to see if item exists
-    const item = await Item.findById(req.params.id)
+    const item = await Item.findById(req.params.id);
     if (!item) {
-      res.status(404).json("Not Found")
+      res.status(404).json('Not Found');
     }
 
-    //check if item owner id === token user id
+    // check if item owner id === token user id
     if (item.user !== req.user.id) {
-      res.status(400).json("Not Authorized")
+      res.status(400).json('Not Authorized');
     }
 
     // find and update item
     const updatedItem = await Item.findByIdAndUpdate(item.id, req.body, {
       new: true,
       runValidators: true,
-    }).populate("owner", "-password")
+    }).populate('owner', '-password');
 
-    res.status(200).json({ status: "success", data: updatedItem })
+    res.status(200).json({ status: 'success', data: updatedItem });
   } catch (error) {
-    res.status(400).json({ status: "error", message: error.message })
+    res.status(400).json({ status: 'error', message: error.message });
   }
-}
+};
 
 // delete an item post
 export const deleteItem = async (req, res) => {
   try {
     // check to see if item exists
-    const item = await Item.findById(req.params.id)
+    const item = await Item.findById(req.params.id);
     if (!item) {
-      res.status(404).json("Not Found")
+      res.status(404).json('Not Found');
     }
 
     // check if item user id = token user id
     if (item.user !== req.user.id) {
-      res.status(400).json("Not Authorized")
+      res.status(400).json('Not Authorized');
     }
 
     // find and delete item
-    await Item.findByIdAndDelete(req.params.id)
-    res.status(200).json({ status: "success", data: null })
+    await Item.findByIdAndDelete(req.params.id);
+    res.status(200).json({ status: 'success', data: null });
   } catch (error) {
-    res.status(400).json({ status: "error", message: error.message })
+    res.status(400).json({ status: 'error', message: error.message });
   }
-}
+};

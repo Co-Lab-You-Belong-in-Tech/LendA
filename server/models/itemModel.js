@@ -1,4 +1,4 @@
-import mongoose from "mongoose"
+import mongoose from 'mongoose';
 
 const itemSchema = new mongoose.Schema(
   {
@@ -11,10 +11,10 @@ const itemSchema = new mongoose.Schema(
     owner: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
-      ref: "User",
+      ref: 'User',
     },
   },
   { timestamps: true }
-)
+);
 
-export default mongoose.model("Item", itemSchema)
+export default mongoose.model('Item', itemSchema);
