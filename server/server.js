@@ -1,11 +1,12 @@
 // config import
-import { PORT } from "./config/config.js"
+import { PORT, NODE_ENV } from "./config/config.js"
 import { connectMongo } from "./config/db.js"
 
 // package imports
 import express from "express"
 import passport from "passport"
 import cors from "cors"
+import morgan from "morgan"
 
 // route imports
 import itemRouter from "./routes/itemRoutes.js"
@@ -22,6 +23,10 @@ app.use(cors({ origin: "http://localhost:3000" }))
 
 // init passport
 app.use(passport.initialize())
+
+if (NODE_ENV === "development") {
+  app.use(morgan("dev"))
+}
 
 // parse data
 app.use(express.json())
