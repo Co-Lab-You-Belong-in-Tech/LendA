@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt"
 import User from "../models/userModel.js"
 import Item from "../models/itemModel.js"
-import { signJWT } from "../utils.js"
+import { signJWT } from "../utils/utils.js"
 
 // REGISTER
 export const register = async (req, res) => {
