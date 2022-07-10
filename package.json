@@ -1,0 +1,21 @@
+{
+  "name": "lenda",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Co-Lab-You-Belong-in-Tech/LendA.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Co-Lab-You-Belong-in-Tech/LendA/issues"
+  },
+  "workspaces": [
+    "./client",
+    "./server"
+  ],
+  "dependencies": {
+    "concurrently": "^7.2.2"
+  }
+}
