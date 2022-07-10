@@ -1,9 +1,38 @@
 import Item from "../models/itemModel.js"
+import User from "../models/userModel.js"
 
 // get all items in db
 export const getItems = async (req, res) => {
   try {
-    res.status(200).json({ status: "success", ...res.paginate })
+    const page = parseInt(req.query.page)
+    const limit = parseInt(req.query.limit)
+
+    const startIndex = (page - 1) * limit
+    const endIndex = page * limit
+
+    const data = {}
+
+    if (endIndex < (await Item.countDocuments().exec())) {
+      data.next = {
+        page: page + 1,
+        limit: limit,
+      }
+    }
+
+    if (startIndex > 0) {
+      data.previous = {
+        page: page - 1,
+        limit: limit,
+      }
+    }
+
+    data.data = await Item.find()
+      .limit(limit)
+      .skip(startIndex)
+      .populate("owner", "-password")
+      .exec()
+
+    res.status(200).json({ status: "success", ...data })
   } catch (error) {
     console.log(error)
     res.status(400).json({ status: "error", message: error.message })
@@ -13,17 +42,31 @@ export const getItems = async (req, res) => {
 // create an item post
 export const createItem = async (req, res) => {
   try {
-    const item = req.body
+    // find user object and check to see if exists
+    const user = await User.findById(req.user.id)
+    if (!user) {
+      res.status(404).json("Not Found")
+    }
+
+    // create item
     const newItem = await Item.create({
-      name: item.name,
-      user: req.user.id,
-      price: item.price,
-      deposit: item.deposit,
-      description: item.description,
-      category: item.category,
-      condition: item.condition,
+      name: req.body.name,
+      price: req.body.price,
+      deposit: req.body.deposit,
+      description: req.body.description,
+      category: req.body.category,
+      condition: req.body.condition,
+      owner: user.id,
     })
-    res.status(200).json({ status: "success", data: newItem })
+
+    // add item id to array on user object
+    user.items.push(newItem.id)
+    await user.save()
+
+    // find item newly created item and populate the user info
+    const item = await Item.findById(newItem.id).populate("owner", "-password")
+
+    res.status(200).json({ status: "success", data: item })
   } catch (error) {
     res.status(400).json({ status: "error", message: error.message })
   }
@@ -32,9 +75,11 @@ export const createItem = async (req, res) => {
 // gets a single item via id
 export const getItem = async (req, res) => {
   try {
-    const item = await Item.findById(req.params.id)
+    const item = await Item.findById(req.params.id).populate(
+      "owner",
+      "-password"
+    )
     res.status(200).json({ status: "success", data: item })
-
   } catch (error) {
     res.status(400).json({ status: "error", message: error.message })
   }
@@ -50,14 +95,16 @@ export const updateItem = async (req, res) => {
     }
 
     //check if item owner id === token user id
-    if (!item.user === req.user.id) {
-      res.status(400).json("Error")
+    if (item.user !== req.user.id) {
+      res.status(400).json("Not Authorized")
     }
 
     // find and update item
     const updatedItem = await Item.findByIdAndUpdate(item.id, req.body, {
       new: true,
-    })
+      runValidators: true,
+    }).populate("owner", "-password")
+
     res.status(200).json({ status: "success", data: updatedItem })
   } catch (error) {
     res.status(400).json({ status: "error", message: error.message })
@@ -74,8 +121,8 @@ export const deleteItem = async (req, res) => {
     }
 
     // check if item user id = token user id
-    if (!item.user === req.user.id) {
-      res.status(400).json("Error")
+    if (item.user !== req.user.id) {
+      res.status(400).json("Not Authorized")
     }
 
     // find and delete item
