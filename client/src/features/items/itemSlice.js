@@ -10,13 +10,12 @@ const initialState = {
   message: "",
 }
 
-// Create new item
-export const createItem = createAsyncThunk(
-  "items/create",
-  async (itemData, thunkAPI) => {
+// Get all items
+export const getItems = createAsyncThunk(
+  "items/getAll",
+  async (items, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.currentUser.token
-      return await itemService.createItem(itemData, token)
+      return await itemService.getItems(items)
     } catch (error) {
       const message =
         (error.response &&
@@ -29,12 +28,13 @@ export const createItem = createAsyncThunk(
   }
 )
 
-// Get all items
-export const getItems = createAsyncThunk(
-  "items/getAll",
-  async (items, thunkAPI) => {
+// Create new item
+export const createItem = createAsyncThunk(
+  "items/create",
+  async (itemData, thunkAPI) => {
     try {
-      return await itemService.getItems(items)
+      const token = thunkAPI.getState().auth.currentUser.token
+      return await itemService.createItem(itemData, token)
     } catch (error) {
       const message =
         (error.response &&
@@ -65,6 +65,44 @@ export const getItem = createAsyncThunk(
   }
 )
 
+// update item
+export const updateItem = createAsyncThunk(
+  "items/updateItem",
+  async (id, itemData, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.currentUser.token
+      return await itemService.updateItem(id, itemData, token)
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString()
+      return thunkAPI.rejectWithValue(message)
+    }
+  }
+)
+
+// delete item
+export const deleteItem = createAsyncThunk(
+  "items/deleteItem",
+  async (id, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.currentUser.token
+      return await itemService.updateItem(id, token)
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString()
+      return thunkAPI.rejectWithValue(message)
+    }
+  }
+)
+
 export const itemSlice = createSlice({
   name: "items",
   initialState,
@@ -73,20 +111,7 @@ export const itemSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // Create Item
-      .addCase(createItem.pending, (state) => {
-        state.isLoading = true
-      })
-      .addCase(createItem.fulfilled, (state, action) => {
-        state.isLoading = false
-        state.isSuccess = true
-        state.item = action.payload.data
-      })
-      .addCase(createItem.rejected, (state, action) => {
-        state.isLoading = false
-        state.isError = true
-        state.message = action.payload
-      })
+
       // Get Items
       .addCase(getItems.pending, (state) => {
         state.isLoading = true
@@ -99,8 +124,24 @@ export const itemSlice = createSlice({
       .addCase(getItems.rejected, (state, action) => {
         state.isLoading = false
         state.isError = true
-        state.message = action.payload
+        state.message = action.payload.message
       })
+
+      // Create Item
+      .addCase(createItem.pending, (state) => {
+        state.isLoading = true
+      })
+      .addCase(createItem.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.isSuccess = true
+        state.item = action.payload.data
+      })
+      .addCase(createItem.rejected, (state, action) => {
+        state.isLoading = false
+        state.isError = true
+        state.message = action.payload.message
+      })
+
       // Get Item
       .addCase(getItem.pending, (state) => {
         state.isLoading = true
@@ -113,7 +154,37 @@ export const itemSlice = createSlice({
       .addCase(getItem.rejected, (state, action) => {
         state.isLoading = false
         state.isError = true
-        state.message = action.payload
+        state.message = action.payload.message
+      })
+
+      // Update Item
+      .addCase(updateItem.pending, (state) => {
+        state.isLoading = true
+      })
+      .addCase(updateItem.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.isSuccess = true
+        state.item = action.payload.data
+      })
+      .addCase(updateItem.rejected, (state, action) => {
+        state.isLoading = false
+        state.isError = true
+        state.message = action.payload.message
+      })
+
+      // Delete Item
+      .addCase(deleteItem.pending, (state) => {
+        state.isLoading = true
+      })
+      .addCase(deleteItem.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.isSuccess = true
+        state.item = action.payload.data
+      })
+      .addCase(deleteItem.rejected, (state, action) => {
+        state.isLoading = false
+        state.isError = true
+        state.message = action.payload.message
       })
   },
 })

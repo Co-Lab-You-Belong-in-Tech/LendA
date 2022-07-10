@@ -43,7 +43,7 @@ const updateUser = async (id, userData, token) => {
     },
   }
 
-  const response = await axios.get(`${API_URL}/${id}`, userData, config)
+  const response = await axios.put(`${API_URL}/${id}`, userData, config)
 
   if (response.data) {
     localStorage.setItem(
@@ -61,7 +61,7 @@ const deleteUser = async (id, token) => {
     },
   }
 
-  const response = await axios.get(`${API_URL}/${id}`, config)
+  const response = await axios.delete(`${API_URL}/${id}`, config)
   if (response.data) {
     localStorage.removeItem("currentUser")
   }
