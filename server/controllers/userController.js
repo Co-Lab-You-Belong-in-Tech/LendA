@@ -9,9 +9,11 @@ export const register = async (req, res) => {
     // hash password and create new user
     const hash = await bcrypt.hash(req.body.password, 10);
     const newUser = await User.create({
-      name: req.body.name,
       email: req.body.email,
+      first: req.body.first,
+      last: req.body.last,
       password: hash,
+      zipcode: req.body.zipcode,
     });
 
     // sign token
@@ -20,9 +22,12 @@ export const register = async (req, res) => {
     res.status(200).json({
       status: 'success',
       data: {
+        type: 'user',
         id: newUser.id,
-        name: newUser.name,
         email: newUser.email,
+        first: newUser.first,
+        last: newUser.last,
+        zipcode: newUser.zipcode,
         createdAt: newUser.createdAt,
         updatedAt: newUser.updatedAt,
         token: signedToken.token,
@@ -41,7 +46,7 @@ export const login = async (req, res) => {
       'items'
     );
     if (!user) {
-      res.status(404).json('error');
+      res.status(404).json('No User found');
     }
 
     // compare the password
@@ -56,9 +61,12 @@ export const login = async (req, res) => {
     res.status(200).json({
       status: 'success',
       data: {
+        type: 'user',
         id: user.id,
-        name: user.name,
         email: user.email,
+        first: user.first,
+        last: user.last,
+        zipcode: user.zipcode,
         items: user.items,
         createdAt: user.createdAt,
         updatedAt: user.updatedAt,
@@ -76,6 +84,9 @@ export const getUser = async (req, res) => {
     const user = await User.findById(req.params.id)
       .populate('items')
       .select('-password');
+    if (!user) {
+      res.status(404).json('User Not Found');
+    }
 
     res.status(200).json({ status: 'success', data: user });
   } catch (error) {

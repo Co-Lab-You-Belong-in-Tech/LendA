@@ -56,6 +56,7 @@ export const createItem = async (req, res) => {
       description: req.body.description,
       category: req.body.category,
       condition: req.body.condition,
+      available: true,
       owner: user.id,
     });
 
@@ -79,6 +80,10 @@ export const getItem = async (req, res) => {
       'owner',
       '-password'
     );
+    if (!item) {
+      res.status(404).json('Item Not Found');
+    }
+
     res.status(200).json({ status: 'success', data: item });
   } catch (error) {
     res.status(400).json({ status: 'error', message: error.message });
@@ -91,12 +96,19 @@ export const updateItem = async (req, res) => {
     // check to see if item exists
     const item = await Item.findById(req.params.id);
     if (!item) {
-      res.status(404).json('Not Found');
+      res.status(404).json('Item Not Found');
+    }
+    console.log(item.owner);
+    console.log(req.user.id);
+
+    const user = await User.findById(req.user.id);
+    if (!user) {
+      res.status(401).json('Not Found');
     }
 
     // check if item owner id === token user id
-    if (item.user !== req.user.id) {
-      res.status(400).json('Not Authorized');
+    if (item.owner.toString() !== user.id) {
+      res.status(401).json('Not Authorized');
     }
 
     // find and update item
@@ -117,16 +129,22 @@ export const deleteItem = async (req, res) => {
     // check to see if item exists
     const item = await Item.findById(req.params.id);
     if (!item) {
-      res.status(404).json('Not Found');
+      res.status(404).json('Item Not Found');
+    }
+
+    const user = await User.findById(req.user.id);
+    if (!user) {
+      res.status(401).json('Not Found');
     }
 
     // check if item user id = token user id
-    if (item.user !== req.user.id) {
+    if (item.owner.toString() !== req.user.id) {
       res.status(400).json('Not Authorized');
     }
 
     // find and delete item
     await Item.findByIdAndDelete(req.params.id);
+
     res.status(200).json({ status: 'success', data: null });
   } catch (error) {
     res.status(400).json({ status: 'error', message: error.message });
