@@ -98,8 +98,6 @@ export const updateItem = async (req, res) => {
     if (!item) {
       res.status(404).json('Item Not Found');
     }
-    console.log(item.owner);
-    console.log(req.user.id);
 
     const user = await User.findById(req.user.id);
     if (!user) {
