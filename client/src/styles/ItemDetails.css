@@ -1,35 +1,35 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
-.deetsContainer {
+.detailContainer {
     display: flex;
     flex-direction: column;
     width: 100vw;
     background-color: white;
-    font-family: 'Montserrat', sans-serif;
+    
 }
 
-.deetsHeader {
+.detailHeader {
     display: flex;
     margin-left: 3rem;
     flex-direction: row;
     width: 100%;
 }
 
-.deetsHeader a {
+.detailHeader a {
     text-decoration: none;
     color: #00898E;
     display: flex;
 }
 
-.deetsHeader i {
+.detailHeader i {
     margin: auto 1rem;
 }
 
-.deetsCard {
+.detailCard {
     display: flex;
     flex-direction: row;
     width: 60%;
-    max-width: 70vw;
+    max-width: 50vw;
     height: 50vh;
     margin: 1rem auto;
     background-color: white;
@@ -38,22 +38,50 @@
     box-sizing: border-box;
 }
 
-.deetsCard h2 {
+.detailCard h3 {
     font-weight: bold;
     color:#404040;
+    margin-top: 0;
 }
+
+.pics {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    padding-left: 2.5rem;
+    padding-top: 2.5rem;
+
+}
+
+.itemDetails {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    padding-top: 2.5rem;
+    padding-right: 2.5rem;    
+}
+
 
 .mainDetails {
     display: flex;
     flex-direction: column;
     margin: 0 1rem;
-    height: 50%;
-    line-height: 0;
     flex-wrap: wrap;
+    padding: 0;
+    border-bottom: 2px solid lightgray;
 }
 
 .mainDetails p {
     font-size: .8rem;
+    margin: .1rem;
+}
+
+#itemName {
+    margin-bottom: .1rem;
+}
+
+#itemPrice {
+    margin: .1rem 0;
 }
 
 .mainDetails button {
@@ -63,70 +91,82 @@
     border-radius: 65px;
     font-weight: bold;
     padding: .5rem 1.5rem;
+    margin: 2rem 0;
     width: 10rem;
     cursor: pointer;
 }
 
 .mainPic {
     display: flex;
-    flex-direction: row;
-    background-color: gray;
-    height: 80%;
-    width: 100%;
+    flex-direction: column;
+    background-color: lightgray;
+    height: 15rem;
+    max-height: 20rem;
+    width: 15rem;
+    max-width: 20rem;
+
     border-radius: 5px;
 }
-
-.mainPic i {
-    margin: auto 2rem;
-}
-
-.itemPics {
-    display: flex;
-    flex-direction: column;
-    width: 70%;
-    padding: 2rem;
-}
-
+/* 
 .otherPics {
     display: flex;
     flex-direction: row;
     justify-content:flex-start;
     margin-top: 1rem;
-    
-}
+} */
 
-.otherPic {
+/* .otherPic {
     height: 4rem;
     width: 4rem;
     background-color: rgb(179, 176, 176);
     border-radius: 5px;
     margin-right: 1rem;
-}
+} */
 
-.itemDetails {
+.lenderDetails {
     display: flex;
     flex-direction: column;
-    width: 60%;
-    margin: 1.5rem;
-}
-
-.itemDetails h5 {
-    font-weight: bold;
-}
-
-.lenderDeets {
-    display: flex;
-    height: 50%;
-    flex-direction: row;
+    margin: 0 1rem;
+    padding-top: 1rem;
 }   
 
-.lenderDeets i {
-    color: gray;
+#lenderName {
+    margin-top: 0;
+    color: #00898E;
 }
 
 .lenderInfo {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+}
+
+.lenderPic {
+    border-radius: 30px;
+    background-color: lightgray;
+    height: 4rem;
+    width: 4rem;
+    border-radius: 60px;
+    margin-right: 1rem;
+}
+
+.lenderPic img {
+    height: 3rem;
+    width: 3rem;
+    margin-left: .5rem;
+}
+
+.ratings {
+    display: flex;
+    flex-direction: row;
+}
+
+.ratings i {
+    color: gray;
+    margin: auto 0;
+}
+
+#ratingNumber {
+    margin: auto .5rem;
 }
 
 .relatedHeader {

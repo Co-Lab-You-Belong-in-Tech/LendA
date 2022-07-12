@@ -11,15 +11,19 @@ import Login from './pages/Login';
 import NewPost from './pages/NewPost';
 import UserDash from './pages/UserDash';
 import SignUp from './pages/SignUp';
+import SearchResults from './pages/SearchResults';
+import ScrollToTop from './components/ScrollToTop';
 
 function App() {
   return (
     <>
     <Router>
+      <ScrollToTop>
     <div className="container">
       <NavBar />
       <Routes>
         <Route exact path="/" element={ <Home />} />
+        <Route exact path="/items" element={ <SearchResults />} />
         <Route path="/login" element={ <Login /> } />
         <Route path="/signup" element={ <SignUp /> } />
         <Route exact path="/itemdetails/:itemId" element={ <ItemDetails /> } />
@@ -29,6 +33,7 @@ function App() {
 
       </Routes>
     </div>
+    </ScrollToTop>
     </Router>
     <ToastContainer />
     </>
