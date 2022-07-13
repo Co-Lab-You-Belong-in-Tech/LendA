@@ -1,8 +1,9 @@
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
-import '../src/styles/NavBar.css';
+import './styles/NavBar.css';
 import NavBar from './components/NavBar';
 import Home from './pages/Home';
 import ItemDetails from './pages/ItemDetails';
@@ -17,6 +18,7 @@ import ScrollToTop from './components/ScrollToTop';
 function App() {
   return (
     <>
+
     <Router>
       <ScrollToTop>
     <div className="container">
