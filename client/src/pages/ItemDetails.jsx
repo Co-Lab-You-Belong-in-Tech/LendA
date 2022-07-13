@@ -1,7 +1,7 @@
 import React from "react"
 import { useState, useEffect } from "react"
 import { useNavigate, useParams } from "react-router-dom"
-import { useSelector, useDispatch, connect } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import { getItems, getItem, reset } from "../features/items/itemSlice"
 import "../styles/ItemDetails.css"
 
