@@ -6,7 +6,7 @@ import { getItems, getItem, reset } from "../features/items/itemSlice"
 import "../styles/ItemDetails.css"
 
 function ItemDetails() {
-  // const [selectedItem, setSelectedItem] = useState({})
+  
   const params = useParams()
   const id = params.itemId
 
@@ -26,23 +26,12 @@ function ItemDetails() {
     dispatch(getItems())
     console.log("items", items)
     console.log("items", items.length)
-    // let itemArray = items.data.items
 
-    // const selectedItem = itemArray.filter(function(id) {
-    //   if(itemArray[0]._id === id) {
-    //     return true;
-    //   }
-    // })
-
-    // setSelectedItem(...selectedItem)
 
     dispatch(getItem(id))
     console.log("item id:", id)
     console.log("item", item)
-    // console.log(selectedItem)
-    // console.log(itemArray)
-    // console.log(itemArray[0])
-
+   
     return () => {
       dispatch(reset())
     }
@@ -51,40 +40,45 @@ function ItemDetails() {
   return (
     // Item Detail Card
 
-    <div className="deetsContainer">
-      <div className="deetsHeader">
+    <div className="detailContainer">
+      <div className="detailHeader">
         <a href="/#">
           <i className="fa-solid fa-arrow-left fa-lg"></i>
           <h2>Back to Searched Results</h2>
         </a>
       </div>
         {item ? (
-          <div className="deetsCard">
-          <div className="itemDetails">
-            <div className="mainDetails">
-              <h2>{item.name}</h2>
-              <p>{item.price}</p>
-              <p>{item.condition}</p>
-              <p>Category: {item.category}</p>
-              <p>
-               {item.description}
-              </p>
-              <button id="contactUser">Contact User</button>
+          <div className="detailCard">
+            <div className="pics">
+              <div className="mainPic"></div>
             </div>
-            <div className="lenderDeets">
-              <div className="lenderPic">
-                <img></img>
+            
+            <div className="itemDetails">
+              <div className="mainDetails">
+                <h3 id="itemName">{item.name}</h3>
+                <h4 id="itemPrice">{item.price}</h4>
+                <p><strong>Condition: </strong>{item.condition}</p>
+                <p><strong>Category: </strong>{item.category}</p>
+                <p>
+                {item.description}
+                </p>
+                <button id="contactUser">Contact User</button>
               </div>
-              <div className="lenderInfo">
-                <h4>Lender</h4>
-                <p>{"(14)"}</p>
-                <div className="rating">
-                  <i className="fa-solid fa-star"></i>
+              <div className="lenderDetails">
+                <h4 id="lenderName">Lender</h4>
+                <div className="lenderInfo">
+                  <div className="lenderPic">
+                    <img src="https://truckeetrails.org/wp-content/uploads/2022/04/025baa5b2cd7e46b6b4730247f6663ed.png" alt="placeholder image of a person icon"></img>
+                  </div>
+                  <div className="ratings">
+                    <p id="ratingNumber">{"(14)"}</p>
+                    <i className="fa-solid fa-star fa-sm"></i>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-          </div>
+          
         
       ) : (
         <h3>Item not found</h3>
