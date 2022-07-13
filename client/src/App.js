@@ -1,8 +1,9 @@
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
-import '../src/styles/NavBar.css';
+import './styles/NavBar.css';
 import NavBar from './components/NavBar';
 import Home from './pages/Home';
 import ItemDetails from './pages/ItemDetails';
@@ -15,22 +16,25 @@ import SignUp from './pages/SignUp';
 function App() {
   return (
     <>
-    <Router>
-    <div className="container">
-      <NavBar />
-      <Routes>
-        <Route exact path="/" element={ <Home />} />
-        <Route path="/login" element={ <Login /> } />
-        <Route path="/signup" element={ <SignUp /> } />
-        <Route exact path="/itemdetails/:itemId" element={ <ItemDetails /> } />
-        <Route path="/profile" element={ <LenderProfile /> } />
-        <Route exact path="/newpost" element={ <NewPost /> }/>
-        <Route path="/account" element={ <UserDash /> } />
-
-      </Routes>
-    </div>
-    </Router>
-    <ToastContainer />
+      <Router>
+        <div className="container">
+          <NavBar />
+          <Routes>
+            <Route exact path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route
+              exact
+              path="/itemdetails/:itemId"
+              element={<ItemDetails />}
+            />
+            <Route path="/profile" element={<LenderProfile />} />
+            <Route exact path="/newpost" element={<NewPost />} />
+            <Route path="/account" element={<UserDash />} />
+          </Routes>
+        </div>
+      </Router>
+      <ToastContainer />
     </>
   );
 }
