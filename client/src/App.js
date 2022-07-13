@@ -6,7 +6,7 @@ import '../src/styles/NavBar.css';
 import NavBar from './components/NavBar';
 import Home from './pages/Home';
 import ItemDetails from './pages/ItemDetails';
-import LenderProfile from './pages/LenderProfile';
+import Profile from './pages/Profile';
 import Login from './pages/Login';
 import NewPost from './pages/NewPost';
 import UserDash from './pages/UserDash';
@@ -27,7 +27,7 @@ function App() {
         <Route path="/login" element={ <Login /> } />
         <Route path="/signup" element={ <SignUp /> } />
         <Route exact path="/itemdetails/:itemId" element={ <ItemDetails /> } />
-        <Route path="/profile" element={ <LenderProfile /> } />
+        <Route path="/profile" element={ <Profile /> } />
         <Route exact path="/newpost" element={ <NewPost /> }/>
         <Route path="/account" element={ <UserDash /> } />
 
