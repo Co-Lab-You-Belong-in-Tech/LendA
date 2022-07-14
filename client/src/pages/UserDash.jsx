@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import { getItems, reset } from "../features/items/itemSlice"
+import { getUser } from "../features/auth/authSlice"
 import BarLoader from "react-spinners/ClipLoader"
 import "../styles/UserDash.css"
 
@@ -10,7 +11,6 @@ function UserDash() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
-  // const [itemList, setItemList] = useState([])
 
   const { currentUser } = useSelector((state) => state.auth)
   const { items, isLoading, isError, message } = useSelector(
@@ -29,6 +29,7 @@ function UserDash() {
     dispatch(getItems())
     console.log("items",items)
     console.log("user",currentUser)
+    console.log("user items",currentUser.items)
     // console.log(items.data.items.length)
   
 
@@ -37,6 +38,7 @@ function UserDash() {
     }
 
   }, [currentUser, navigate, isError, message, dispatch])
+
 
   if (isLoading) {
     return <BarLoader />
@@ -47,7 +49,7 @@ function UserDash() {
       <div className="dashContainer">
         <div>
           <div className="myItemsHeader">
-            <h3>My Items for Lending</h3>
+            <button id="lending">Items I'm Lending</button>
           </div>
 
           {items ? (
@@ -57,7 +59,7 @@ function UserDash() {
                   <div className="itemCard" key={index}>
                     <h4>{item.name}</h4>
                     <img src="https://media.istockphoto.com/vectors/thumbnail-image-vector-graphic-vector-id1147544807?k=20&m=1147544807&s=612x612&w=0&h=pBhz1dkwsCMq37Udtp9sfxbjaMl27JUapoyYpQm0anc="
-              alt="random placeholder"></img>
+                    alt="random placeholder"></img>
                     <button onClick={() => {navigate(`/edititem/${item._id}`, {replace: true })}}>Edit</button>
                   </div>
                 ))}
@@ -65,6 +67,18 @@ function UserDash() {
           ) : (
             <h3>No items</h3>
           )}
+        </div>
+        
+        <div className="borrowing">
+          <div className="borrowingHeader">
+            <button id="borrowing">Items I'm Borrowing</button>
+          </div>
+        </div>
+
+        <div className="acctSettings">
+          <div className="acctSettingsHeader">
+          <button id="settings">My Account Settings</button>
+          </div>
         </div>
       </div>
 

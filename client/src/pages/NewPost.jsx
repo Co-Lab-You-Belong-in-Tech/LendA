@@ -15,9 +15,11 @@ function NewPost() {
     description: "",
     category: "",
     condition: "",
+    photos: "",
+    availability: true,
   })
 
-  const { name, price, deposit, description, category, condition } = formData
+  const { name, price, deposit, description, category, condition, photos, availability } = formData
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -30,10 +32,6 @@ function NewPost() {
     if (isError) {
       toast.error(message)
     }
-
-    // if (isSuccess || currentUser) {
-    //   navigate("/")
-    // }
 
     dispatch(reset)
   }, [currentUser, isError, isSuccess, message, navigate, dispatch])
@@ -91,6 +89,8 @@ function NewPost() {
       description,
       category,
       condition,
+      photos,
+      availability,
     }
 
     dispatch(createItem(itemData))
@@ -119,77 +119,95 @@ function NewPost() {
           <form className="lendPostForm" onSubmit={onSubmit}>
             <div className="lendItem">
               <div className="itemRow">
-                <label htmlFor="name">Item:</label>
+                <label for="name">Item*</label>
                 <input
                   type="text"
                   name="name"
                   id="name"
                   value={name}
+                  placeholder="Ex: Singer Sewing Machine"
                   onChange={onChange}
                 ></input>
               </div>
-              {/* <div className="itemRow">
-                <label htmlFor="name">Available?:</label>
-                <input
-                  type="text"
-                  name="name"
-                  id="name"
-                  value={name}
-                  onChange={onChange}
-                ></input>
-              </div> */}
+              
 
               <div className="itemRow">
-                <label>Item Details:</label>
+                <label for="description">Item Details*</label>
                 <input
                   type="text"
                   name="description"
                   id="description"
                   value={description}
+                  placeholder="Describe your item"
                   onChange={onChange}
                 ></input>
               </div>
               <div className="itemRow">
-                <label>Category</label>
+                <label>Category*</label>
                 <input
                   type="text"
                   name="category"
                   id="category"
                   value={category}
+                  placeholder="Ex: Arts & Crafts"
                   onChange={onChange}
                 ></input>
                 </div>
                 <div className="itemRow"></div>
                 <div className="itemRow">
-                  <label>Deposit</label>
+                  <label>Deposit*</label>
                   <input
                     type="text"
                     name="deposit"
                     id="deposit"
                     value={deposit}
+                    placeholder="Ex: $100"
                     onChange={onChange}
                   ></input>
                 </div>
                 <div className="itemRow">
-                  <label>Price</label>
+                  <label>Price*</label>
                   <input
                     type="text"
                     name="price"
                     id="price"
                     value={price}
+                    placeholder="Ex: $20/day"
                     onChange={onChange}
                   ></input>
                 </div>
                 <div className="itemRow">
-                  <label>Condition</label>
+                  <label>Condition*</label>
                   <input
                     type="text"
                     name="condition"
                     id="condition"
                     value={condition}
+                    placeholder="Ex: Great"
                     onChange={onChange}
                     ></input>
                 </div>
+                <div className="itemRow">
+                <label for="photos">Photos*</label>
+                <input
+                  type="file"
+                  name="photos"
+                  id="photos"
+                  value={photos}
+                  onChange={onChange}
+                  multiple
+                ></input>
+              </div>
+                <div className="itemRow">
+                <label for="availability">Available?*</label>
+                <input
+                  type="checkbox"
+                  name="availability"
+                  id="availability"
+                  value={availability}
+                  onChange={onChange}
+                ></input>
+              </div>
         
               <div className="itemRowPost">
                 <button type="submit" className="postBtn">
