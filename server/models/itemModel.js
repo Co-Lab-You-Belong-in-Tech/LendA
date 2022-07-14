@@ -9,12 +9,12 @@ const itemSchema = new mongoose.Schema(
     category: { type: String, required: true },
     condition: { type: String, required: true },
     availability: { type: Boolean, required: true },
+    image: { type: String },
     owner: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
       ref: 'User',
     },
-    image: { type: String },
   },
   { timestamps: true }
 );
