@@ -13,7 +13,7 @@ const router = express.Router();
 const upload = multer({ dest: 'uploads/' });
 
 router.get('/', getItems);
-router.post('/', upload.array('photos', 5), authJWT, createItem);
+router.post('/', authJWT, upload.single('image'), createItem);
 
 router.get('/:id', getItem);
 router.put('/:id', authJWT, updateItem);

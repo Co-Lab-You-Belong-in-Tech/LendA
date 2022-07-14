@@ -1,6 +1,8 @@
 import Item from '../models/itemModel';
 import User from '../models/userModel';
 
+import uploadFile from '../config/s3';
+
 // get all items in db
 export const getItems = async (req, res) => {
   try {
@@ -42,11 +44,18 @@ export const getItems = async (req, res) => {
 // create an item post
 export const createItem = async (req, res) => {
   try {
-    // find user object and check to see if exists
+    // Check to see if the JWT token is a valid user
     const user = await User.findById(req.user.id);
     if (!user) {
       res.status(404).json('Not Found');
     }
+
+    if (!req.file) {
+      res.status(400).json('Please add Image');
+    }
+
+    const file = await uploadFile(req.file);
+    console.log(file);
 
     // create item
     const newItem = await Item.create({
@@ -56,7 +65,7 @@ export const createItem = async (req, res) => {
       description: req.body.description,
       category: req.body.category,
       condition: req.body.condition,
-      available: true,
+      availability: req.body.availability,
       owner: user.id,
     });
 
