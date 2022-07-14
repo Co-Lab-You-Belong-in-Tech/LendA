@@ -13,6 +13,7 @@ import NewPost from './pages/NewPost';
 import UserDash from './pages/UserDash';
 import SignUp from './pages/SignUp';
 import SearchResults from './pages/SearchResults';
+import EditItem from './pages/EditItem';
 import ScrollToTop from './components/ScrollToTop';
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
         <Route path="/profile" element={ <Profile /> } />
         <Route exact path="/newpost" element={ <NewPost /> }/>
         <Route path="/account" element={ <UserDash /> } />
+        <Route path="/edititem/:itemId" element={ <EditItem /> } />
 
       </Routes>
     </div>

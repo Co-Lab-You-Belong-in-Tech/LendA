@@ -128,6 +128,16 @@ function NewPost() {
                   onChange={onChange}
                 ></input>
               </div>
+              {/* <div className="itemRow">
+                <label htmlFor="name">Available?:</label>
+                <input
+                  type="text"
+                  name="name"
+                  id="name"
+                  value={name}
+                  onChange={onChange}
+                ></input>
+              </div> */}
 
               <div className="itemRow">
                 <label>Item Details:</label>

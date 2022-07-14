@@ -10,13 +10,15 @@ import "../styles/SignUp.css"
 
 function SignUp() {
   const [formData, setFormData] = useState({
-    name: "",
+    firstName: "",
+    lastName: "",
     email: "",
     password: "",
     password2: "",
+    zip: "",
   })
 
-  const { name, email, password, password2 } = formData
+  const { firstName, lastName, email, password, password2, zip } = formData
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -51,9 +53,11 @@ function SignUp() {
       toast.error("Passwords do not match")
     } else {
       const userData = {
-        name,
+        firstName,
+        lastName,
         email,
         password,
+        zip,
       }
 
       dispatch(register(userData))
@@ -64,34 +68,32 @@ function SignUp() {
     return <BarLoader />
   }
 
-  // const response = await toast.promise(
-  //     post("/register"),
-  //     {
-  //         pending: 'Creating account',
-  //         success: 'Account created! 👍',
-  //         error: 'Problem creating account'
-  //     }
-  // );
-  // console.log(response)
-
   return (
     <>
       <div className="signUpContainer">
         <div className="signUpBox">
           <h3>Create Account</h3>
           <form className="signUpForm" onSubmit={onSubmit}>
-            <label for="name">Name</label>
+            <label for="firstName">First Name</label>
             <input
               type="text"
               className="form-control"
-              id="name"
-              name="name"
-              value={name}
+              id="firstName"
+              name="firstName"
+              value={firstName}
               required
               onChange={onChange}
             ></input>
-            {/* <label for="lastName">Last Name</label>
-                <input type="text" required></input> */}
+            <label for="lastName">Last Name</label>
+            <input
+              type="text"
+              className="form-control"
+              id="lastName"
+              name="lastName"
+              value={lastName}
+              required
+              onChange={onChange}
+            ></input>
             <label for="email">Email address</label>
             <input
               type="email"
@@ -123,7 +125,15 @@ function SignUp() {
               onChange={onChange}
             ></input>
             <label for="zipCode">Zip Code</label>
-            <input type="text"></input>
+            <input 
+              type="text"
+              className="form-control"
+              id="zip"
+              name="zip"
+              value={zip}
+              required
+              onChange={onChange}
+            ></input>
             <button type="submit">SIGN UP</button>
           </form>
         </div>
