@@ -7,8 +7,6 @@ import '../styles/EditItem.css'
 
 function EditItem() {
 
-  // const { itemId } = match.params
-
   const params = useParams()
   const id = params.itemId
 
@@ -98,7 +96,7 @@ function EditItem() {
         <h2>Edit Item</h2>
       </div>
       {item ? (
-      <div className="itemCard">
+      <div className="editItemCard">
       <form className="lendPostForm" onSubmit={onSubmit}>
             <div className="lendItem">
               <div className="itemRow">
@@ -146,7 +144,7 @@ function EditItem() {
                   onChange={onChange}
                 ></input>
                 </div>
-                <div className="itemRow"></div>
+                
                 <div className="itemRow">
                   <label>Deposit</label>
                   <input

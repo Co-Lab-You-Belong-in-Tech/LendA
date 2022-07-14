@@ -93,6 +93,11 @@
     padding: .5rem;
 }
 
+.itemRow input::placeholder {
+    font-style: italic;
+    
+}
+
 .itemRowPost {
     display: flex;
     flex-direction: row;
