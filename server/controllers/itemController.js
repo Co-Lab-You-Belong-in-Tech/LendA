@@ -1,5 +1,12 @@
+import fs from 'fs';
+import util from 'util';
+
 import Item from '../models/itemModel';
 import User from '../models/userModel';
+
+import uploadFile from '../config/s3';
+
+const unlinkFile = util.promisify(fs.unlink);
 
 // get all items in db
 export const getItems = async (req, res) => {
@@ -42,11 +49,22 @@ export const getItems = async (req, res) => {
 // create an item post
 export const createItem = async (req, res) => {
   try {
-    // find user object and check to see if exists
+    // Check to see if the JWT token is a valid user
     const user = await User.findById(req.user.id);
     if (!user) {
       res.status(404).json('Not Found');
     }
+
+    // check to see if user submitted a file
+    if (!req.file) {
+      res.status(400).json('Please add Image');
+    }
+
+    // upload file to s3
+    const file = await uploadFile(req.file);
+
+    // delete item from uploads/
+    await unlinkFile(req.file.path);
 
     // create item
     const newItem = await Item.create({
@@ -56,7 +74,8 @@ export const createItem = async (req, res) => {
       description: req.body.description,
       category: req.body.category,
       condition: req.body.condition,
-      available: true,
+      availability: req.body.availability,
+      image: file.Location,
       owner: user.id,
     });
 

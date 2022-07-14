@@ -7,14 +7,14 @@ const itemSchema = new mongoose.Schema(
     deposit: { type: String },
     description: { type: String },
     category: { type: String, required: true },
-    condition: { type: String },
-    available: { type: Boolean, required: true },
+    condition: { type: String, required: true },
+    availability: { type: Boolean, required: true },
+    image: { type: String },
     owner: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
       ref: 'User',
     },
-    images: [{ type: String }],
   },
   { timestamps: true }
 );
