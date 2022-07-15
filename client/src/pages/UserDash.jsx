@@ -1,78 +1,69 @@
-import React from "react"
-import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
-import { useSelector, useDispatch } from "react-redux"
-import { getItems, reset } from "../features/items/itemSlice"
-import { getUser } from "../features/auth/authSlice"
-import BarLoader from "react-spinners/ClipLoader"
-import "../styles/UserDash.css"
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import BarLoader from 'react-spinners/ClipLoader';
+import { getUser } from '../features/auth/authSlice';
+import '../styles/UserDash.css';
 
 function UserDash() {
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-
-  const { currentUser } = useSelector((state) => state.auth)
-  const { items, isLoading, isError, message } = useSelector(
-    (state) => state.items
-  )
+  const { currentUser, isLoading, isError, message } = useSelector(
+    (state) => state.auth
+  );
 
   useEffect(() => {
     if (isError) {
-      console.log(message)
+      console.log(message);
     }
 
     if (!currentUser) {
-      navigate("/login")
+      navigate('/login');
     }
 
-    dispatch(getItems())
-    console.log("items",items)
-    console.log("user",currentUser)
-    console.log("user items",currentUser.items)
-    // console.log(items.data.items.length)
-  
-
-    return () => {
-      dispatch(reset())
-    }
-
-  }, [currentUser, navigate, isError, message, dispatch])
-
+    dispatch(getUser(currentUser.id));
+  }, [isError, message, currentUser, dispatch, navigate]);
 
   if (isLoading) {
-    return <BarLoader />
+    return <BarLoader />;
   }
 
   return (
-    <>
-      <div className="dashContainer">
-        <div>
-          <div className="myItemsHeader">
-            <button id="lending">Items I'm Lending</button>
-          </div>
-
-          {items ? (
-            <div className="activeList">
-              {items &&
-                items.map((item, index) => (
-                  <div className="itemCard" key={index}>
-                    <h4>{item.name}</h4>
-                    <img src="https://media.istockphoto.com/vectors/thumbnail-image-vector-graphic-vector-id1147544807?k=20&m=1147544807&s=612x612&w=0&h=pBhz1dkwsCMq37Udtp9sfxbjaMl27JUapoyYpQm0anc="
-                    alt="random placeholder"></img>
-                    <button onClick={() => {navigate(`/edititem/${item._id}`, {replace: true })}}>Edit</button>
-                  </div>
-                ))}
-            </div>
-          ) : (
-            <h3>No items</h3>
-          )}
+    <div className="dashContainer">
+      <div>
+        <div className="myItemsHeader">
+          <button type="button" id="lending">
+            Items I'm Lending
+          </button>
         </div>
-      
-      </div>
 
-    </>
-  )
+        {currentUser.items.length === 0 ? (
+          <h3>No items</h3>
+        ) : (
+          <div className="activeList">
+            {currentUser.items.map((item, index) => (
+              <div className="itemCard" key={index}>
+                <h4>{item.name}</h4>
+                <img
+                  src="https://media.istockphoto.com/vectors/thumbnail-image-vector-graphic-vector-id1147544807?k=20&m=1147544807&s=612x612&w=0&h=pBhz1dkwsCMq37Udtp9sfxbjaMl27JUapoyYpQm0anc="
+                  alt="random placeholder"
+                />
+                <button
+                  type="button"
+                  onClick={() => {
+                    navigate(`/edititem/${item._id}`, { replace: true });
+                  }}
+                >
+                  Edit
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
 }
 
-export default UserDash
+export default UserDash;
