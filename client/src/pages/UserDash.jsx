@@ -68,18 +68,7 @@ function UserDash() {
             <h3>No items</h3>
           )}
         </div>
-        
-        <div className="borrowing">
-          <div className="borrowingHeader">
-            <button id="borrowing">Items I'm Borrowing</button>
-          </div>
-        </div>
-
-        <div className="acctSettings">
-          <div className="acctSettingsHeader">
-          <button id="settings">My Account Settings</button>
-          </div>
-        </div>
+      
       </div>
 
     </>
