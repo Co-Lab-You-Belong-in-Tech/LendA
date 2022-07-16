@@ -2,6 +2,7 @@ version: '3.8'
 services:
   web:
     image: web
+    restart: unless-stopped
     build: ./client/
     ports:
       - '3000:3000'
@@ -9,6 +10,7 @@ services:
       - lenda-app
   api:
     image: api
+    restart: unless-stopped
     build: ./server/
     ports:
       - '5000:5000'
