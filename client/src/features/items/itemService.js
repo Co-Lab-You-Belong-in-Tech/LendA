@@ -1,15 +1,15 @@
-import axios from "axios"
+import axios from 'axios';
 
-const API_URL = "http://localhost:8000/item"
+const API_URL = 'http://localhost:8000/item';
 
 // get items
 const getItems = async () => {
-  const response = await axios.get(API_URL)
+  const response = await axios.get(API_URL);
   if (response.data) {
-    localStorage.setItem("items", JSON.stringify(response.data.data))
+    localStorage.setItem('items', JSON.stringify(response.data.data));
   }
-  return response.data
-}
+  return response.data;
+};
 
 // Create new item
 const createItem = async (itemData, token) => {
@@ -17,48 +17,50 @@ const createItem = async (itemData, token) => {
     headers: {
       Authorization: token,
     },
-  }
-  const response = await axios.post(API_URL, itemData, config)
+  };
+  const response = await axios.post(API_URL, itemData, config);
   if (response.data) {
-    localStorage.setItem("item", JSON.stringify(response.data.data))
+    localStorage.setItem('item', JSON.stringify(response.data.data));
   }
-  return response.data
-}
+  return response.data;
+};
 
 // Get a single item via id
 const getItem = async (id) => {
-  const response = await axios.get(`${API_URL}/${id}`)
+  const response = await axios.get(`${API_URL}/${id}`);
   if (response.data) {
-    localStorage.setItem("item", JSON.stringify(response.data.data))
+    localStorage.setItem('item', JSON.stringify(response.data.data));
   }
-  return response.data
-}
+  return response.data;
+};
 
 const updateItem = async (id, itemData, token) => {
   const config = {
     headers: {
       Authorization: token,
     },
-  }
-  const response = await axios.put(`${API_URL}/${id}`, itemData, config)
+  };
+  console.log('item update service');
+  const response = await axios.put(`${API_URL}/${id}`, itemData, config);
+
   if (response.data) {
-    localStorage.setItem("item", JSON.stringify(response.data.data))
+    localStorage.setItem('item', JSON.stringify(response.data.data));
   }
-  return response.data
-}
+  return response.data;
+};
 
 const deleteItem = async (id, token) => {
   const config = {
     headers: {
       Authorization: token,
     },
-  }
-  const response = await axios.delete(`${API_URL}/${id}`, config)
+  };
+  const response = await axios.delete(`${API_URL}/${id}`, config);
   if (response.data) {
-    localStorage.removeItem("item")
+    localStorage.removeItem('item');
   }
-  return response.data
-}
+  return response.data;
+};
 
 const itemService = {
   getItems,
@@ -66,6 +68,6 @@ const itemService = {
   getItem,
   updateItem,
   deleteItem,
-}
+};
 
-export default itemService
+export default itemService;

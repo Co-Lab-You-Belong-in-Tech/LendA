@@ -160,9 +160,9 @@ export const deleteItem = async (req, res) => {
     }
 
     // find and delete item
-    await Item.findByIdAndDelete(req.params.id);
+    await Item.findByIdAndDelete(item.id);
 
-    res.status(200).json({ status: 'success', data: null });
+    res.status(200).json({ status: 'success', data: { id: item.id } });
   } catch (error) {
     res.status(400).json({ status: 'error', message: error.message });
   }

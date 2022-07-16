@@ -16,6 +16,9 @@
   "plugins": ["react"],
   "rules": {
     "no-console": 0,
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off",
+    "no-underscore-dangle": 0
   }
 }
