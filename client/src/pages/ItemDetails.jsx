@@ -70,7 +70,7 @@ function ItemDetails() {
                 </div>
               </div>
             </div>
-          
+          </div>
           </div>
             
       ) : (
