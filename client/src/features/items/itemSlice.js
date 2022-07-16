@@ -68,10 +68,10 @@ export const getItem = createAsyncThunk(
 // update item
 export const updateItem = createAsyncThunk(
   'items/updateItem',
-  async (id, itemData, thunkAPI) => {
+  async (input, thunkAPI) => {
     try {
       const { token } = thunkAPI.getState().auth.currentUser;
-      return await itemService.updateItem(id, itemData, token);
+      return await itemService.updateItem(input.id, input.itemData, token);
     } catch (error) {
       const message =
         (error.response &&
@@ -175,6 +175,7 @@ export const itemSlice = createSlice({
         );
         // update item at index with new item
         state.items[itemIndex] = action.payload.data;
+        console.log('we are updating');
 
         state.isLoading = false;
         state.isSuccess = true;
