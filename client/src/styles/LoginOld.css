@@ -1,0 +1,115 @@
+.loginContainer {
+  max-width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #dcdcdc;
+  /* background-color: #c1bdba; */
+}
+
+.loginBox {
+  display: flex;
+  flex-direction: column;
+  width: 35vw;
+  border: 2px solid #404040;
+  margin: 3rem auto;
+  border-radius: 5px;
+  background-color: #404040;
+  padding: 1rem;
+}
+
+.lbHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.tab-active {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  padding: 2rem 2rem;
+  text-align: center;
+  background-color: #404040;
+  border-bottom: 2px solid teal;
+}
+
+.tab-inactive {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  padding: 2rem 2rem;
+  text-align: center;
+  background-color: #404040;
+}
+
+.lbHeader button {
+  border: none;
+  font-weight: bold;
+  color: #dcdcdc;
+  background-color: transparent;
+  font-size: 1.5rem;  
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.emailLogin {
+  display: flex;
+  flex-direction: column;
+  background-color: #404040;
+}
+
+
+
+.emailSignUp {
+  display: flex;
+  flex-direction: column;
+  background-color: #404040;
+}
+
+.loginForm-inactive {
+  display: none;
+}
+
+.signupForm-inactive {
+  display: none;
+}
+
+.formGroup {
+  margin: 1rem 1rem;
+  width: 90%;
+}
+
+.formGroup input {
+  height: 2rem;
+  width: 100%;
+}
+
+.formGroup a {
+  text-align: center;
+  text-decoration: none;
+  color: #404040;
+}
+
+.forgotPW {
+  text-align: center;
+  margin: 0 auto;
+}
+
+/* .loginButton {
+  height: 2rem;
+  width: 100%;
+} */
+
+.formGroup button {
+  height: 3rem;
+  width: 100%;
+  font-weight: bold;
+  font-size: 1.2rem;
+  border-radius: 10px;
+  margin: 0 auto;
+}

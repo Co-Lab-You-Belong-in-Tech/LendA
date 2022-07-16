@@ -1,0 +1,160 @@
+
+.loginContainer {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: 100vw;
+}
+
+.loginBox {
+    width: 25%;
+    margin: 3rem auto;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.loginBox h3 {
+    font-size: 2rem;
+}
+
+.loginForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.loginForm label {
+    color: gray;
+    margin-left: 10px;
+    margin-top: 1.5rem;
+}
+
+.loginForm input {
+    background-color: rgb(238, 236, 236);
+    border: none;
+    border-radius: 20px;
+    font-size: 1rem;
+    padding:.6rem 1rem;
+    margin-top: 10px;
+}
+
+.loginForm button {
+    background-color: #FF7F00;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: .6rem;
+    margin-top: 40px;
+    cursor: pointer;
+}
+
+.loginForm button:hover {
+    background-color: #ed7802;
+    border: 2px solid #FF7F00;
+}
+
+.forgotpw {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.forgotpw a {
+    color: gray;
+}
+
+.orSection {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.orLines {
+    display: flex;
+    align-items: center;
+}
+
+.orLines::before {
+    content: '';
+    flex-grow: 1;
+    height: 2px;
+    background: rgb(238, 236, 236);
+    min-width: 140px;
+    margin: auto;
+    margin-right: 1rem;
+}
+
+.orLines::after {
+    content: '';
+    flex-grow: 2;
+    height: 2px;
+    background: rgb(238, 236, 236);
+    width: 140px;
+    margin: auto;
+    margin-left: 1rem;
+}
+
+/* .lines {
+    background-color: rgb(238, 236, 236);
+    width: 40%;
+    max-height: 20%;
+} */
+
+/* .orLines {
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    z-index: 0;
+}
+
+.orLines::before {
+    content: '';
+    height: 101%;
+    display: block;
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    position: absolute;
+    width: 10%;
+    z-index: -1;
+}
+.orLines::after {
+    content: '';
+    display: block;
+    height: 20%;
+    background: lightseagreen;
+    position: absolute;
+    width: 100%;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+    
+    z-index: -2;
+} */
+
+.createAcct {
+    display: flex;
+    flex-direction: row;
+}
+
+.createAcctBtn {
+    border: 2px solid #00898E;
+    background-color: white;
+    color: #00898E;
+    border-radius: 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: .6rem;
+    margin-top: 30px;
+    width: 100%;
+    cursor: pointer;
+}
+
+.createAcctBtn:hover {
+    background-color: #00898E;
+    color: white;
+}

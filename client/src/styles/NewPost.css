@@ -1,0 +1,161 @@
+
+.postContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+    font-family: 'Montserrat', sans-serif;
+    box-sizing: border-box;
+    
+}
+
+.postContainer h2 {
+    color: black;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.newPost {
+    display: flex;
+    flex-direction: column;
+    min-width: 50%;
+    background-color: #FFFFFF;
+    padding: 1rem;
+    margin: 0 auto;
+    border-radius: 5px;
+    box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1);
+}
+
+.postHeader {
+    display: flex;
+    flex-direction: row;
+    
+}
+
+.tab-active {
+    width: 50%;
+    border-bottom: 4px solid teal;
+}
+
+.tab-inactive {
+    width: 50%;
+}
+
+.postHeader button {
+    width: 100%;
+    border: none;
+    background-color: transparent;
+    margin: .5rem 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #00898E;
+}
+
+.borrowPostForm-inactive {
+    display: none;
+}
+
+.lendPost-inactive {
+    display: none;
+}
+
+.lendPostForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin: 1rem;
+}
+
+.itemRow {
+    display: flex;
+    flex-direction: row;
+    max-height: 100%;
+    justify-content: space-between;
+}
+
+.itemRow label {
+    width: 35%;
+    font-size: 1.2rem;
+    font-weight: bold; 
+    margin-bottom: .5rem;
+    flex-wrap: wrap;
+}
+
+.itemRow input {
+    width: 55%;
+    margin-left: .5rem;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    border: 1px solid #DB6E0A;
+    margin-bottom: 1.5rem;
+    padding: .5rem;
+}
+
+.itemRow input::placeholder {
+    font-style: italic;
+    
+}
+
+.itemRowPost {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.itemRowPost button {
+    background-color: #FF7F00;
+    width: 55%;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: .5rem 2rem;
+    margin-top: 40px;
+    cursor: pointer;
+}
+
+.borrowPostForm-active {
+    display: flex;
+    flex-direction: column;
+    margin: .5rem 2rem;
+}
+
+.borrowPostForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin: 1rem;
+}
+
+.borrowReq button {
+    width: 30rem;
+    font-size: 1.3rem;
+    font-weight: bold;
+    border-radius: 10px;
+}
+
+/* .borrowPostForm label {
+    font-size: 1.3rem;
+    width: 25%;
+    font-weight: bold; 
+    margin-bottom: 1rem;
+}
+
+.borrowPostForm input {
+    width: 75%;
+    margin-left: .5rem;
+    border-radius: 5px;
+    border: 1px solid #404040
+} */
+
+/* .borrowReq {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin: 1rem 0;
+} */
+
+

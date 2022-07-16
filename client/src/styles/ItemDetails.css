@@ -1,99 +1,172 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
-.deetsContainer {
+.detailContainer {
     display: flex;
     flex-direction: column;
     width: 100vw;
-    /* height: 100vh; */
-    background-color: #404040;
-    font-family: 'Montserrat', sans-serif;
+    background-color: white;
     
 }
 
-.deetsCard {
+.detailHeader {
     display: flex;
-    max-width: 70vw;
-    height: 50vh;
-    margin: 3rem auto;
-    background-color: whitesmoke;
-    border-radius: 10px;
-    padding: 2rem;
-    /* flex-wrap: wrap; */
-    
+    margin-left: 3rem;
+    flex-direction: row;
+    width: 100%;
 }
 
-.deetsCard h2 {
+.detailHeader a {
+    text-decoration: none;
+    color: #00898E;
+    display: flex;
+}
+
+.detailHeader i {
+    margin: auto 1rem;
+}
+
+.detailCard {
+    display: flex;
+    flex-direction: row;
+    width: 60%;
+    max-width: 50vw;
+    height: 50vh;
+    margin: 1rem auto;
+    background-color: white;
+    border-radius: 13px;
+    box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+}
+
+.detailCard h3 {
     font-weight: bold;
     color:#404040;
+    margin-top: 0;
 }
 
-.mainPic {
-    display: flex;
-    flex-direction: row;
-    background-color: gray;
-    height: 13rem;
-    width: 12rem;
-    padding: 1rem;
-}
-
-.mainPic img {
-    height: 11rem;
-}
-
-.mainPic i {
-    margin: auto 2rem;
-}
-
-.itemPics {
+.pics {
     display: flex;
     flex-direction: column;
-}
+    width: 50%;
+    padding-left: 2.5rem;
+    padding-top: 2.5rem;
 
-.otherPics {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    margin-top: 1rem;
-}
-
-.otherPic {
-    height: 3rem;
-    width: 3rem;
-    background-color: gray;
 }
 
 .itemDetails {
     display: flex;
     flex-direction: column;
-    margin-left: 3rem;
+    width: 50%;
+    padding-top: 2.5rem;
+    padding-right: 2.5rem;    
 }
 
-.itemDetails h5 {
+
+.mainDetails {
+    display: flex;
+    flex-direction: column;
+    margin: 0 1rem;
+    flex-wrap: wrap;
+    padding: 0;
+    border-bottom: 2px solid lightgray;
+}
+
+.mainDetails p {
+    font-size: .8rem;
+    margin: .1rem;
+}
+
+#itemName {
+    margin-bottom: .1rem;
+}
+
+#itemPrice {
+    margin: .1rem 0;
+}
+
+.mainDetails button {
+    background-color: #FF7F00;
+    color: white;
+    border: none;
+    border-radius: 65px;
     font-weight: bold;
+    padding: .5rem 1.5rem;
+    margin: 2rem 0;
+    width: 10rem;
+    cursor: pointer;
 }
 
-.lenderDeets {
+.mainPic {
+    display: flex;
+    flex-direction: column;
+    background-color: lightgray;
+    height: 15rem;
+    max-height: 20rem;
+    width: 15rem;
+    max-width: 20rem;
+
+    border-radius: 5px;
+}
+/* 
+.otherPics {
+    display: flex;
+    flex-direction: row;
+    justify-content:flex-start;
+    margin-top: 1rem;
+} */
+
+/* .otherPic {
+    height: 4rem;
+    width: 4rem;
+    background-color: rgb(179, 176, 176);
+    border-radius: 5px;
+    margin-right: 1rem;
+} */
+
+.lenderDetails {
+    display: flex;
+    flex-direction: column;
+    margin: 0 1rem;
+    padding-top: 1rem;
+}   
+
+#lenderName {
+    margin-top: 0;
+    color: #00898E;
+}
+
+.lenderInfo {
     display: flex;
     flex-direction: row;
 }
 
-.lenderDeets h5 {
+.lenderPic {
+    border-radius: 30px;
+    background-color: lightgray;
+    height: 4rem;
+    width: 4rem;
+    border-radius: 60px;
     margin-right: 1rem;
 }
 
-.lenderDeets p {
-    margin-right: 1rem;
+.lenderPic img {
+    height: 3rem;
+    width: 3rem;
+    margin-left: .5rem;
 }
 
-.lenderDeets i {
+.ratings {
+    display: flex;
+    flex-direction: row;
+}
+
+.ratings i {
     color: gray;
+    margin: auto 0;
 }
 
-.borrowBtn {
-    border-radius: 5px;
-    color: whitesmoke;
-    background-color: #404040;
-    font-weight: bold;
+#ratingNumber {
+    margin: auto .5rem;
 }
 
 .relatedHeader {
@@ -101,7 +174,7 @@
 }
 
 .relatedHeader h2 {
-    color: whitesmoke;
+    color: black;
 }
 
 .relatedItems {
@@ -116,14 +189,15 @@
     display: flex;
     height: 20rem;
     width: 14rem;
-    background-color: whitesmoke;
+    background-color: white;
     border-radius: 5px;
     margin: 1rem 0;
+    box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1);
 }
 
 .otherItemsHeader h2 {
     margin: 1rem 5rem;
-    color: whitesmoke;
+    color: black;
 }
 
 .otherItems {
@@ -142,4 +216,5 @@
     background-color: whitesmoke;
     border-radius: 5px;
     margin: 1rem 0;
+    box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1);
 }

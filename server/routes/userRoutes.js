@@ -1,20 +1,21 @@
-import express from "express"
+import express from 'express';
+import authJWT from '../config/passport';
 
 import {
-  login,
   register,
+  login,
   getUser,
   updateUser,
   deleteUser,
-} from "../controllers/userController.js"
+} from '../controllers/userController';
 
-const router = express.Router()
+const router = express.Router();
 
-router.post("/login", login)
-router.post("/register", register)
+router.post('/register', register);
+router.post('/login', login);
 
-router.get("/:id", getUser)
-router.put("/:id", updateUser)
-router.delete("/:id", deleteUser)
+router.get('/:id', getUser);
+router.put('/:id', authJWT, updateUser);
+router.delete('/:id', authJWT, deleteUser);
 
-export default router
+export default router;
