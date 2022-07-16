@@ -4,7 +4,6 @@ import itemService from './itemService';
 
 const initialState = {
   items: [],
-  item: null,
   isError: false,
   isSuccess: false,
   isLoading: false,
@@ -69,10 +68,10 @@ export const getItem = createAsyncThunk(
 // update item
 export const updateItem = createAsyncThunk(
   'items/updateItem',
-  async (id, itemData, thunkAPI) => {
+  async (input, thunkAPI) => {
     try {
       const { token } = thunkAPI.getState().auth.currentUser;
-      return await itemService.updateItem(id, itemData, token);
+      return await itemService.updateItem(input.id, input.itemData, token);
     } catch (error) {
       const message =
         (error.response &&
@@ -114,7 +113,7 @@ export const itemSlice = createSlice({
   extraReducers: (builder) => {
     builder
 
-      // Get Items
+      // ------------------------------------------------------------ Get Items ------------------------------------------------------------
       .addCase(getItems.pending, (state) => {
         state.isLoading = true;
       })
@@ -129,14 +128,14 @@ export const itemSlice = createSlice({
         state.message = action.payload.message;
       })
 
-      // Create Item
+      // ------------------------------------------------------------ Create Item ------------------------------------------------------------
       .addCase(createItem.pending, (state) => {
         state.isLoading = true;
       })
       .addCase(createItem.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.item = action.payload.data;
+        state.items.push(action.payload.data);
       })
       .addCase(createItem.rejected, (state, action) => {
         state.isLoading = false;
@@ -144,14 +143,21 @@ export const itemSlice = createSlice({
         state.message = action.payload.message;
       })
 
-      // Get Item
+      // ------------------------------------------------------------ Get Item ------------------------------------------------------------
       .addCase(getItem.pending, (state) => {
         state.isLoading = true;
       })
       .addCase(getItem.fulfilled, (state, action) => {
+        // find index of item in items array
+        const itemIndex = state.items.findIndex(
+          (item) => item.id === action.payload.data.id
+        );
+
+        // replace item at index with new item
+        state.items[itemIndex] = action.payload.data;
+
         state.isLoading = false;
         state.isSuccess = true;
-        state.item = action.payload.data;
       })
       .addCase(getItem.rejected, (state, action) => {
         state.isLoading = false;
@@ -159,14 +165,21 @@ export const itemSlice = createSlice({
         state.message = action.payload.message;
       })
 
-      // Update Item
+      // ------------------------------------------------------------ Update Item ------------------------------------------------------------
       .addCase(updateItem.pending, (state) => {
         state.isLoading = true;
       })
       .addCase(updateItem.fulfilled, (state, action) => {
+        // find index of item in items array
+        const itemIndex = state.items.findIndex(
+          (item) => item.id === action.payload.data.id
+        );
+        // update item at index with new item
+        state.items[itemIndex] = action.payload.data;
+        console.log('we are updating');
+
         state.isLoading = false;
         state.isSuccess = true;
-        state.item = action.payload.data;
       })
       .addCase(updateItem.rejected, (state, action) => {
         state.isLoading = false;
@@ -174,14 +187,21 @@ export const itemSlice = createSlice({
         state.message = action.payload.message;
       })
 
-      // Delete Item
+      // ------------------------------------------------------------ Delete Item ------------------------------------------------------------
       .addCase(deleteItem.pending, (state) => {
         state.isLoading = true;
       })
       .addCase(deleteItem.fulfilled, (state, action) => {
+        // find index of item in items array
+        const itemIndex = state.items.findIndex(
+          (item) => item.id === action.payload.data.id
+        );
+
+        // remove item at index
+        state.items.splice(itemIndex, 1);
+
         state.isLoading = false;
         state.isSuccess = true;
-        state.item = action.payload.data;
       })
       .addCase(deleteItem.rejected, (state, action) => {
         state.isLoading = false;
