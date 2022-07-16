@@ -8,6 +8,7 @@ function EditItem() {
   const params = useParams();
   const id = params.itemId;
 
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -19,10 +20,12 @@ function EditItem() {
     category: '',
     condition: '',
     availability: true,
+
   });
 
   const { items, isError, message } = useSelector((state) => state.items);
   const item = items.find((object) => object._id === id);
+
 
   useEffect(() => {
     if (isError) {
@@ -39,6 +42,7 @@ function EditItem() {
         condition: item.condition,
         availability: item.availability,
       });
+
     }
   }, [isError, message, item]);
 
@@ -87,7 +91,7 @@ function EditItem() {
               {/* <div className="itemRow">
                 <label>Pictures</label>
                 <input
-                  type="text"
+                  type="file"
                   name="pictures"
                   id="pictures"
                   value={formData.pictures}
@@ -103,6 +107,7 @@ function EditItem() {
                   id="category"
                   value={formData.category}
                   placeholder={item.category}
+
                   onChange={(e) =>
                     setFormData({ ...formData, category: e.target.value })
                   }
@@ -148,6 +153,7 @@ function EditItem() {
                   }
                 />
               </div>
+
 
               <div className="itemRowPost">
                 <button type="submit" className="postBtn">
