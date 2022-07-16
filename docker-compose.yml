@@ -11,6 +11,8 @@ services:
   api:
     image: api
     restart: unless-stopped
+    env_file:
+      - ./server/.env
     build: ./server/
     ports:
       - '5000:5000'
