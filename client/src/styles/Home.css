@@ -41,6 +41,11 @@
     border-radius: 10px;
     font-size: 1.2rem;
     outline: none;
+    padding-left: 10px;
+}
+
+.searchField input {
+    color: black;
 }
 
 .searchButton {

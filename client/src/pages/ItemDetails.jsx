@@ -44,7 +44,7 @@ function ItemDetails() {
       <div className="detailHeader">
         <a href="/#">
           <i className="fa-solid fa-arrow-left fa-lg"></i>
-          <h2>Back to Searched Results</h2>
+          <h2>Back to Available Items</h2>
         </a>
       </div>
         {item ? (
@@ -77,35 +77,19 @@ function ItemDetails() {
                 </div>
               </div>
             </div>
-          </div>
           
-        
+          </div>
+            
       ) : (
-        <h3>Item not found</h3>
-      )}
-
-      <div className="relatedHeader">
-        <h2>RELATED ITEMS</h2>
-      </div>
-      <div className="relatedItems">
-        <div className="relItemCard"></div>
-        <div className="relItemCard"></div>
-        <div className="relItemCard"></div>
-      </div>
-
-     
-      <div className="otherItemsHeader">
-        <h2>OTHER ITEMS BY LENDER</h2>
-        <div className="otherItems">
-          <div className="otherItemCard"></div>
-          <div className="otherItemCard"></div>
-          <div className="otherItemCard"></div>
+        <div>
+          <h3>Item not found</h3>
         </div>
-      </div>
+      )}
+      
     </div>
-  )
+    )
 }
+  
+
 
 export default ItemDetails
-
-// connect(mapStateToProps)

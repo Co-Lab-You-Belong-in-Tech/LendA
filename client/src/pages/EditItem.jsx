@@ -10,7 +10,14 @@ function EditItem() {
   const params = useParams()
   const id = params.itemId
 
- 
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  const { currentUser } = useSelector((state) => state.auth)
+  const item = useSelector((state) => getItem(id))
+  const { isLoading, isError, message } = useSelector(
+    (state) => state.items
+  )
 
   const [formData, setFormData] = useState({
     name: "",
@@ -33,24 +40,18 @@ function EditItem() {
   //   condition: "", 
   // })
 
-  const { name, pictures, price, deposit, description, category, condition } = formData
+  const { name, pictures, price, deposit, description, category, condition, availability } = formData
 
 
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
 
-  const { currentUser } = useSelector((state) => state.auth)
-  const { item, isLoading, isError, message } = useSelector(
-    (state) => state.items
-  )
 
   useEffect(() => {
     if (isError) {
       console.log(message)
     }
 
-    dispatch(getItem(id))
-    console.log("item id:", id)
+    // dispatch(getItem(id))
+    // console.log("item id:", id)
     console.log("item", item)
     console.log("currentUser", currentUser)
 
@@ -125,7 +126,7 @@ function EditItem() {
               <div className="itemRow">
                 <label>Pictures</label>
                 <input
-                  type="text"
+                  type="file"
                   name="pictures"
                   id="pictures"
                   value={pictures}
@@ -178,6 +179,16 @@ function EditItem() {
                     onChange={onChange}
                     ></input>
                 </div>
+                <div className="itemRow">
+                <label for="availability">Available?*</label>
+                <input
+                  type="checkbox"
+                  name="availability"
+                  id="availability"
+                  value={availability}
+                  onChange={onChange}
+                ></input>
+              </div>
         
               <div className="itemRowPost">
                 <button type="submit" className="postBtn">

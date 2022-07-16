@@ -1,5 +1,5 @@
 import React from "react"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import { getItems, reset } from "../features/items/itemSlice"
@@ -9,6 +9,8 @@ import logoa from "../lenda-logoa.png"
 function Home() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
+
+  const [searchTerm, setSearchTerm] = useState("")
 
   const { currentUser } = useSelector((state) => state.auth)
   const { items, isLoading, isError, message } = useSelector(
@@ -40,10 +42,10 @@ function Home() {
       {/* search bar start */}
       <div className="search">
         <input
-          value=""
           type="text"
           className="searchField"
           placeholder="What do you need to borrow?"
+          onChange={e => {setSearchTerm(e.target.value)}}
         ></input>
         <button type="submit" className="searchButton">
           <i className="fa fa-search fa-xl"></i>
@@ -59,7 +61,13 @@ function Home() {
         <div className="itemsAvailable">
 
           {items &&
-            items.map((item, index) => (
+            items.filter((item) => {
+              if (searchTerm === "") {
+                return item
+              } else if (item.name.toLowerCase().includes(searchTerm.toLowerCase())) {
+                return item
+              }
+            }).map((item, index) => (
               <div
                 className="availItemCard"
                 key={index}
@@ -69,10 +77,13 @@ function Home() {
                 }}
               >
                 <div className="availItemPic">
-                  <img
+                  {item.images ? (
+                    <img src={item.images[0]}></img>
+                  ) : (<img
                     src="https://via.placeholder.com/150"
                     alt="random placeholder"
-                  ></img>
+                  ></img>)}
+                  
                 </div>
                 <div className="itemCardDetails">
                   <div className="itemCardRowOne">

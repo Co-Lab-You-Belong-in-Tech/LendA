@@ -34,7 +34,9 @@ const getItem = async (id) => {
   return response.data
 }
 
-const updateItem = async (id, itemData, token) => {
+const updateItem = async (itemData, token) => {
+
+  const { id } = itemData
   const config = {
     headers: {
       Authorization: token,
