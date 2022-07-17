@@ -1,10 +1,10 @@
 import fs from 'fs';
 import util from 'util';
 
-import Item from '../models/itemModel';
-import User from '../models/userModel';
+import Item from '../models/itemModel.js';
+import User from '../models/userModel.js';
 
-import uploadFile from '../config/s3';
+import uploadFile from '../config/s3.js';
 
 const unlinkFile = util.promisify(fs.unlink);
 

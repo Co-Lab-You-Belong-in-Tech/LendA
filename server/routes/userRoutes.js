@@ -1,5 +1,5 @@
 import express from 'express';
-import authJWT from '../config/passport';
+import authJWT from '../config/passport.js';
 
 import {
   register,
@@ -7,7 +7,7 @@ import {
   getUser,
   updateUser,
   deleteUser,
-} from '../controllers/userController';
+} from '../controllers/userController.js';
 
 const router = express.Router();
 
