@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8000/item';
+const API_URL = 'http://localhost:5000/item';
 
 // get items
 const getItems = async () => {
@@ -35,8 +35,7 @@ const getItem = async (id) => {
 };
 
 const updateItem = async (itemData, token) => {
-
-  const { id } = itemData
+  const { id } = itemData;
   const config = {
     headers: {
       Authorization: token,
