@@ -4,12 +4,12 @@ import passport from 'passport';
 import cors from 'cors';
 
 // config import
-import { PORT } from './config/config';
-import connectMongo from './config/db';
+import { PORT } from './config/config.js';
+import connectMongo from './config/db.js';
 
 // route imports
-import itemRouter from './routes/itemRoutes';
-import userRouter from './routes/userRoutes';
+import itemRouter from './routes/itemRoutes.js';
+import userRouter from './routes/userRoutes.js';
 
 // init app
 const app = express();

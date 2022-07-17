@@ -1,11 +1,11 @@
-import S3 from 'aws-sdk/clients/s3';
+import S3 from 'aws-sdk/clients/s3.js';
 import fs from 'fs';
 import {
   AWS_BUCKET_NAME,
   AWS_BUCKET_REGION,
   AWS_ACCESS_KEY,
   AWS_SECRET_KEY,
-} from './config';
+} from './config.js';
 
 const s3 = new S3({
   region: AWS_BUCKET_REGION,

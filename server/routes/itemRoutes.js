@@ -6,8 +6,8 @@ import {
   getItem,
   updateItem,
   deleteItem,
-} from '../controllers/itemController';
-import authJWT from '../config/passport';
+} from '../controllers/itemController.js';
+import authJWT from '../config/passport.js';
 
 const router = express.Router();
 const upload = multer({ dest: 'uploads/' });

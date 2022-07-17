@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { JWT_SECRET } from '../config/config';
+import { JWT_SECRET } from '../config/config.js';
 
 const signJWT = async (id) => {
   const token = await jwt.sign({ sub: id }, JWT_SECRET, { expiresIn: '1d' });
