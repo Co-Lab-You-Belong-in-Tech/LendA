@@ -8,18 +8,10 @@ import { toast } from "react-toastify"
 import { reset } from "../features/auth/authSlice"
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import ReactS3 from 'react-s3';
-import { uploadFile } from 'react-s3';
-import {
-  AWS_BUCKET_NAME,
-  AWS_BUCKET_REGION,
-  AWS_ACCESS_KEY,
-  AWS_SECRET_KEY,
-} from '../app/keys';
 import "../styles/NewPost.css"
 
 const schema = yup.object().shape({
-  itemName: yup.string().required(),
+  name: yup.string().required(),
   price: yup.string().required(),
   deposit: yup.string().required(),
   description: yup.string().required(),
@@ -31,21 +23,23 @@ const schema = yup.object().shape({
   availability: yup.boolean(true),
 });
 
-const config = {
-  bucketName: AWS_BUCKET_NAME,
-  region: AWS_BUCKET_REGION,
-  accessKeyId: AWS_ACCESS_KEY,
-  secretAccessKey: AWS_SECRET_KEY,
-}
 
 function NewPost() {
-  const { register, watch, handleSubmit, formState: { errors } } = useForm({
+  const { register, formState: { errors } } = useForm({
     resolver: yupResolver(schema),
   });
 
-  const [pic, setPic] = useState('');
-  const [filename, setFilename] = useState('Choose Photo');
-  const [uploadFile, setUploadFile] = useState('')
+  const [file, setFile] = useState();
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState("");
+  const [deposit, setDeposit] = useState("");
+  const [description, setDescription] = useState("");
+  const [category, setCategory] = useState("");
+  const [condition, setCondition] = useState("");
+  const [availability, setAvailability] = useState(true);
+
+  // const [filename, setFilename] = useState('Choose Photo');
+  // const [uploadFile, setUploadFile] = useState('')
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -54,52 +48,53 @@ function NewPost() {
     (state) => state.auth
   )
 
-  const convert2base64 = image => {
-    const reader = new FileReader();
+  // const convert2base64 = image => {
+  //   const reader = new FileReader();
 
-    reader.onloadend = () => {
-      setUploadFile(reader.result.toString());
-    };
+  //   reader.onloadend = () => {
+  //     setUploadFile(reader.result.toString());
+  //   };
 
-    reader.readAsDataURL(image);
-  }
+  //   reader.readAsDataURL(image);
+  // }
 
-  useEffect(() => {
-    if (isError) {
-      toast.error(message)
-    }
+  // useEffect(() => {
+  //   if (isError) {
+  //     toast.error(message)
+  //   }
 
-    dispatch(reset)
-  }, [currentUser, isError, isSuccess, message, navigate, dispatch])
+  //   dispatch(reset)
+  // }, [currentUser, isError, isSuccess, message, navigate, dispatch])
 
-  const onChange = e => {
-    setPic(e.target.files[0]);
-    setFilename(e.target.files[0].name);
-    ReactS3.upload( e.target.files[0], config)
-    .then((data)=>{
-      console.log(data);
-      console.log(data.location)
-    })
-    .catch((err) => {
-      alert(err);
-    })
-  }
+  // const onChange = e => {
+  //   setPic(e.target.files[0]);
+  //   setFilename(e.target.files[0].name);
+  
+  // }
 
-  const submitForm = (data) => {
-    // e.preventDefault();
+  const fileSelected = event => {
+    const file = event.target.files[0]
+		setFile(file)
+	}
+
+  const onSubmit = (event) => {
+    event.preventDefault();
     const formData = new FormData();
-    formData.append('file', pic);
-
+    formData.append('image', file);
+    formData.append('name', name);
+    formData.append('description', description);
+    formData.append('price', price);
+    formData.append('deposit', deposit);
+    formData.append('condition', condition);
+    formData.append('category', category);
+    formData.append('availability', availability);
    
 
-    if (data.image.length > 0 ) {
-      convert2base64(data.image[0]);
-    }
-    console.log(pic)
+    console.log(file)
     
-    console.log({data});
-    console.log("upladoed file",uploadFile);
-    dispatch(createItem(data))
+    console.log(formData);
+    // console.log("upladoed file",uploadFile);
+    dispatch(createItem(formData))
     navigate('/')
   }
 
@@ -109,18 +104,20 @@ function NewPost() {
       <div className="newPost">
           {/* {pic ? <img src={pic} width="250" /> : null} */}
         
-          <form className="lendPostForm" onSubmit={handleSubmit(submitForm)}>
+          <form className="lendPostForm" onSubmit={onSubmit}>
             {/* {!watch('image') || watch('image').length === 0 ? ( */}
             <div className="lendItem">
               <div className="itemRow">
-                <label htmlFor="itemName">Item*</label>
+                <label htmlFor="name">Item*</label>
                 <input
-                  {...register("itemName", { required: true })}
+                  {...register("name", { required: true })}
                   type="text"
-                  name="itemName"
+                  name="name"
                   placeholder="Ex: Singer Sewing Machine"
+                  value={name}
+                  onChange={e => setName(e.target.value)}
                 ></input>
-                <p> {errors.itemName?.message} </p>
+                <p> {errors.name?.message} </p>
               </div>
               
               <div className="itemRow">
@@ -130,6 +127,8 @@ function NewPost() {
                   type="text"
                   name="description"
                   placeholder="Describe your item"
+                  value={description}
+                  onChange={e => setDescription(e.target.value)}
                 ></input>
                 <p> {errors.description?.message} </p>
               </div>
@@ -140,6 +139,8 @@ function NewPost() {
                   type="text"
                   name="category"
                   placeholder="Ex: Arts & Crafts"
+                  value={category}
+                  onChange={e => setCategory(e.target.value)}
                 ></input>
                 <p> {errors.category?.message} </p>
                 </div>
@@ -151,6 +152,8 @@ function NewPost() {
                     type="text"
                     name="deposit"
                     placeholder="Ex: $100"
+                    value={deposit}
+                  onChange={e => setDeposit(e.target.value)}
                   ></input>
                   <p> {errors.deposit?.message} </p>
                 </div>
@@ -161,6 +164,8 @@ function NewPost() {
                     type="text"
                     name="price"
                     placeholder="Ex: $20/day"
+                    value={price}
+                    onChange={e => setPrice(e.target.value)}
                   ></input>
                   <p> {errors.price?.message} </p>
                 </div>
@@ -171,18 +176,19 @@ function NewPost() {
                     type="text"
                     name="condition"
                     placeholder="Ex: Great"
+                    value={condition}
+                    onChange={e => setCondition(e.target.value)}
                     ></input>
                     <p> {errors.condition?.message} </p>
                 </div>
                 <div className="itemRow">
-                <label htmlFor="imageUpload">Photo*</label>
+                <label>Photo*</label>
                 <input
                   {...register("image", { required: true })}
                   type="file"
-                  placeholder={filename}
                   name="image"
-                  id="imageUpload"
-                  onChange={onChange}
+                  onChange={fileSelected}
+
                 ></input>
                 <p> {errors.image?.message} </p>
               </div>
@@ -191,7 +197,9 @@ function NewPost() {
                 <input
                   {...register("availability", { required: true })}
                   type="checkbox"
+                  checked={availability}
                   name="availability"
+                  onChange={e => setAvailability(e.target.value)}
                 ></input>
                 <p> {errors.availability?.message} </p>
               </div>
