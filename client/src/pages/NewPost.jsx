@@ -1,25 +1,45 @@
 import React from "react"
 import { useState, useEffect } from "react"
+import { useForm } from 'react-hook-form';
 import { useNavigate } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import { createItem } from "../features/items/itemSlice"
 import { toast } from "react-toastify"
-import { register, reset } from "../features/auth/authSlice"
+import { reset } from "../features/auth/authSlice"
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 import "../styles/NewPost.css"
 
-function NewPost() {
-  const [formData, setFormData] = useState({
-    name: "",
-    price: "",
-    deposit: "",
-    description: "",
-    category: "",
-    condition: "",
-    photos: "",
-    availability: true,
-  })
+const schema = yup.object().shape({
+  name: yup.string().required(),
+  price: yup.string().required(),
+  deposit: yup.string().required(),
+  description: yup.string().required(),
+  category: yup.string().required(),
+  condition: yup.string().required(),
+  image: yup.mixed().test('required', 'Please select a file', value => {
+    return value && value.length;
+  }),
+  availability: yup.boolean(true),
+});
 
-  const { name, price, deposit, description, category, condition, photos, availability } = formData
+
+function NewPost() {
+  const { register, formState: { errors } } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  const [file, setFile] = useState();
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState("");
+  const [deposit, setDeposit] = useState("");
+  const [description, setDescription] = useState("");
+  const [category, setCategory] = useState("");
+  const [condition, setCondition] = useState("");
+  const [availability, setAvailability] = useState(true);
+
+  // const [filename, setFilename] = useState('Choose Photo');
+  // const [uploadFile, setUploadFile] = useState('')
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -28,186 +48,162 @@ function NewPost() {
     (state) => state.auth
   )
 
-  useEffect(() => {
-    if (isError) {
-      toast.error(message)
-    }
+  // const convert2base64 = image => {
+  //   const reader = new FileReader();
 
-    dispatch(reset)
-  }, [currentUser, isError, isSuccess, message, navigate, dispatch])
+  //   reader.onloadend = () => {
+  //     setUploadFile(reader.result.toString());
+  //   };
 
-  const [formState, changeFormState] = useState({
-    activeObject: { id: 1 },
-    objects: [
-      { id: 1, button: "LENDING" },
-      { id: 2, button: "BORROWING" },
-    ],
-  })
+  //   reader.readAsDataURL(image);
+  // }
 
-  const toggleActive = (index) => {
-    changeFormState({ ...formState, activeObject: formState.objects[index] })
-  }
+  // useEffect(() => {
+  //   if (isError) {
+  //     toast.error(message)
+  //   }
 
-  const toggleActiveStyles = (index) => {
-    if (formState.objects[index] === formState.activeObject) {
-      return "tab-active"
-    } else {
-      return "tab-inactive"
-    }
-  }
+  //   dispatch(reset)
+  // }, [currentUser, isError, isSuccess, message, navigate, dispatch])
 
-  const toggleActiveLend = (index) => {
-    if (formState.objects[0] === formState.activeObject) {
-      return "lendPostForm"
-    } else {
-      return "lendPost-inactive"
-    }
-  }
+  // const onChange = e => {
+  //   setPic(e.target.files[0]);
+  //   setFilename(e.target.files[0].name);
+  
+  // }
 
-  const toggleActiveBorrow = (index) => {
-    if (formState.objects[1] === formState.activeObject) {
-      return "borrowPostForm-active"
-    } else {
-      return "borrowPostForm-inactive"
-    }
-  }
+  const fileSelected = event => {
+    const file = event.target.files[0]
+		setFile(file)
+	}
 
-  const onChange = (e) => {
-    setFormData((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-    }))
-  }
+  const onSubmit = (event) => {
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append('image', file);
+    formData.append('name', name);
+    formData.append('description', description);
+    formData.append('price', price);
+    formData.append('deposit', deposit);
+    formData.append('condition', condition);
+    formData.append('category', category);
+    formData.append('availability', availability);
+   
 
-  const onSubmit = (e) => {
-    e.preventDefault()
-
-    const itemData = {
-      name,
-      price,
-      deposit,
-      description,
-      category,
-      condition,
-      photos,
-      availability,
-    }
-
-    dispatch(createItem(itemData))
+    console.log(file)
+    
+    console.log(formData);
+    // console.log("upladoed file",uploadFile);
+    dispatch(createItem(formData))
     navigate('/')
   }
 
   return (
     <div className="postContainer">
-      <h2>Lend or Borrow an Item</h2>
+      <h2>Post an Item to Lend</h2>
       <div className="newPost">
-        <div className="postHeader">
-          {formState.objects.map((elements, index) => (
-            <div
-              key={index}
-              className={toggleActiveStyles(index)}
-              onClick={() => {
-                toggleActive(index)
-              }}
-            >
-              <button>{elements.button}</button>
-            </div>
-          ))}
-        </div>
-
-        <div className={toggleActiveLend(0)}>
+          {/* {pic ? <img src={pic} width="250" /> : null} */}
+        
           <form className="lendPostForm" onSubmit={onSubmit}>
+            {/* {!watch('image') || watch('image').length === 0 ? ( */}
             <div className="lendItem">
               <div className="itemRow">
-                <label for="name">Item*</label>
+                <label htmlFor="name">Item*</label>
                 <input
+                  {...register("name", { required: true })}
                   type="text"
                   name="name"
-                  id="name"
-                  value={name}
                   placeholder="Ex: Singer Sewing Machine"
-                  onChange={onChange}
+                  value={name}
+                  onChange={e => setName(e.target.value)}
                 ></input>
+                <p> {errors.name?.message} </p>
               </div>
               
-
               <div className="itemRow">
-                <label for="description">Item Details*</label>
+                <label htmlFor="description">Item Details*</label>
                 <input
+                {...register("description", { required: true })}
                   type="text"
                   name="description"
-                  id="description"
-                  value={description}
                   placeholder="Describe your item"
-                  onChange={onChange}
+                  value={description}
+                  onChange={e => setDescription(e.target.value)}
                 ></input>
+                <p> {errors.description?.message} </p>
               </div>
               <div className="itemRow">
                 <label>Category*</label>
                 <input
+                  {...register("category", { required: true })}
                   type="text"
                   name="category"
-                  id="category"
-                  value={category}
                   placeholder="Ex: Arts & Crafts"
-                  onChange={onChange}
+                  value={category}
+                  onChange={e => setCategory(e.target.value)}
                 ></input>
+                <p> {errors.category?.message} </p>
                 </div>
                 <div className="itemRow"></div>
                 <div className="itemRow">
                   <label>Deposit*</label>
                   <input
+                    {...register("deposit", { required: true })}
                     type="text"
                     name="deposit"
-                    id="deposit"
-                    value={deposit}
                     placeholder="Ex: $100"
-                    onChange={onChange}
+                    value={deposit}
+                  onChange={e => setDeposit(e.target.value)}
                   ></input>
+                  <p> {errors.deposit?.message} </p>
                 </div>
                 <div className="itemRow">
                   <label>Price*</label>
                   <input
+                    {...register("price", { required: true })}
                     type="text"
                     name="price"
-                    id="price"
-                    value={price}
                     placeholder="Ex: $20/day"
-                    onChange={onChange}
+                    value={price}
+                    onChange={e => setPrice(e.target.value)}
                   ></input>
+                  <p> {errors.price?.message} </p>
                 </div>
                 <div className="itemRow">
                   <label>Condition*</label>
                   <input
+                    {...register("condition", { required: true })}
                     type="text"
                     name="condition"
-                    id="condition"
-                    value={condition}
                     placeholder="Ex: Great"
-                    onChange={onChange}
+                    value={condition}
+                    onChange={e => setCondition(e.target.value)}
                     ></input>
+                    <p> {errors.condition?.message} </p>
                 </div>
                 <div className="itemRow">
-                <label for="photos">Photos*</label>
+                <label>Photo*</label>
                 <input
+                  {...register("image", { required: true })}
                   type="file"
-                  name="photos"
-                  id="photos"
-                  value={photos}
-                  onChange={onChange}
-                  multiple
+                  name="image"
+                  onChange={fileSelected}
+
                 ></input>
+                <p> {errors.image?.message} </p>
               </div>
                 <div className="itemRow">
-                <label for="availability">Available?*</label>
+                <label htmlFor="availability">Available?*</label>
                 <input
+                  {...register("availability", { required: true })}
                   type="checkbox"
+                  checked={availability}
                   name="availability"
-                  id="availability"
-                  value={availability}
-                  onChange={onChange}
+                  onChange={e => setAvailability(e.target.value)}
                 ></input>
+                <p> {errors.availability?.message} </p>
               </div>
+              
         
               <div className="itemRowPost">
                 <button type="submit" className="postBtn">
@@ -215,35 +211,9 @@ function NewPost() {
                 </button>
               </div>
             </div>
+            {/* // ) : (<div><p>{watch('image')[0].name}</p></div>)} */}
           </form>
-        </div>
 
-        <div className={toggleActiveBorrow(1)}>
-          <form className="borrowPostForm">
-            <div className="borrowItem">
-              <div className="itemRow">
-                <label>Item:</label>
-                <input type="text"></input>
-              </div>
-              <div className="itemRow">
-                <label>Reason/Project:</label>
-                <input type="text"></input>
-              </div>
-              <div className="itemRow">
-                <label>When:</label>
-                <input type="text"></input>
-              </div>
-              <div className="itemRow">
-                
-                <label>For:</label>
-                <input type="text"></input>
-              </div>
-              <div className="itemRowPost">
-                <button className="borrowReqBtn">Request to Borrow</button>
-              </div>
-            </div>
-          </form>
-        </div>
       </div>
     </div>
   )

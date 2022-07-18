@@ -28,39 +28,6 @@
     box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1);
 }
 
-.postHeader {
-    display: flex;
-    flex-direction: row;
-    
-}
-
-.tab-active {
-    width: 50%;
-    border-bottom: 4px solid teal;
-}
-
-.tab-inactive {
-    width: 50%;
-}
-
-.postHeader button {
-    width: 100%;
-    border: none;
-    background-color: transparent;
-    margin: .5rem 0;
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #00898E;
-}
-
-.borrowPostForm-inactive {
-    display: none;
-}
-
-.lendPost-inactive {
-    display: none;
-}
-
 .lendPostForm {
     display: flex;
     flex-direction: column;
@@ -95,7 +62,6 @@
 
 .itemRow input::placeholder {
     font-style: italic;
-    
 }
 
 .itemRowPost {
@@ -116,46 +82,5 @@
     margin-top: 40px;
     cursor: pointer;
 }
-
-.borrowPostForm-active {
-    display: flex;
-    flex-direction: column;
-    margin: .5rem 2rem;
-}
-
-.borrowPostForm {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    margin: 1rem;
-}
-
-.borrowReq button {
-    width: 30rem;
-    font-size: 1.3rem;
-    font-weight: bold;
-    border-radius: 10px;
-}
-
-/* .borrowPostForm label {
-    font-size: 1.3rem;
-    width: 25%;
-    font-weight: bold; 
-    margin-bottom: 1rem;
-}
-
-.borrowPostForm input {
-    width: 75%;
-    margin-left: .5rem;
-    border-radius: 5px;
-    border: 1px solid #404040
-} */
-
-/* .borrowReq {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    margin: 1rem 0;
-} */
 
 
