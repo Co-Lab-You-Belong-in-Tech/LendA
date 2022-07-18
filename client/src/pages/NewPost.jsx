@@ -1,25 +1,51 @@
 import React from "react"
 import { useState, useEffect } from "react"
+import { useForm } from 'react-hook-form';
 import { useNavigate } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import { createItem } from "../features/items/itemSlice"
 import { toast } from "react-toastify"
-import { register, reset } from "../features/auth/authSlice"
+import { reset } from "../features/auth/authSlice"
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+import ReactS3 from 'react-s3';
+import { uploadFile } from 'react-s3';
+import {
+  AWS_BUCKET_NAME,
+  AWS_BUCKET_REGION,
+  AWS_ACCESS_KEY,
+  AWS_SECRET_KEY,
+} from '../app/keys';
 import "../styles/NewPost.css"
 
-function NewPost() {
-  const [formData, setFormData] = useState({
-    name: "",
-    price: "",
-    deposit: "",
-    description: "",
-    category: "",
-    condition: "",
-    photos: "",
-    availability: true,
-  })
+const schema = yup.object().shape({
+  itemName: yup.string().required(),
+  price: yup.string().required(),
+  deposit: yup.string().required(),
+  description: yup.string().required(),
+  category: yup.string().required(),
+  condition: yup.string().required(),
+  image: yup.mixed().test('required', 'Please select a file', value => {
+    return value && value.length;
+  }),
+  availability: yup.boolean(true),
+});
 
-  const { name, price, deposit, description, category, condition, photos, availability } = formData
+const config = {
+  bucketName: AWS_BUCKET_NAME,
+  region: AWS_BUCKET_REGION,
+  accessKeyId: AWS_ACCESS_KEY,
+  secretAccessKey: AWS_SECRET_KEY,
+}
+
+function NewPost() {
+  const { register, watch, handleSubmit, formState: { errors } } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  const [pic, setPic] = useState('');
+  const [filename, setFilename] = useState('Choose Photo');
+  const [uploadFile, setUploadFile] = useState('')
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -27,6 +53,16 @@ function NewPost() {
   const { currentUser, isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.auth
   )
+
+  const convert2base64 = image => {
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      setUploadFile(reader.result.toString());
+    };
+
+    reader.readAsDataURL(image);
+  }
 
   useEffect(() => {
     if (isError) {
@@ -36,178 +72,130 @@ function NewPost() {
     dispatch(reset)
   }, [currentUser, isError, isSuccess, message, navigate, dispatch])
 
-  const [formState, changeFormState] = useState({
-    activeObject: { id: 1 },
-    objects: [
-      { id: 1, button: "LENDING" },
-      { id: 2, button: "BORROWING" },
-    ],
-  })
-
-  const toggleActive = (index) => {
-    changeFormState({ ...formState, activeObject: formState.objects[index] })
+  const onChange = e => {
+    setPic(e.target.files[0]);
+    setFilename(e.target.files[0].name);
+    ReactS3.upload( e.target.files[0], config)
+    .then((data)=>{
+      console.log(data);
+      console.log(data.location)
+    })
+    .catch((err) => {
+      alert(err);
+    })
   }
 
-  const toggleActiveStyles = (index) => {
-    if (formState.objects[index] === formState.activeObject) {
-      return "tab-active"
-    } else {
-      return "tab-inactive"
+  const submitForm = (data) => {
+    // e.preventDefault();
+    const formData = new FormData();
+    formData.append('file', pic);
+
+   
+
+    if (data.image.length > 0 ) {
+      convert2base64(data.image[0]);
     }
-  }
-
-  const toggleActiveLend = (index) => {
-    if (formState.objects[0] === formState.activeObject) {
-      return "lendPostForm"
-    } else {
-      return "lendPost-inactive"
-    }
-  }
-
-  const toggleActiveBorrow = (index) => {
-    if (formState.objects[1] === formState.activeObject) {
-      return "borrowPostForm-active"
-    } else {
-      return "borrowPostForm-inactive"
-    }
-  }
-
-  const onChange = (e) => {
-    setFormData((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-    }))
-  }
-
-  const onSubmit = (e) => {
-    e.preventDefault()
-
-    const itemData = {
-      name,
-      price,
-      deposit,
-      description,
-      category,
-      condition,
-      photos,
-      availability,
-    }
-
-    dispatch(createItem(itemData))
+    console.log(pic)
+    
+    console.log({data});
+    console.log("upladoed file",uploadFile);
+    dispatch(createItem(data))
     navigate('/')
   }
 
   return (
     <div className="postContainer">
-      <h2>Lend or Borrow an Item</h2>
+      <h2>Post an Item to Lend</h2>
       <div className="newPost">
-        <div className="postHeader">
-          {formState.objects.map((elements, index) => (
-            <div
-              key={index}
-              className={toggleActiveStyles(index)}
-              onClick={() => {
-                toggleActive(index)
-              }}
-            >
-              <button>{elements.button}</button>
-            </div>
-          ))}
-        </div>
-
-        <div className={toggleActiveLend(0)}>
-          <form className="lendPostForm" onSubmit={onSubmit}>
+          {/* {pic ? <img src={pic} width="250" /> : null} */}
+        
+          <form className="lendPostForm" onSubmit={handleSubmit(submitForm)}>
+            {/* {!watch('image') || watch('image').length === 0 ? ( */}
             <div className="lendItem">
               <div className="itemRow">
-                <label for="name">Item*</label>
+                <label htmlFor="itemName">Item*</label>
                 <input
+                  {...register("itemName", { required: true })}
                   type="text"
-                  name="name"
-                  id="name"
-                  value={name}
+                  name="itemName"
                   placeholder="Ex: Singer Sewing Machine"
-                  onChange={onChange}
                 ></input>
+                <p> {errors.itemName?.message} </p>
               </div>
               
-
               <div className="itemRow">
-                <label for="description">Item Details*</label>
+                <label htmlFor="description">Item Details*</label>
                 <input
+                {...register("description", { required: true })}
                   type="text"
                   name="description"
-                  id="description"
-                  value={description}
                   placeholder="Describe your item"
-                  onChange={onChange}
                 ></input>
+                <p> {errors.description?.message} </p>
               </div>
               <div className="itemRow">
                 <label>Category*</label>
                 <input
+                  {...register("category", { required: true })}
                   type="text"
                   name="category"
-                  id="category"
-                  value={category}
                   placeholder="Ex: Arts & Crafts"
-                  onChange={onChange}
                 ></input>
+                <p> {errors.category?.message} </p>
                 </div>
                 <div className="itemRow"></div>
                 <div className="itemRow">
                   <label>Deposit*</label>
                   <input
+                    {...register("deposit", { required: true })}
                     type="text"
                     name="deposit"
-                    id="deposit"
-                    value={deposit}
                     placeholder="Ex: $100"
-                    onChange={onChange}
                   ></input>
+                  <p> {errors.deposit?.message} </p>
                 </div>
                 <div className="itemRow">
                   <label>Price*</label>
                   <input
+                    {...register("price", { required: true })}
                     type="text"
                     name="price"
-                    id="price"
-                    value={price}
                     placeholder="Ex: $20/day"
-                    onChange={onChange}
                   ></input>
+                  <p> {errors.price?.message} </p>
                 </div>
                 <div className="itemRow">
                   <label>Condition*</label>
                   <input
+                    {...register("condition", { required: true })}
                     type="text"
                     name="condition"
-                    id="condition"
-                    value={condition}
                     placeholder="Ex: Great"
-                    onChange={onChange}
                     ></input>
+                    <p> {errors.condition?.message} </p>
                 </div>
                 <div className="itemRow">
-                <label for="photos">Photos*</label>
+                <label htmlFor="imageUpload">Photo*</label>
                 <input
+                  {...register("image", { required: true })}
                   type="file"
-                  name="photos"
-                  id="photos"
-                  value={photos}
+                  placeholder={filename}
+                  name="image"
+                  id="imageUpload"
                   onChange={onChange}
-                  multiple
                 ></input>
+                <p> {errors.image?.message} </p>
               </div>
                 <div className="itemRow">
-                <label for="availability">Available?*</label>
+                <label htmlFor="availability">Available?*</label>
                 <input
+                  {...register("availability", { required: true })}
                   type="checkbox"
                   name="availability"
-                  id="availability"
-                  value={availability}
-                  onChange={onChange}
                 ></input>
+                <p> {errors.availability?.message} </p>
               </div>
+              
         
               <div className="itemRowPost">
                 <button type="submit" className="postBtn">
@@ -215,35 +203,9 @@ function NewPost() {
                 </button>
               </div>
             </div>
+            {/* // ) : (<div><p>{watch('image')[0].name}</p></div>)} */}
           </form>
-        </div>
 
-        <div className={toggleActiveBorrow(1)}>
-          <form className="borrowPostForm">
-            <div className="borrowItem">
-              <div className="itemRow">
-                <label>Item:</label>
-                <input type="text"></input>
-              </div>
-              <div className="itemRow">
-                <label>Reason/Project:</label>
-                <input type="text"></input>
-              </div>
-              <div className="itemRow">
-                <label>When:</label>
-                <input type="text"></input>
-              </div>
-              <div className="itemRow">
-                
-                <label>For:</label>
-                <input type="text"></input>
-              </div>
-              <div className="itemRowPost">
-                <button className="borrowReqBtn">Request to Borrow</button>
-              </div>
-            </div>
-          </form>
-        </div>
       </div>
     </div>
   )

@@ -16,6 +16,7 @@ const createItem = async (itemData, token) => {
   const config = {
     headers: {
       Authorization: token,
+      'Content-Type': 'multipart/form-data',
     },
   };
   const response = await axios.post(API_URL, itemData, config);
