@@ -12,7 +12,6 @@ const initialState = {
   isLoading: false,
   message: '',
 };
-
 // Register user
 export const register = createAsyncThunk(
   'auth/register',
@@ -48,6 +47,7 @@ export const login = createAsyncThunk(
     }
   }
 );
+
 
 export const getCurrentUser = createAsyncThunk(
   'auth/getCurrentUser',
@@ -185,6 +185,7 @@ export const authSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload.message;
+
       })
 
       // Get User

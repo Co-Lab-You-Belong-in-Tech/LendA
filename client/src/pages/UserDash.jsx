@@ -40,9 +40,7 @@ function UserDash() {
           </button>
         </div>
 
-        {!currentUser.items ? (
-          <h3>No items</h3>
-        ) : (
+        {currentUser.items ? (
           <div className="activeList">
             {currentUser.items.map((item, index) => (
               <div className="itemCard" key={index}>
@@ -62,6 +60,8 @@ function UserDash() {
               </div>
             ))}
           </div>
+        ) : (
+          <h3>No items</h3>
         )}
       </div>
     </div>

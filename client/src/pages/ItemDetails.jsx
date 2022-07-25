@@ -26,16 +26,14 @@ function ItemDetails() {
     <div className="detailContainer">
       <div className="detailHeader">
         <a href="/#">
-
           <i className="fa-solid fa-arrow-left fa-lg"></i>
           <h2>Back to Available Items</h2>
-
         </a>
       </div>
       {item ? (
         <div className="detailCard">
           <div className="pics">
-            <div className="mainPic" />
+            <img src={item.image} alt=""></img>
           </div>
 
           <div className="itemDetails">
@@ -71,20 +69,14 @@ function ItemDetails() {
               </div>
             </div>
           </div>
-          </div>
-            
+        </div>
       ) : (
         <div>
           <h3>Item not found</h3>
-
         </div>
       )}
-      
     </div>
-
-    )
-
+  );
 }
-  
 
-export default ItemDetails
+export default ItemDetails;
