@@ -12,7 +12,6 @@ const initialState = {
   isLoading: false,
   message: '',
 };
-
 // Register user
 export const register = createAsyncThunk(
   'auth/register',
@@ -49,6 +48,25 @@ export const login = createAsyncThunk(
   }
 );
 
+
+export const getCurrentUser = createAsyncThunk(
+  'auth/getCurrentUser',
+  async () => {
+    try {
+      const { token } = JSON.parse(localStorage.getItem('currentUser'));
+      return await authService.getCurrentUser(token);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return message;
+    }
+  }
+);
+
 // Get User
 export const getUser = createAsyncThunk(
   'auth/getUser',
@@ -70,10 +88,10 @@ export const getUser = createAsyncThunk(
 // Update User
 export const updateUser = createAsyncThunk(
   'auth/updateUser',
-  async (id, userData, thunkAPI) => {
+  async (input, thunkAPI) => {
     try {
       const token = thunkAPI.getItem().auth.currentUser.token;
-      return await authService.updateUser(id, userData, token);
+      return await authService.updateUser(input.id, input.userData, token);
     } catch (error) {
       const message =
         (error.response &&
@@ -154,6 +172,22 @@ export const authSlice = createSlice({
         state.currentUser = null;
       })
 
+      // Get Current User
+      .addCase(getCurrentUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getCurrentUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.currentUser = action.payload.data;
+      })
+      .addCase(getCurrentUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload.message;
+
+      })
+
       // Get User
       .addCase(getUser.pending, (state) => {
         state.isLoading = true;
@@ -162,8 +196,6 @@ export const authSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.user = action.payload.data;
-        // added currentUser here to get that users item array
-        state.currentUser = action.payload.data;
       })
       .addCase(getUser.rejected, (state, action) => {
         state.isLoading = false;

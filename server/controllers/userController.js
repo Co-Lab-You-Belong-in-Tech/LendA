@@ -78,6 +78,32 @@ export const login = async (req, res) => {
   }
 };
 
+export const getCurrentUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).populate('items');
+    if (!user) {
+      res.status(404).json('No User found');
+    }
+
+    res.status(200).json({
+      status: 'success',
+      data: {
+        type: 'user',
+        id: user.id,
+        email: user.email,
+        first: user.first,
+        last: user.last,
+        zipcode: user.zipcode,
+        items: user.items,
+        createdAt: user.createdAt,
+        updatedAt: user.updatedAt,
+      },
+    });
+  } catch (error) {
+    res.status(400).json({ status: 'error', message: error.message });
+  }
+};
+
 // GET USER
 export const getUser = async (req, res) => {
   try {

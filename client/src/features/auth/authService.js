@@ -24,6 +24,23 @@ const login = async (userData) => {
   return response.data;
 };
 
+// Get Current User
+const getCurrentUser = async (token) => {
+  const config = {
+    headers: {
+      Authorization: token,
+    },
+  };
+
+  const response = await axios.get(`${API_URL}/current`, config);
+
+  if (response.data) {
+    localStorage.setItem('currentUser', JSON.stringify(...response.data.data));
+  }
+
+  return response.data;
+};
+
 // Get User
 const getUser = async (id) => {
   const response = await axios.get(`${API_URL}/${id}`);
@@ -48,7 +65,7 @@ const updateUser = async (id, userData, token) => {
   if (response.data) {
     localStorage.setItem(
       'currentUser',
-      JSON.stringify(response.data.data, token)
+      JSON.stringify(...response.data.data, token)
     );
   }
   return response.data;
@@ -71,6 +88,7 @@ const deleteUser = async (id, token) => {
 const authService = {
   register,
   login,
+  getCurrentUser,
   getUser,
   updateUser,
   deleteUser,
