@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import BarLoader from 'react-spinners/ClipLoader';
 import { getUser } from '../features/auth/authSlice';
 import '../styles/UserDash.css';
-import { current } from '@reduxjs/toolkit';
 
 function UserDash() {
   const navigate = useNavigate();
@@ -41,9 +40,7 @@ function UserDash() {
           </button>
         </div>
 
-        {!currentUser.items ? (
-          <h3>No items</h3>
-        ) : (
+        {currentUser.items ? (
           <div className="activeList">
             {currentUser.items.map((item, index) => (
               <div className="itemCard" key={index}>
@@ -63,6 +60,8 @@ function UserDash() {
               </div>
             ))}
           </div>
+        ) : (
+          <h3>No items</h3>
         )}
       </div>
     </div>
