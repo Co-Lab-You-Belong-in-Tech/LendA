@@ -2,9 +2,8 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import BarLoader from 'react-spinners/ClipLoader';
-import { getUser } from '../features/auth/authSlice';
+import { getCurrentUser } from '../features/auth/authSlice';
 import '../styles/UserDash.css';
-import { current } from '@reduxjs/toolkit';
 
 function UserDash() {
   const navigate = useNavigate();
@@ -23,9 +22,9 @@ function UserDash() {
       navigate('/login');
     }
 
-    dispatch(getUser(currentUser.id));
-    
-    console.log("currentUser",currentUser)
+    dispatch(getCurrentUser());
+
+    console.log('currentUser', currentUser);
   }, [isError, message, currentUser, dispatch, navigate]);
 
   if (isLoading) {
