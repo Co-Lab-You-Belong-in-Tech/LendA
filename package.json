@@ -18,8 +18,7 @@
     "server"
   ],
   "dependencies": {
-    "concurrently": "^7.2.2",
-    "eslint-config-react-app": "^7.0.1"
+    "concurrently": "^7.2.2"
   },
   "devDependencies": {
     "eslint": "^8.19.0",
