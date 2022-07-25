@@ -82,7 +82,7 @@ export const createItem = async (req, res) => {
     // add item id to array on user object
     user.items.push(newItem.id);
     await user.save();
-
+    
     // find item newly created item and populate the user info
     const item = await Item.findById(newItem.id).populate('owner', '-password');
 

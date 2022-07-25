@@ -1,24 +1,21 @@
-
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getItems } from '../features/items/itemSlice';
+import { FaSearch } from 'react-icons/fa';
 import '../styles/Home.css';
 import logoa from '../lenda-logoa.png';
-
 
 function Home() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const [searchTerm, setSearchTerm] = useState('');
 
-  const [searchTerm, setSearchTerm] = useState("")
-
-  const { currentUser } = useSelector((state) => state.auth)
+  const { currentUser } = useSelector((state) => state.auth);
   const { items, isLoading, isError, message } = useSelector(
     (state) => state.items
-  )
-
+  );
 
   useEffect(() => {
     if (isError) {
@@ -42,12 +39,13 @@ function Home() {
           type="text"
           className="searchField"
           placeholder="What do you need to borrow?"
-
-          onChange={e => {setSearchTerm(e.target.value)}}
+          onChange={(e) => {
+            setSearchTerm(e.target.value);
+          }}
         ></input>
 
         <button type="submit" className="searchButton">
-          <i className="fa fa-search fa-xl" />
+          <FaSearch size={20} />
         </button>
       </div>
       {/* search bar end */}
@@ -59,43 +57,47 @@ function Home() {
       {items ? (
         <div className="itemsAvailable">
           {items &&
-            items.filter((item) => {
-              if (searchTerm === "") {
-                return item
-              } else if (item.name.toLowerCase().includes(searchTerm.toLowerCase())) {
-                return item
-              }
-            }).map((item, index) => (
-              <div
-                className="availItemCard"
-                key={index}
-                id={item._id}
-                onClick={() => {
-                  navigate(`/itemdetails/${item._id}`, { replace: true });
-                }}
-              >
-                <div className="availItemPic">
-                  {item.images ? (
-                    <img src={item.images[0]}></img>
-                  ) : (<img
-                    src="https://via.placeholder.com/150"
-                    alt="random placeholder"
-                  ></img>)}
-                  
-
-                </div>
-                <div className="itemCardDetails">
-                  <div className="itemCardRowOne">
-                    <h3>{item.name}</h3>
+            items
+              .filter((item) => {
+                if (searchTerm === '') {
+                  return item;
+                } else if (
+                  item.name.toLowerCase().includes(searchTerm.toLowerCase())
+                ) {
+                  return item;
+                }
+              })
+              .map((item, index) => (
+                <div
+                  className="availItemCard"
+                  key={index}
+                  id={item._id}
+                  onClick={() => {
+                    navigate(`/itemdetails/${item._id}`, { replace: true });
+                  }}
+                >
+                  <div className="availItemPic">
+                    {item.image ? (
+                      <img src={item.image}></img>
+                    ) : (
+                      <img
+                        src="https://via.placeholder.com/150"
+                        alt="random placeholder"
+                      ></img>
+                    )}
                   </div>
-                  <div className="itemCardRowTwo">Location</div>
-                  <div className="itemCardRowThree">
-                    <p>{item.description}</p>
+                  <div className="itemCardDetails">
+                    <div className="itemCardRowOne">
+                      <h3>{item.name}</h3>
+                    </div>
+                    <div className="itemCardRowTwo">Location</div>
+                    <div className="itemCardRowThree">
+                      <p>{item.description}</p>
+                    </div>
+                    <div className="itemCardRowFour">{item.price}</div>
                   </div>
-                  <div className="itemCardRowFour">{item.price}</div>
                 </div>
-              </div>
-            ))}
+              ))}
         </div>
       ) : (
         <h3>No items available</h3>

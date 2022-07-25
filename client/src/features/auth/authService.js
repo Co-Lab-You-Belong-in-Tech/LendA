@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5000/user';
+const API_URL = 'http://localhost:8000/user';
 
 // Register User
 const register = async (userData) => {
@@ -19,6 +19,25 @@ const login = async (userData) => {
 
   if (response.data) {
     localStorage.setItem('currentUser', JSON.stringify(response.data.data));
+  }
+
+  return response.data;
+};
+
+// Get Current User
+const getCurrentUser = async (token) => {
+  const config = {
+    headers: {
+      Authorization: token,
+    },
+  };
+
+  const response = await axios.get(`${API_URL}/current`, config);
+
+  if (response.data) {
+    const localCurrent = JSON.parse(localStorage.getItem('currentUser'));
+    const current = { ...localCurrent, ...response.data.data };
+    localStorage.setItem('currentUser', JSON.stringify(current));
   }
 
   return response.data;
@@ -46,10 +65,9 @@ const updateUser = async (id, userData, token) => {
   const response = await axios.put(`${API_URL}/${id}`, userData, config);
 
   if (response.data) {
-    localStorage.setItem(
-      'currentUser',
-      JSON.stringify(response.data.data, token)
-    );
+    const localCurrent = JSON.parse(localStorage.getItem('currentUser'));
+    const current = { ...localCurrent, ...response.data.data };
+    localStorage.setItem('currentUser', JSON.stringify(current));
   }
   return response.data;
 };
@@ -71,6 +89,7 @@ const deleteUser = async (id, token) => {
 const authService = {
   register,
   login,
+  getCurrentUser,
   getUser,
   updateUser,
   deleteUser,
