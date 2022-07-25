@@ -78,7 +78,9 @@ function Home() {
                 >
                   <div className="availItemPic">
                     {item.images ? (
-                      <img src={item.images[0]}></img>
+
+                      <img src={item.image}></img>
+
                     ) : (
                       <img
                         src="https://via.placeholder.com/150"
