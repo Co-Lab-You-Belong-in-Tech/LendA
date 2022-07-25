@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getItems } from '../features/items/itemSlice';
+import { FaSearch } from 'react-icons/fa';
 import '../styles/Home.css';
 import logoa from '../lenda-logoa.png';
 
@@ -44,7 +45,7 @@ function Home() {
         ></input>
 
         <button type="submit" className="searchButton">
-          <i className="fa fa-search fa-xl" />
+          <FaSearch size={20} />
         </button>
       </div>
       {/* search bar end */}
@@ -77,7 +78,9 @@ function Home() {
                 >
                   <div className="availItemPic">
                     {item.images ? (
-                      <img src={item.images}></img>
+
+                      <img src={item.image}></img>
+
                     ) : (
                       <img
                         src="https://via.placeholder.com/150"
