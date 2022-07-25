@@ -35,7 +35,9 @@ const getCurrentUser = async (token) => {
   const response = await axios.get(`${API_URL}/current`, config);
 
   if (response.data) {
-    localStorage.setItem('currentUser', JSON.stringify(...response.data.data));
+    const localCurrent = JSON.parse(localStorage.getItem('currentUser'));
+    const current = { ...localCurrent, ...response.data.data };
+    localStorage.setItem('currentUser', JSON.stringify(current));
   }
 
   return response.data;
@@ -63,10 +65,9 @@ const updateUser = async (id, userData, token) => {
   const response = await axios.put(`${API_URL}/${id}`, userData, config);
 
   if (response.data) {
-    localStorage.setItem(
-      'currentUser',
-      JSON.stringify(...response.data.data, token)
-    );
+    const localCurrent = JSON.parse(localStorage.getItem('currentUser'));
+    const current = { ...localCurrent, ...response.data.data };
+    localStorage.setItem('currentUser', JSON.stringify(current));
   }
   return response.data;
 };

@@ -48,7 +48,6 @@ export const login = createAsyncThunk(
   }
 );
 
-
 export const getCurrentUser = createAsyncThunk(
   'auth/getCurrentUser',
   async () => {
@@ -90,7 +89,7 @@ export const updateUser = createAsyncThunk(
   'auth/updateUser',
   async (input, thunkAPI) => {
     try {
-      const token = thunkAPI.getItem().auth.currentUser.token;
+      const { token } = thunkAPI.getItem().auth.currentUser;
       return await authService.updateUser(input.id, input.userData, token);
     } catch (error) {
       const message =
@@ -109,7 +108,7 @@ export const deleteUser = createAsyncThunk(
   'auth/deleteUser',
   async (id, thunkAPI) => {
     try {
-      const token = thunkAPI.getItem().auth.currentUser.token;
+      const { token } = thunkAPI.getItem().auth.currentUser;
       return await authService.updateUser(id, token);
     } catch (error) {
       const message =
@@ -185,7 +184,6 @@ export const authSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload.message;
-
       })
 
       // Get User

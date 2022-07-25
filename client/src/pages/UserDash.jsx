@@ -18,14 +18,8 @@ function UserDash() {
       console.log(message);
     }
 
-    if (!currentUser) {
-      navigate('/login');
-    }
-
     dispatch(getCurrentUser());
-
-    console.log('currentUser', currentUser);
-  }, [isError, message, currentUser, dispatch, navigate]);
+  }, [isError, message, dispatch, navigate]);
 
   if (isLoading) {
     return <BarLoader />;
