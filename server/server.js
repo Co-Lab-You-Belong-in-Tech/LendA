@@ -27,6 +27,10 @@ app.use(passport.initialize());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+app.get('/', (req, res) => {
+  res.send('Hello from Express!');
+});
+
 // routes
 app.use('/item', itemRouter);
 app.use('/user', userRouter);
