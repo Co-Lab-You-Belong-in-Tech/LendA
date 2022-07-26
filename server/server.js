@@ -18,7 +18,7 @@ const app = express();
 connectMongo();
 
 // cors - only allow front end
-app.use(cors({ origin: 'http://localhost:3000' }));
+app.use(cors());
 
 // init passport
 app.use(passport.initialize());
