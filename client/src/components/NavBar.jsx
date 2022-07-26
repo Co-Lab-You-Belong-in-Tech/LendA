@@ -27,19 +27,18 @@ function NavBarNew() {
           </a>
         </div>
         <ul className="menu" id="nav">
-          <li>
-            <button
-              id="newpost"
-              onClick={() => {
-                navigate('/newpost');
-              }}
-            >
-              New Post
-            </button>
-          </li>
-
           {currentUser ? (
             <div className="loggedIn">
+              <li>
+                <button
+                  id="newpost"
+                  onClick={() => {
+                    navigate('/newpost');
+                  }}
+                >
+                  New Post
+                </button>
+              </li>
               <li>
                 <button
                   id="account"
