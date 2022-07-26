@@ -1,6 +1,10 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8000/item';
+let API_URL = 'http://localhost:8000/item';
+
+if (process.env.NODE_ENV === 'production') {
+  API_URL = 'http://localhost:8000/item';
+}
 
 // get items
 const getItems = async () => {
