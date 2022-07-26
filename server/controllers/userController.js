@@ -19,7 +19,7 @@ export const register = async (req, res) => {
     // sign token
     const signedToken = await signJWT(newUser.id);
 
-    res.status(200).json({
+    return res.status(200).json({
       status: 'success',
       data: {
         type: 'user',
@@ -34,7 +34,7 @@ export const register = async (req, res) => {
       },
     });
   } catch (error) {
-    res.status(400).json({ status: 'error', message: error.message });
+    return res.status(400).json({ status: 'error', message: error.message });
   }
 };
 
@@ -46,19 +46,23 @@ export const login = async (req, res) => {
       'items'
     );
     if (!user) {
-      res.status(404).json('No User found');
+      return res
+        .status(404)
+        .json({ status: 'error', message: 'User not found' });
     }
 
     // compare the password
     const match = await bcrypt.compare(req.body.password, user.password);
     if (!match) {
-      res.status(401).json('Incorrect Password');
+      return res
+        .status(401)
+        .json({ status: 'error', message: 'Incorrect password' });
     }
 
     // sign token
     const signedToken = await signJWT(user.id);
 
-    res.status(200).json({
+    return res.status(200).json({
       status: 'success',
       data: {
         type: 'user',
@@ -74,7 +78,7 @@ export const login = async (req, res) => {
       },
     });
   } catch (error) {
-    res.status(400).json({ status: 'error', message: error.message });
+    return res.status(400).json({ status: 'error', message: error.message });
   }
 };
 
@@ -82,10 +86,12 @@ export const getCurrentUser = async (req, res) => {
   try {
     const user = await User.findById(req.user.id).populate('items');
     if (!user) {
-      res.status(404).json('No User found');
+      return res
+        .status(404)
+        .json({ status: 'error', message: 'User not found' });
     }
 
-    res.status(200).json({
+    return res.status(200).json({
       status: 'success',
       data: {
         type: 'user',
@@ -100,7 +106,7 @@ export const getCurrentUser = async (req, res) => {
       },
     });
   } catch (error) {
-    res.status(400).json({ status: 'error', message: error.message });
+    return res.status(400).json({ status: 'error', message: error.message });
   }
 };
 
@@ -111,12 +117,14 @@ export const getUser = async (req, res) => {
       .populate('items')
       .select('-password');
     if (!user) {
-      res.status(404).json('User Not Found');
+      return res
+        .status(404)
+        .json({ status: 'error', message: 'User not found' });
     }
 
-    res.status(200).json({ status: 'success', data: user });
+    return res.status(200).json({ status: 'success', data: user });
   } catch (error) {
-    res.status(400).json({ status: 'error', message: error.message });
+    return res.status(400).json({ status: 'error', message: error.message });
   }
 };
 
@@ -125,7 +133,7 @@ export const updateUser = async (req, res) => {
   try {
     // check to see if param id = jwt id
     if (req.params.id !== req.user.id) {
-      res.status(400).json('Not Authorized');
+      return res.status(400).json({ status: 'error', message: 'Unauthorized' });
     }
 
     // update user
@@ -136,9 +144,9 @@ export const updateUser = async (req, res) => {
       .populate('items')
       .select('-password');
 
-    res.status(200).json({ status: 'success', data: updatedUser });
+    return res.status(200).json({ status: 'success', data: updatedUser });
   } catch (error) {
-    res.status(400).json({ status: 'error', message: error.message });
+    return res.status(400).json({ status: 'error', message: error.message });
   }
 };
 
@@ -147,7 +155,7 @@ export const deleteUser = async (req, res) => {
   try {
     // check if params id = token user id
     if (req.params.id !== req.user.id) {
-      res.status(401).json('Unauthorized');
+      return res.status(401).json({ status: 'error', message: 'Unauthorized' });
     }
     // delete all user items
     await Item.deleteMany({ owner: req.user.id });
@@ -155,8 +163,8 @@ export const deleteUser = async (req, res) => {
     // delete the user
     await User.findByIdAndDelete(req.user.id);
 
-    res.status(200).json({ status: 'success', data: null });
+    return res.status(200).json({ status: 'success', data: null });
   } catch (error) {
-    res.status(400).json({ status: 'error', message: error.message });
+    return res.status(400).json({ status: 'error', message: error.message });
   }
 };
