@@ -39,10 +39,10 @@ export const getItems = async (req, res) => {
       .populate('owner', '-password')
       .exec();
 
-    res.status(200).json({ status: 'success', ...data });
+    return res.status(200).json({ status: 'success', ...data });
   } catch (error) {
     console.log(error);
-    res.status(400).json({ status: 'error', message: error.message });
+    return res.status(400).json({ status: 'error', message: error.message });
   }
 };
 
@@ -52,12 +52,16 @@ export const createItem = async (req, res) => {
     // Check to see if the JWT token is a valid user
     const user = await User.findById(req.user.id);
     if (!user) {
-      res.status(404).json('Not Found');
+      return res
+        .status(404)
+        .json({ status: 'error', message: 'User not found' });
     }
 
     // check to see if user submitted a file
     if (!req.file) {
-      res.status(400).json('Please add Image');
+      return res
+        .status(400)
+        .json({ status: 'error', message: 'No image submitted' });
     }
 
     // upload file to s3
@@ -82,13 +86,13 @@ export const createItem = async (req, res) => {
     // add item id to array on user object
     user.items.push(newItem.id);
     await user.save();
-    
+
     // find item newly created item and populate the user info
     const item = await Item.findById(newItem.id).populate('owner', '-password');
 
-    res.status(200).json({ status: 'success', data: item });
+    return res.status(200).json({ status: 'success', data: item });
   } catch (error) {
-    res.status(400).json({ status: 'error', message: error.message });
+    return res.status(400).json({ status: 'error', message: error.message });
   }
 };
 
@@ -100,12 +104,14 @@ export const getItem = async (req, res) => {
       '-password'
     );
     if (!item) {
-      res.status(404).json('Item Not Found');
+      return res
+        .status(404)
+        .json({ status: 'error', message: 'Item not found' });
     }
 
-    res.status(200).json({ status: 'success', data: item });
+    return res.status(200).json({ status: 'success', data: item });
   } catch (error) {
-    res.status(400).json({ status: 'error', message: error.message });
+    return res.status(400).json({ status: 'error', message: error.message });
   }
 };
 
@@ -115,17 +121,21 @@ export const updateItem = async (req, res) => {
     // check to see if item exists
     const item = await Item.findById(req.params.id);
     if (!item) {
-      res.status(404).json('Item Not Found');
+      return res
+        .status(404)
+        .json({ status: 'error', message: 'Item not found' });
     }
 
     const user = await User.findById(req.user.id);
     if (!user) {
-      res.status(401).json('Not Found');
+      return res
+        .status(401)
+        .json({ status: 'error', message: 'No user found' });
     }
 
     // check if item owner id === token user id
     if (item.owner.toString() !== user.id) {
-      res.status(401).json('Not Authorized');
+      return res.status(401).json({ status: 'error', message: 'Unauthorized' });
     }
 
     // find and update item
@@ -134,9 +144,9 @@ export const updateItem = async (req, res) => {
       runValidators: true,
     }).populate('owner', '-password');
 
-    res.status(200).json({ status: 'success', data: updatedItem });
+    return res.status(200).json({ status: 'success', data: updatedItem });
   } catch (error) {
-    res.status(400).json({ status: 'error', message: error.message });
+    return res.status(400).json({ status: 'error', message: error.message });
   }
 };
 
@@ -146,24 +156,28 @@ export const deleteItem = async (req, res) => {
     // check to see if item exists
     const item = await Item.findById(req.params.id);
     if (!item) {
-      res.status(404).json('Item Not Found');
+      return res
+        .status(404)
+        .json({ status: 'error', message: 'Item not found' });
     }
 
     const user = await User.findById(req.user.id);
     if (!user) {
-      res.status(401).json('Not Found');
+      return res
+        .status(401)
+        .json({ status: 'error', message: 'No user found' });
     }
 
     // check if item user id = token user id
     if (item.owner.toString() !== req.user.id) {
-      res.status(400).json('Not Authorized');
+      return res.status(400).json({ status: 'error', message: 'Unauthorized' });
     }
 
     // find and delete item
     await Item.findByIdAndDelete(item.id);
 
-    res.status(200).json({ status: 'success', data: { id: item.id } });
+    return res.status(200).json({ status: 'success', data: { id: item.id } });
   } catch (error) {
-    res.status(400).json({ status: 'error', message: error.message });
+    return res.status(400).json({ status: 'error', message: error.message });
   }
 };
