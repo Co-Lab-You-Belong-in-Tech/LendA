@@ -1,6 +1,10 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8000/user';
+let API_URL = 'http://localhost:8000/user';
+
+if (process.env.NODE_ENV === 'production') {
+  API_URL = 'https://lenda-server.herokuapp.com/user';
+}
 
 // Register User
 const register = async (userData) => {

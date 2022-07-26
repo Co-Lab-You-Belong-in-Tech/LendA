@@ -3,7 +3,7 @@ import axios from 'axios';
 let API_URL = 'http://localhost:8000/item';
 
 if (process.env.NODE_ENV === 'production') {
-  API_URL = 'http://localhost:8000/item';
+  API_URL = 'https://lenda-server.herokuapp.com/item';
 }
 
 // get items
