@@ -5,7 +5,7 @@
     "node": true,
     "jest": true
   },
-  "extends": ["react-app", "react-app/jest", "airbnb", "prettier"],
+  "extends": ["plugin:react/recommended", "airbnb", "prettier"],
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
