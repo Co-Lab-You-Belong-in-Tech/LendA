@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getItem } from '../features/items/itemSlice';
+import { FiArrowLeft } from 'react-icons/fi';
 import '../styles/ItemDetails.css';
 
 function ItemDetails() {
@@ -26,7 +27,7 @@ function ItemDetails() {
     <div className="detailContainer">
       <div className="detailHeader">
         <a href="/#">
-          <i className="fa-solid fa-arrow-left fa-lg"></i>
+          <FiArrowLeft size={25} />
           <h2>Back to Available Items</h2>
         </a>
       </div>
@@ -39,7 +40,10 @@ function ItemDetails() {
           <div className="itemDetails">
             <div className="mainDetails">
               <h3 id="itemName">{item.name}</h3>
-              <h4 id="itemPrice">{item.price}</h4>
+              <h4 id="itemPrice">Price: {item.price}</h4>
+              <p>
+                <strong>Deposit:</strong> {item.deposit}
+              </p>
               <p>
                 <strong>Condition: </strong>
                 {item.condition}
@@ -48,10 +52,17 @@ function ItemDetails() {
                 <strong>Category: </strong>
                 {item.category}
               </p>
-              <p>{item.description}</p>
-              <button type="button" id="contactUser">
+              <p id="description">
+                <strong>Description:</strong>
+              </p>
+              <p id="itemDescription">{item.description}</p>
+
+              <a
+                id="contactUser"
+                href={`mailto:${item.owner.email}?subject=Lenda Borrow Request`}
+              >
                 Contact User
-              </button>
+              </a>
             </div>
             <div className="lenderDetails">
               <h4 id="lenderName">Lender</h4>
@@ -62,10 +73,10 @@ function ItemDetails() {
                     alt="lenderPic"
                   />
                 </div>
-                <div className="ratings">
+                {/* <div className="ratings">
                   <p id="ratingNumber">(14)</p>
                   <i className="fa-solid fa-star fa-sm" />
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

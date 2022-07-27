@@ -1,111 +1,115 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 .detailContainer {
-    display: flex;
-    flex-direction: column;
-    width: 100vw;
-    background-color: white;
-    
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  background-color: white;
 }
 
 .detailHeader {
-    display: flex;
-    margin-left: 3rem;
-    flex-direction: row;
-    width: 100%;
+  display: flex;
+  margin-left: 3rem;
+  flex-direction: row;
+  width: 100%;
+}
+
+.detailHeader svg {
+  margin: auto 0;
+  margin-right: 1rem;
+  color: #00898e;
 }
 
 .detailHeader a {
-    text-decoration: none;
-    color: #00898E;
-    display: flex;
-}
-
-.detailHeader i {
-    margin: auto 1rem;
+  text-decoration: none;
+  color: #00898e;
+  display: flex;
 }
 
 .detailCard {
-    display: flex;
-    flex-direction: row;
-    width: 60%;
-    max-width: 50vw;
-    height: 50vh;
-    margin: 1rem auto;
-    background-color: white;
-    border-radius: 13px;
-    box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1);
-    box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  width: 60%;
+  max-width: 50vw;
+  margin: 1rem auto;
+  background-color: white;
+  border-radius: 13px;
+  box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
 }
 
 .detailCard h3 {
-    font-weight: bold;
-    color:#404040;
-    margin-top: 0;
+  font-weight: bold;
+  color: #404040;
+  margin-top: 0;
 }
 
 .pics {
-    display: flex;
-    flex-direction: column;
-    width: 50%;
-    padding-left: 2.5rem;
-    padding-top: 2.5rem;
-
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  padding: 2.5rem;
 }
 
 .itemDetails {
-    display: flex;
-    flex-direction: column;
-    width: 50%;
-    padding-top: 2.5rem;
-    padding-right: 2.5rem;    
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  padding-top: 2.5rem;
+  padding-right: 2.5rem;
 }
 
-
 .mainDetails {
-    display: flex;
-    flex-direction: column;
-    margin: 0 1rem;
-    flex-wrap: wrap;
-    padding: 0;
-    border-bottom: 2px solid lightgray;
+  display: flex;
+  flex-direction: column;
+  margin: 0 1rem;
+  flex-wrap: wrap;
+  padding: 0;
+  border-bottom: 2px solid lightgray;
 }
 
 .mainDetails p {
-    font-size: .8rem;
-    margin: .1rem;
+  font-size: 0.8rem;
+  margin: 0.1rem;
 }
 
 #itemName {
-    margin-bottom: .1rem;
+  margin-bottom: 0.6rem;
+  font-size: 1.5rem;
 }
 
 #itemPrice {
-    margin: .1rem 0;
+  margin: 0.3rem 0;
 }
 
-.mainDetails button {
-    background-color: #FF7F00;
-    color: white;
-    border: none;
-    border-radius: 65px;
-    font-weight: bold;
-    padding: .5rem 1.5rem;
-    margin: 2rem 0;
-    width: 10rem;
-    cursor: pointer;
+#itemDescription {
+  margin-top: 0.4rem;
+}
+
+#contactUser {
+  background-color: #ff7f00;
+  color: white;
+  border: none;
+  border-radius: 65px;
+  font-weight: bold;
+  padding: 0.5rem 1.5rem;
+  margin: 2rem 0;
+  width: 10rem;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
 }
 
 .mainPic {
-    display: flex;
-    flex-direction: column;
-    background-color: lightgray;
-    height: 15rem;
-    max-height: 20rem;
-    width: 15rem;
-    max-width: 20rem;
+  display: flex;
+  flex-direction: column;
+  background-color: lightgray;
+  height: 15rem;
+  max-height: 20rem;
+  width: 15rem;
+  max-width: 20rem;
 
-    border-radius: 5px;
+  border-radius: 5px;
 }
 /* 
 .otherPics {
@@ -124,97 +128,102 @@
 } */
 
 .lenderDetails {
-    display: flex;
-    flex-direction: column;
-    margin: 0 1rem;
-    padding-top: 1rem;
-}   
+  display: flex;
+  flex-direction: column;
+  margin: 0 1rem;
+  margin-bottom: 1rem;
+  padding-top: 1rem;
+}
 
 #lenderName {
-    margin-top: 0;
-    color: #00898E;
+  margin-top: 0;
+  margin-bottom: 0.7rem;
+  font-size: 1.5rem;
+  color: #00898e;
 }
 
 .lenderInfo {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .lenderPic {
-    border-radius: 30px;
-    background-color: lightgray;
-    height: 4rem;
-    width: 4rem;
-    border-radius: 60px;
-    margin-right: 1rem;
+  border-radius: 30px;
+  background-color: lightgray;
+  height: 3rem;
+  width: 3rem;
+  border-radius: 60px;
+  margin-right: 1rem;
+  margin-top: 0;
 }
 
 .lenderPic img {
-    height: 3rem;
-    width: 3rem;
-    margin-left: .5rem;
+  height: 2rem;
+  width: 2rem;
+  margin-left: 0.5rem;
+  margin-top: 0.3rem;
 }
 
 .ratings {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .ratings i {
-    color: gray;
-    margin: auto 0;
+  color: gray;
+  margin: auto 0;
 }
 
 #ratingNumber {
-    margin: auto .5rem;
+  margin: auto 0.5rem;
 }
 
 .relatedHeader {
-    margin: 1rem 5rem;
+  margin: 1rem 5rem;
 }
 
 .relatedHeader h2 {
-    color: black;
+  color: black;
 }
 
 .relatedItems {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    margin-left: 5rem;
-    justify-content: space-evenly;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-left: 5rem;
+  justify-content: space-evenly;
 }
 
 .relItemCard {
-    display: flex;
-    height: 20rem;
-    width: 14rem;
-    background-color: white;
-    border-radius: 5px;
-    margin: 1rem 0;
-    box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1);
+  display: flex;
+  height: 20rem;
+  width: 14rem;
+  background-color: white;
+  border-radius: 5px;
+  margin: 1rem 0;
+  box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1);
 }
 
 .otherItemsHeader h2 {
-    margin: 1rem 5rem;
-    color: black;
+  margin: 1rem 5rem;
+  color: black;
 }
 
 .otherItems {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    margin-left: 5rem;
-    margin-bottom: 5rem;
-    justify-content: space-evenly;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-left: 5rem;
+  margin-bottom: 5rem;
+  justify-content: space-evenly;
 }
 
 .otherItemCard {
-    display: flex;
-    height: 20rem;
-    width: 14rem;
-    background-color: whitesmoke;
-    border-radius: 5px;
-    margin: 1rem 0;
-    box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1);
+  display: flex;
+  height: 20rem;
+  width: 14rem;
+  background-color: whitesmoke;
+  border-radius: 5px;
+  margin: 1rem 0;
+  box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1);
 }
