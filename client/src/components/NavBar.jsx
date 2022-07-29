@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout, reset } from '../features/auth/authSlice';
 import '../styles/NavBar.css';
@@ -14,7 +14,9 @@ function NavBarNew() {
   const onLogout = () => {
     dispatch(logout());
     dispatch(reset());
-    navigate('/');
+    window.location.reload();
+    // navigate("/")
+    // history.push('/');
   };
 
   return (
@@ -30,44 +32,31 @@ function NavBarNew() {
           {currentUser ? (
             <div className="loggedIn">
               <li>
-                <button
-                  id="newpost"
-                  onClick={() => {
-                    navigate('/newpost');
-                  }}
-                >
-                  New Post
-                </button>
+                <Link to="/newpost">
+                  <button id="newpost">New Post</button>
+                </Link>
               </li>
               <li>
-                <button
-                  id="account"
-                  onClick={() => {
-                    navigate('/account');
-                  }}
-                >
-                  Account
-                </button>
+                <Link to="/account">
+                  <button id="account">Account</button>
+                </Link>
               </li>
               <li>
-                <button id="logout" onClick={onLogout}>
-                  Log Out
-                </button>
+                <Link to="/" replace>
+                  <button id="logout" onClick={onLogout}>
+                    Log Out
+                  </button>
+                </Link>
               </li>
             </div>
           ) : (
-            <>
+            <div>
               <li>
-                <button
-                  id="login"
-                  onClick={() => {
-                    navigate('/login');
-                  }}
-                >
-                  Log In
-                </button>
+                <Link to="/login">
+                  <button id="login">Log In</button>
+                </Link>
               </li>
-            </>
+            </div>
           )}
         </ul>
       </div>
