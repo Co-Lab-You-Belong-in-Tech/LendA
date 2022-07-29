@@ -1,71 +1,70 @@
-import React from "react"
-import { useState, useEffect } from "react"
-import { useSelector, useDispatch } from "react-redux"
-import { useNavigate } from "react-router-dom"
-import { toast } from "react-toastify"
-import { register, reset } from "../features/auth/authSlice"
-import authService from "../features/auth/authService"
-import BarLoader from "react-spinners/ClipLoader"
-import "../styles/SignUp.css"
+import React from 'react';
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { register, reset } from '../features/auth/authSlice';
+import BarLoader from 'react-spinners/ClipLoader';
+import '../styles/SignUp.css';
 
 function SignUp() {
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-    password2: "",
-    zip: "",
-  })
+    email: '',
+    first: '',
+    last: '',
+    password: '',
+    password2: '',
+    zip: '',
+  });
 
-  const { firstName, lastName, email, password, password2, zip } = formData
+  const { first, last, email, password, password2, zip } = formData;
 
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const { currentUser, isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.auth
-  )
+  );
 
   useEffect(() => {
     if (isError) {
-      toast.error(message)
+      toast.error(message);
     }
 
     if (isSuccess || currentUser) {
-      navigate("/")
+      navigate('/');
     }
 
-    dispatch(reset)
-  }, [currentUser, isError, isSuccess, message, navigate, dispatch])
+    dispatch(reset);
+  }, [currentUser, isError, isSuccess, message, navigate, dispatch]);
 
   const onChange = (e) => {
     setFormData((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
-    }))
-  }
+    }));
+  };
 
   const onSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     if (password !== password2) {
-      toast.error("Passwords do not match")
+      toast.error('Passwords do not match');
     } else {
       const userData = {
-        firstName,
-        lastName,
+        first,
+        last,
         email,
         password,
         zip,
-      }
+      };
 
-      dispatch(register(userData))
+      dispatch(register(userData));
     }
-  }
+  };
 
   if (isLoading) {
-    return <BarLoader />
+    return <BarLoader />;
   }
 
   return (
@@ -74,23 +73,23 @@ function SignUp() {
         <div className="signUpBox">
           <h3>Create Account</h3>
           <form className="signUpForm" onSubmit={onSubmit}>
-            <label for="firstName">First Name</label>
+            <label for="first">First Name</label>
             <input
               type="text"
               className="form-control"
-              id="firstName"
-              name="firstName"
-              value={firstName}
+              id="first"
+              name="first"
+              value={first}
               required
               onChange={onChange}
             ></input>
-            <label for="lastName">Last Name</label>
+            <label for="last">Last Name</label>
             <input
               type="text"
               className="form-control"
-              id="lastName"
-              name="lastName"
-              value={lastName}
+              id="last"
+              name="last"
+              value={last}
               required
               onChange={onChange}
             ></input>
@@ -125,7 +124,7 @@ function SignUp() {
               onChange={onChange}
             ></input>
             <label for="zipCode">Zip Code</label>
-            <input 
+            <input
               type="text"
               className="form-control"
               id="zip"
@@ -139,7 +138,7 @@ function SignUp() {
         </div>
       </div>
     </>
-  )
+  );
 }
 
-export default SignUp
+export default SignUp;

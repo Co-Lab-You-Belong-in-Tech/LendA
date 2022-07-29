@@ -1,96 +1,89 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 .navbar {
-	background-color: white;
-	max-width: 100vw;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	padding: .5rem 2rem;
-	margin-bottom: 1rem;
-	overflow: hidden;
-	box-shadow: 0px 4px 4px rgba(0, 0, 0, .1);
+  background-color: white;
+  max-width: 100vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0.5rem 2rem;
+  margin-bottom: 1rem;
+  overflow: hidden;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
 }
 
 .navlogo {
-	display: flex;
-	flex-direction: row;
-	margin: auto 0;
+  display: flex;
+  flex-direction: row;
+  margin: auto 0;
 }
 
 .navlogo a {
-	text-decoration: none;
-	color:  #00898E;
-	margin: auto 1rem;
-	font-size: 1.75rem;
-	font-weight: bold;
+  text-decoration: none;
+  color: #00898e;
+  margin: auto 1rem;
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
 .navlogo img {
-	height: 4rem;
-	width: 50%;
+  height: 2rem;
+  width: 50%;
 }
 
 .navbar ul {
-	list-style: none;
+  list-style: none;
 }
 
 .menu {
-    display: flex;
-    flex-direction: row;
-	overflow: hidden;
-	background-color: white;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  background-color: white;
 }
 
 .menu li {
-	float: left;
-	display: block;
-    color: white;
-    text-align: center;
-    font-size: 1.2rem;
-    text-decoration: none;
-	padding: 0.5rem 1rem;
-	transition: background 0.3s ease-in-out;
-	
+  float: left;
+  display: block;
+  color: white;
+  text-align: center;
+  font-size: 1.2rem;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  transition: background 0.3s ease-in-out;
 }
 
 .menu li:hover {
-	background-color: #FF7F00;
-	border-radius: 5px;
-	color: white;
+  background-color: #ff7f00;
+  border-radius: 5px;
+  color: white;
 }
 
 .menu button {
-	border: none;
-	background-color: transparent;
-	width: 6rem;
-	font-size: 20px;
-	border-radius: 30px;
+  border: none;
+  background-color: transparent;
+  width: 6rem;
+  font-size: 18px;
+  border-radius: 30px;
 }
 
 .menu button:hover {
-	color: white;
+  color: white;
 }
-
-
 
 .menu .icon {
-	display: none;
+  display: none;
 }
-
 
 @media screen and (max-width: 768px) {
-	.menu a {
-		display: none;
-	}
-	/* .navlogo {
+  .menu a {
+    display: none;
+  }
+  /* .navlogo {
 		display: none;
 	} */
-	.menu button.icon {
-
-		display: block;
-		padding-right: 1rem;
-	}
+  .menu button.icon {
+    display: block;
+    padding-right: 1rem;
+  }
 }
-
