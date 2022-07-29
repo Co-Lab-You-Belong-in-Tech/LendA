@@ -1,221 +1,147 @@
 .container {
-    max-width: 100vw;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-
+  max-width: 100vw;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
 }
 
 .header {
-    display: flex;
-    flex-direction: column;
-    margin: 1rem auto;
-    text-align: center;
-    font-size: 2rem;
-    font-weight: 300;
+  display: flex;
+  flex-direction: column;
+  margin: 1rem auto;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 300;
 }
 
 .header h4 {
-    font-weight: 400;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+  font-weight: 400;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 .search {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 40%;
-    margin: 0 auto;
-    border: 2px solid #FF7F00;
-    border-radius: 50px;
-    padding: 1rem;
-    background-color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 40%;
+  margin: 0 auto;
+  border: 2px solid #ff7f00;
+  border-radius: 50px;
+  padding: 1rem;
+  background-color: white;
 }
 
 .searchField {
-    width: 30vw;
-    height: 2rem;
-    border: none;
-    border-radius: 10px;
-    font-size: 1.2rem;
-    outline: none;
-    padding-left: 10px;
+  width: 30vw;
+  height: 1.5rem;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  outline: none;
+  padding-left: 10px;
 }
 
 .searchField input {
-    color: black;
+  color: black;
 }
 
 .searchButton {
-    width: 3rem;
-    border: none;
-    border-radius: 0 5px 5px 0;
-    cursor: pointer;
-    background-color: white;
-    color: #FF7F00;
+  width: 2.2rem;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  background-color: #ff7f00;
+  color: white;
 }
-
-.sLendsHeader {
-    display: flex;
-    flex-direction: row;
-    margin-left: 360px;
-    margin-top: 20px;
-}
-
-.successfulLends {
-    display: flex;
-    width: 70vw;
-    flex-direction: row;
-    justify-content: space-evenly;
-    
-    flex-wrap: wrap;
-    margin: 0 auto; 
-}
-
-.sLendCard {
-    display: flex;
-    flex-direction: row;
-    border: 1px solid lightgray;
-    background-color: white;
-    width: 30rem;
-    min-width: 30vw;
-    max-height: 14rem;
-    margin: 1rem;
-    border-radius: 70px;
-    box-sizing: border-box;
-    
-}
-
 
 .itemPic {
-    display: flex;
-    flex-direction: column;
-    margin: auto 1rem;
-   height: 12rem;
+  display: flex;
+  flex-direction: column;
+  margin: auto 1rem;
+  height: 12rem;
 }
 
 .itemPic img {
-    border-radius: 50%;
-    height: 60%;
-    margin: auto 0;
-    
-}
-
-.sLendDetails {
-    display: flex;
-    flex-direction: column;
-    height: auto;
-    padding: 0;
-    margin: .5rem 0;
-    font-size: 1rem;
-    justify-content: center;
-}
-
-.sLendDetails p {
-    margin: .3rem;
-    line-height: 1.2rem;
+  border-radius: 50%;
+  height: 60%;
+  margin: auto 0;
 }
 
 .timeLocation {
-    display: flex;
-    flex-direction: row;
-    margin-top: 1rem;
-    font-size: smaller;
+  display: flex;
+  flex-direction: row;
+  margin-top: 1rem;
+  font-size: smaller;
 }
 
 .availItemsHeader {
-    display: flex;
-    flex-direction: row;
-    margin-left: 140px;
-    margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  margin-left: 100px;
+  margin-top: 20px;
+  font-size: 1rem;
 }
 
 .itemsAvailable {
-    display: flex;
-    width: 90vw;
-    margin: 20px auto;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
+  display: flex;
+  width: 90vw;
+  margin: 20px auto;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
 }
-/* 
+
 .availItemCard {
-    display: flex;
-    flex-direction: column;
-    width: 16rem;
-    border: 1px solid #404040;
-    border-radius: 5px;
-    margin: 10px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 16rem;
+  border: none;
+  border-radius: 13px;
+  margin: 10px 20px 30px 20px;
+  padding: 1.2rem;
+  box-sizing: border-box;
+  box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
 }
 
 .availItemPic img {
-    height: 160px;
-    width: 160px;
-    margin: 0 auto;
+  height: 200px;
+  width: 200px;
+  margin: 0 auto;
 }
 
 .availItemPic {
-    border: 1px solid #404040;
-    border-radius: 2px;
-    margin: 10px;
-    display: flex;
-    flex-direction: row;
-    background-color: whitesmoke;
-    
-} */
-
-.availItemCard {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    width: 16rem;
-    border: none;
-    border-radius: 13px;
-    margin: 10px 20px 30px 20px;
-    padding: 1.2rem;
-    box-sizing: border-box;
-    box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-}
-
-.availItemPic img {
-    height: 200px;
-    width: 200px;
-    margin: 0 auto;
-}
-
-.availItemPic {
-    border: none;
-    border-radius: 5px;
-    margin: 0;
-    display: flex;
-    flex-direction: row;
-    background-color: whitesmoke;
+  border: none;
+  border-radius: 5px;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  background-color: whitesmoke;
 }
 
 .itemCardDetails {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
 }
 
 .itemCardRowOne {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between; 
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .itemCardRowTwo {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between; 
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
-.itemCardRowThree, .itemCardRowFour {
-    display: flex;
-    flex-direction: row;
+.itemCardRowThree,
+.itemCardRowFour {
+  display: flex;
+  flex-direction: row;
 }
-
-

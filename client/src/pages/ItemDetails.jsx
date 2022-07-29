@@ -61,23 +61,19 @@ function ItemDetails() {
                 id="contactUser"
                 href={`mailto:${item.owner.email}?subject=Lenda Borrow Request`}
               >
-                Contact User
+                Contact Lender
               </a>
             </div>
             <div className="lenderDetails">
-              <h4 id="lenderName">Lender</h4>
-              <div className="lenderInfo">
-                <div className="lenderPic">
-                  <img
-                    src="https://truckeetrails.org/wp-content/uploads/2022/04/025baa5b2cd7e46b6b4730247f6663ed.png"
-                    alt="lenderPic"
-                  />
-                </div>
-                {/* <div className="ratings">
-                  <p id="ratingNumber">(14)</p>
-                  <i className="fa-solid fa-star fa-sm" />
-                </div> */}
+              <div className="lenderPic">
+                <img
+                  src="https://truckeetrails.org/wp-content/uploads/2022/04/025baa5b2cd7e46b6b4730247f6663ed.png"
+                  alt="lenderPic"
+                />
               </div>
+              <h4 id="lenderName">
+                Lender: {item.owner.first} {item.owner.last}
+              </h4>
             </div>
           </div>
         </div>
